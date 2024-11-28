@@ -26,7 +26,6 @@
                 <option value="">All Categories</option>
                 <option value="news">News</option>
                 <option value="blog">Blog</option>
-                <!-- Add more categories as needed -->
             </select>
         </div>
         <div class="col-md-2">
@@ -34,7 +33,6 @@
                 <option value="">All Authors</option>
                 <option value="Admin">Admin</option>
                 <option value="Manager">Manager</option>
-                <!-- Add more authors dynamically -->
             </select>
         </div>
         <div class="col-md-2">
@@ -68,7 +66,6 @@
         </thead>
         <tbody>
             <%
-                // Dummy data for demonstration; replace with dynamic data fetching
                 List<String[]> posts = new ArrayList<>();
                 posts.add(new String[]{"1", "thumb1.jpg", "First Post", "News", "Admin", "Yes", "Published"});
                 posts.add(new String[]{"2", "thumb2.jpg", "Second Post", "Blog", "Manager", "No", "Draft"});
@@ -102,7 +99,6 @@
             <li class="page-item"><a class="page-link" href="?page=1">1</a></li>
             <li class="page-item"><a class="page-link" href="?page=2">2</a></li>
             <li class="page-item"><a class="page-link" href="?page=3">3</a></li>
-            <!-- Add more pagination links dynamically -->
         </ul>
     </nav>
 </div>
