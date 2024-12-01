@@ -20,7 +20,7 @@ public abstract class DBContext {
 
     public DBContext() {
         try {
-            String url = "jdbc:sqlserver://localhost:1433;databaseName=...;encrypt=false;trustServerCertificate=true";
+            String url = "jdbc:sqlserver://localhost:1433;databaseName=SWP391_BL5;encrypt=false;trustServerCertificate=true";
             String user = "sa";
             String pass = "123";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -31,8 +31,5 @@ public abstract class DBContext {
             Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public static void main(String[] args) {
-        
-    }
+     
 }
