@@ -40,6 +40,43 @@
         <link
             href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Bubblegum+Sans&display=swap"
             rel="stylesheet">
+
+        <style>
+            .carousel-control-prev,
+            .carousel-control-next {
+                background-color: rgba(0, 0, 0, 0.5); /* Màu nền */
+                border-radius: 50%; /* Tạo hình tròn */
+                width: 40px;
+                height: 40px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: absolute;
+                top: 50%; /* Đưa nút vào giữa theo chiều dọc */
+                transform: translateY(-50%); /* Điều chỉnh để nút chính xác ở giữa */
+                z-index: 10; /* Đảm bảo nút nằm trên hình ảnh */
+            }
+
+            .carousel-control-prev:hover,
+            .carousel-control-next:hover {
+                background-color: rgba(0, 0, 0, 0.8); /* Màu nền khi hover */
+            }
+
+            .carousel-control-prev-icon,
+            .carousel-control-next-icon {
+                filter: invert(1); /* Đổi màu icon thành trắng */
+                width: 20px;
+                height: 20px;
+            }
+
+            .carousel-control-prev {
+                left: 15px; /* Khoảng cách từ bên trái */
+            }
+
+            .carousel-control-next {
+                right: 15px; /* Khoảng cách từ bên phải */
+            }
+        </style>
     </head>
 
     <body>
@@ -207,8 +244,14 @@
                                     %>
                                     <div class="carousel-item <%= (i == 0) ? "active" : "" %>">
                                         <a href="<%= slider.getBacklink() %>">
-                                            <img src="assets/images/Slider/<%= slider.getImage() %>" alt="<%= slider.getTitle() %>" class="d-block w-100" style="object-fit: cover; height: 400px;">
+                                            <img src="assets/images/Slider/<%= slider.getImage() %>" alt="<%= slider.getTitle() %>" class="d-block w-100" style="object-fit: cover;
+                                                 height: 400px;">
                                         </a>
+                                        <div class="carousel-caption d-flex justify-content-center align-items-center">
+                                            <h5 style="background: rgba(0, 0, 0, 0.5); color: #fff; padding: 10px; border-radius: 5px;">
+                                                <%= slider.getTitle() %>
+                                            </h5>
+                                        </div>
                                     </div>
 
                                     <%
@@ -431,22 +474,6 @@
                 </div>
             </section>
 
-            <!-- CTA Section -->
-            <section class="cta-section py-5 bg-primary-soft">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-lg-8">
-                            <h3 class="mb-3">Need Urgent Medical Care?</h3>
-                            <p class="mb-lg-0">Our emergency team is available 24/7. Don't hesitate to contact us.</p>
-                        </div>
-                        <div class="col-lg-4 text-lg-end">
-                            <a href="/contact" class="btn btn-primary btn-lg rounded-pill">
-                                <i class="fas fa-phone-alt me-2"></i>Contact Now
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </section>
         </main>
 
         <!-- Footer Section -->

@@ -85,6 +85,55 @@
                 margin-right: 20px;
             }
 
+            .container {
+                max-width: 800px; /* Giới hạn chiều rộng */
+                margin: 20px auto; /* Căn giữa theo chiều ngang */
+                padding: 20px; /* Khoảng cách bên trong */
+                background-color: #f9f9f9; /* Màu nền nhạt */
+                border-radius: 10px; /* Bo góc */
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+                font-family: Arial, sans-serif; /* Phông chữ dễ đọc */
+            }
+
+            .slider-image img {
+                width: 100%; /* Đảm bảo hình ảnh full chiều rộng */
+                height: auto; /* Duy trì tỷ lệ hình ảnh */
+                border-radius: 10px; /* Bo góc cho hình ảnh */
+                object-fit: cover; /* Đảm bảo hình ảnh luôn vừa khung */
+            }
+
+            .container h3 {
+                font-size: 24px; /* Kích thước tiêu đề */
+                font-weight: bold; /* Chữ đậm */
+                margin: 15px 0 10px; /* Khoảng cách trên và dưới */
+                color: #333; /* Màu tiêu đề */
+            }
+
+            .container p {
+                font-size: 16px; /* Kích thước chữ mô tả */
+                line-height: 1.5; /* Dãn dòng */
+                color: #555; /* Màu chữ nhạt hơn tiêu đề */
+                margin-bottom: 15px;
+            }
+
+            .container div:last-child {
+                font-size: 14px; /* Kích thước chữ nhỏ hơn */
+                font-weight: bold; /* Chữ đậm */
+                color: ${slider.status eq 1 ? "green" : "red"};
+            }
+
+            .container a {
+                display: inline-block; /* Chuyển thành khối nội tuyến */
+                margin-top: 10px; /* Khoảng cách trên */
+                text-decoration: none; /* Bỏ gạch chân */
+                color: #007bff; /* Màu xanh liên kết */
+            }
+
+            .container a:hover {
+                text-decoration: underline; /* Gạch chân khi hover */
+            }
+
+
         </style>
         <script>
             window.onload = function () {
@@ -165,57 +214,42 @@
                 </div>
             </div>
 
-            <form action="editSlider" method="post" onsubmit="showAlert();">
-                <div class="form-group">
-                    <label for="sliderTitle">Title</label>
-                    <input type="text" name="title" value="${slider.title}" required="">
+            <div class="container">
+                <div class="slider-image">
+                    <img src="assets/images/Slider/${slider.image}" alt="${slider.title}">
                 </div>
-                
-                <div class="form-group">
-                    <label for="sliderBacklink">Image</label>
-                    <div class="image-preview">
-                        <img id="preview" src="assets/images/Slider/${slider.image}" alt="Preview Image" style="object-fit: cover;">
-                    </div>
-                    <input type="file" name="image" id="sliderBacklink" accept="image/*" onchange="showPreview(event)">
+                <div>
+                    <h3>${slider.title}</h3>
                 </div>
-                <div class="form-group">
-                    <label for="sliderBacklink">Backlink URL</label>
-                    <input type="text" name="backlink" value="${slider.backlink}" required="">
+                <div>
+                    <p>${slider.description}</p>
                 </div>
-                <div class="form-group">
-                    <label for="sliderBacklink">Description</label>
-                    <input type="text" name="description" value="${slider.description}" required="">
+                <div>
+                    <a href="${slider.backlink}">Visit Link</a>
                 </div>
-                <div class="form-group">
-                    <label for="sliderBacklink">Status</label>
-                    <div class="d-flex align-items-center">
-                        <label class="me-4 d-flex align-items-center">
-                            <input type="radio" name="status" value="1" ${slider.status eq "1" ? "checked" : ""}> Active
-                        </label>
-                        <label class="d-flex align-items-center">
-                            <input type="radio" name="status" value="0" ${slider.status eq "0" ? "checked" : ""}> Inactive
-                        </label>
-                    </div>
+                <div style="margin-top: 2%">
+                    ${slider.status eq 1 ? "Active" : "Inactive"}
                 </div>
-                <input type="text" name="id" value="${slider.sliderId}" hidden="">
-                <input type="submit" value="Edit">
-            </form>
+            </div>
+            <div>
+                <form action="editSlider" method="get" >
+                    <input type="hidden" name="sliderId" value="${slider.sliderId}">
+                    <a class="action-btn edit" href="#" onclick="this.closest('form').submit(); return false;">
+                        <i class="fas fa-edit"></i>
+                        Edit
+                    </a>
+                </form>
+                <form action="sliderList" method="get" >
+                    <a class="action-btn edit" href="#" onclick="this.closest('form').submit(); return false;">
+                        <i class="fas fa-arrow-left"></i>
+                        Back to list
+                    </a>
+                </form>
+            </div>
 
         </div>
 
-        <script>
-            function showPreview(event) {
-                const file = event.target.files[0]; // Lấy tệp được chọn
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        // Đặt src của ảnh preview thành dữ liệu từ tệp
-                        document.getElementById('preview').src = e.target.result;
-                    }
-                    reader.readAsDataURL(file); // Đọc tệp dưới dạng URL
-                }
-            }
-        </script>
+
         <script src="${pageContext.request.contextPath}/Manager/Dashboard/assets/js/main.js"></script>
     </body>
 
