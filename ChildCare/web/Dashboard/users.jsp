@@ -93,62 +93,16 @@
             <div class="sidebar-logo">HealthCare Admin</div>
         </div>
 
-        <!-- Staff Section -->
+        <!-- Admin Section -->
         <div class="nav-section">
-            <div class="nav-section-title">Staff Management</div>
-            <a href="services.html" class="nav-item">
-                <i class="fas fa-list"></i>
-                <span>Services List</span>
-            </a>
-            <a href="#" class="nav-item">
-                <i class="fas fa-calendar-check"></i>
-                <span>Reservations</span>
-            </a>
-            <a href="#" class="nav-item">
-                <i class="fas fa-stethoscope"></i>
-                <span>Medical Examinations</span>
-            </a>
-            <a href="#" class="nav-item">
-                <i class="fas fa-users"></i>
-                <span>Customers</span>
-            </a>
-            <a href="feedbacks.html" class="nav-item">
-                <i class="fas fa-comments"></i>
-                <span>Feedbacks</span>
-            </a>
-            <a href="#" class="nav-item">
-                <i class="fas fa-prescription"></i>
-                <span>Prescriptions</span>
-            </a>
-        </div>
-
-        <!-- Manager Section -->
-        <div class="nav-section">
-            <div class="nav-section-title">Manager Tools</div>
+            <div class="nav-section-title">Administration</div>
             <a href="#" class="nav-item">
                 <i class="fas fa-chart-line"></i>
                 <span>Dashboard</span>
             </a>
-            <a href="posts.html" class="nav-item">
-                <i class="fas fa-newspaper"></i>
-                <span>Posts</span>
-            </a>
-            <a href="sliders.html" class="nav-item">
-                <i class="fas fa-images"></i>
-                <span>Sliders</span>
-            </a>
-        </div>
-
-        <!-- Admin Section -->
-        <div class="nav-section">
-            <div class="nav-section-title">Administration</div>
             <a href="userlist" class="nav-item">
                 <i class="fas fa-user-shield"></i>
                 <span>Users Management</span>
-            </a>
-            <a href="#" class="nav-item">
-                <i class="fas fa-cog"></i>
-                <span>Settings</span>
             </a>
         </div>
     </nav>
