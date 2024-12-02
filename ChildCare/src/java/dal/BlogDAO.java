@@ -100,6 +100,49 @@ public class BlogDAO extends DBContext {
         return null;
     }
 
+    public List<Blog> getBlogByPerson(int personId) {
+        List<Blog> blogs = new ArrayList<>();
+        
+        try {
+            String sql = "SELECT b.[BlogId], b.[Title], b.[Content], b.[Created_Date], "
+                    + "b.[Image], b.[Description], b.[PersonId], b.[CategoryId], "
+                    + "p.[PersonName] as PersonName, c.[CategoryName] as CategoryName "
+                    + "FROM [dbo].[Blog] b "
+                    + "INNER JOIN [dbo].[Person] p ON b.[PersonId] = p.[PersonId] "
+                    + "INNER JOIN [dbo].[Category] c ON b.[CategoryId] = c.[CategoryId] "
+                    + "WHERE b.[PersonId] = ?";
+                    
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, personId);
+            ResultSet rs = statement.executeQuery();
+            
+            while (rs.next()) {
+                Blog blog = new Blog();
+                blog.setBlogId(rs.getInt("BlogId"));
+                blog.setTitle(rs.getString("Title"));
+                blog.setContent(rs.getString("Content"));
+                blog.setCreated_Date(rs.getDate("Created_Date"));
+                blog.setImage(rs.getString("Image"));
+                blog.setDescription(rs.getString("Description"));
+
+                Person person = new Person();
+                person.setPersonId(rs.getInt("PersonId"));
+                person.setPersonName(rs.getString("PersonName"));
+                blog.setPerson(person);
+
+                Category category = new Category();
+                category.setCategoryId(rs.getInt("CategoryId"));
+                category.setCategoryName(rs.getString("CategoryName"));
+                blog.setCategory(category);
+
+                blogs.add(blog);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return blogs;
+    }
+
     public static void main(String[] args) {
         BlogDAO blogDao = new BlogDAO();
 

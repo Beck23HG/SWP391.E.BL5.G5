@@ -140,7 +140,7 @@
                             <button class="btn btn-outline-primary" data-category="health">Health Tips</button>
                             <button class="btn btn-outline-primary" data-category="nutrition">Nutrition</button>
                             <button class="btn btn-outline-primary" data-category="development">Child Development</button>
-                            <button class="btn btn-outline-primary" data-category="parenting">Parenting</button>
+                            <button class="btn btn-outline-primary" data-category="vaccin">Vaccin</button>
                         </div>
                     </div>
                 </section>
@@ -176,7 +176,7 @@
                                 item.style.display = 'block';
                             } else if (category === 'development' && content.includes('development')) {
                                 item.style.display = 'block';
-                            } else if (category === 'parenting' && content.includes('vaccin')) {
+                            } else if (category === 'vaccin' && content.includes('vaccin')) {
                                 item.style.display = 'block';
                             } else {
                                 item.style.display = 'none';
