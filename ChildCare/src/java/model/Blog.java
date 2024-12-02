@@ -14,11 +14,13 @@ public class Blog {
     private int blogId, personId, categoryId;
     private String title, content, image, description;
     private Date created_Date;
+    private Person person;
+    private Category category;
 
     public Blog() {
     }
 
-    public Blog(int blogId, int personId, int categoryId, String title, String content, String image, String description, Date created_Date) {
+    public Blog(int blogId, int personId, int categoryId, String title, String content, String image, String description, Date created_Date, Person person, Category category) {
         this.blogId = blogId;
         this.personId = personId;
         this.categoryId = categoryId;
@@ -27,6 +29,8 @@ public class Blog {
         this.image = image;
         this.description = description;
         this.created_Date = created_Date;
+        this.person = person;
+        this.category = category;
     }
 
     public int getBlogId() {
@@ -92,6 +96,26 @@ public class Blog {
     public void setCreated_Date(Date created_Date) {
         this.created_Date = created_Date;
     }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+   
+
+   
     
     
 }

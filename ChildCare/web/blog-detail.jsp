@@ -29,64 +29,64 @@
         <body>
             <!-- Include Header -->
             <header class="header">
-            <nav class="navbar navbar-expand-lg navbar-light">
-                <div class="container">
-                    <a class="navbar-brand" href="index.html">
-                        <img src="assets/images/children-care-logo-removebg.png" alt="Children Care Logo" class="logo">
-                    </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <div class="container">
+                        <a class="navbar-brand" href="index.html">
+                            <img src="assets/images/children-care-logo-removebg.png" alt="Children Care Logo" class="logo">
+                        </a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav ms-auto align-items-center">
-                            <li class="nav-item">
-                                <a class="nav-link active" href="home">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="services.html">Services</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Our Doctors</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="blog">Blogs</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Contact</a>
-                            </li>
-                            <li class="nav-item ms-lg-3">
-                                <a class="btn btn-primary rounded-pill px-4" href="#">
-                                    <i class="fas fa-calendar-check me-2"></i>Book Appointment
-                                </a>
-                            </li>
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                            <ul class="navbar-nav ms-auto align-items-center">
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="home">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="services.html">Services</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Our Doctors</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="blog">Blogs</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Contact</a>
+                                </li>
+                                <li class="nav-item ms-lg-3">
+                                    <a class="btn btn-primary rounded-pill px-4" href="#">
+                                        <i class="fas fa-calendar-check me-2"></i>Book Appointment
+                                    </a>
+                                </li>
 
-                            <c:choose>
-                                <c:when test="${sessionScope.account == null}">
-                                    <li class="nav-item ms-lg-2">
-                                        <a class="btn btn-outline-primary rounded-pill px-4" href="login">
-                                            <i class="fas fa-user me-2"></i>Login
-                                        </a>
-                                    </li>
-                                </c:when>
-                                <c:otherwise>
-                                    <li class="nav-item ms-lg-2">
-                                        <a class="btn btn-outline-primary rounded-pill px-4" href="#">
-                                            <i class="fas fa-user me-2"></i>Profile
-                                        </a>
-                                    </li>
-                                    <li class="nav-item ms-lg-2">
-                                        <a class="btn btn-outline-danger rounded-pill px-4" href="logout">
-                                            <i class="fas fa-sign-out-alt me-2"></i>Logout
-                                        </a>
-                                    </li>
-                                </c:otherwise>
-                            </c:choose>
+                                <c:choose>
+                                    <c:when test="${sessionScope.account == null}">
+                                        <li class="nav-item ms-lg-2">
+                                            <a class="btn btn-outline-primary rounded-pill px-4" href="login">
+                                                <i class="fas fa-user me-2"></i>Login
+                                            </a>
+                                        </li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li class="nav-item ms-lg-2">
+                                            <a class="btn btn-outline-primary rounded-pill px-4" href="#">
+                                                <i class="fas fa-user me-2"></i>Profile
+                                            </a>
+                                        </li>
+                                        <li class="nav-item ms-lg-2">
+                                            <a class="btn btn-outline-danger rounded-pill px-4" href="logout">
+                                                <i class="fas fa-sign-out-alt me-2"></i>Logout
+                                            </a>
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
 
-                        </ul>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-            </nav>
-        </header>
+                </nav>
+            </header>
 
             <!-- Main Content Area -->
             <main id="main-content">
@@ -106,7 +106,7 @@
                                 <div class="author-info text-center mb-4">
                                     <img src="assets/images/doctor-1.jpg" alt="Dr. Emily Johnson" class="author-avatar">
                                     <div class="author-details">
-                                        <h5 class="mb-0">Dr. Emily Johnson</h5>
+                                        <h5 class="mb-0">${blog.person.personName}</h5>
                                         <span class="text-muted">Senior Pediatrician</span>
                                     </div>
                                 </div>
@@ -128,7 +128,9 @@
                                 <!-- Article Content -->
                                 <article class="blog-article">
                                     <div class="article-content">
-                                        ${blog.content}
+                                        <h3>Title: ${blog.title}</h3>
+                                        <h2>Content: ${blog.content}</h2>
+                                        <p>Description: ${blog.description}</p>
                                     </div>
 
                                     <!-- Article Footer -->
@@ -137,7 +139,7 @@
                                             <div class="col-md-6">
                                                 <div class="tags">
                                                     <span class="me-2">Tags:</span>
-                                                    <a href="#" class="tag">Vitamins</a>
+                                                    <a href="#" class="tag">${blog.category.categoryName}</a>
                                                     <a href="#" class="tag">Child Health</a>
                                                     <a href="#" class="tag">Nutrition</a>
                                                 </div>
@@ -163,9 +165,9 @@
                                             <img src="assets/images/doctor-1.jpg" alt="Dr. Emily Johnson" class="img-fluid rounded-circle">
                                         </div>
                                         <div class="col-md-9">
-                                            <h4>Dr. Emily Johnson</h4>
+                                            <h4>${blog.person.personName}</h4>
                                             <p class="text-muted mb-2">Senior Pediatrician</p>
-                                            <p>Dr. Johnson has over 15 years of experience in pediatric care and specializes in child nutrition and development.</p>
+                                            <p>${blog.person.personName} has over 15 years of experience in pediatric care and specializes in child nutrition and development.</p>
                                             <div class="social-links">
                                                 <a href="#"><i class="fab fa-linkedin-in"></i></a>
                                                 <a href="#"><i class="fab fa-twitter"></i></a>
@@ -176,9 +178,9 @@
 
                                 <!-- Related Articles -->
                                 <div class="related-articles mt-5">
-                                    <h3 class="section-title mb-4">Related Articles</h3>
-                   
-<!--                                    <div class="row g-4">
+                                    <!--<h3 class="section-title mb-4">Related Articles</h3>-->
+
+                                    <!--                                    <div class="row g-4">
                                          Related article cards will be loaded dynamically 
                                     </div>-->
                                 </div>
