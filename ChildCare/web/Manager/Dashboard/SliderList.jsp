@@ -150,7 +150,7 @@
                         <div class="slider-content">
                             <div class="slider-header">
                                 <h3 class="slider-title">${s.title}</h3>
-                                <span>
+                                <span style="color: ${s.status eq 1 ? "green" : "red"}">
                                     ${s.status eq 1 ? "Active" : "Inactive"}
                                 </span>
                             </div>
@@ -158,10 +158,13 @@
                                 ${s.backlink}
                             </div>
                             <div class="slider-actions">
-                                <a href="${s.backlink}" class="action-btn view view-button" target="_blank">
-                                    <i class="fas fa-eye"></i>
+                                <form action="sliderDetail" method="get" >
+                                    <input type="hidden" name="sliderId" value="${s.sliderId}">
+                                    <a class="action-btn view view-button" href="#" onclick="this.closest('form').submit(); return false;">
+                                        <i class="fas fa-eye"></i>
                                     View
-                                </a>
+                                    </a>
+                                </form>
                                 <form action="editSlider" method="get" >
                                     <input type="hidden" name="sliderId" value="${s.sliderId}">
                                     <a class="action-btn edit view-button" href="#" onclick="this.closest('form').submit(); return false;">
