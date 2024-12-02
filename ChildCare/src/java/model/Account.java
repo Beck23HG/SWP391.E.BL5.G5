@@ -11,18 +11,30 @@ package model;
 public class Account {
     private int accountId, personId, roleId, status;
     private String email, password;
+    private Person person;
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
 
     public Account() {
     }
 
-    public Account(int accountId, int personId, int roleId, String email, String password, int status) {
+    public Account(int accountId, int personId, int roleId, int status, String email, String password, Person person) {
         this.accountId = accountId;
         this.personId = personId;
         this.roleId = roleId;
+        this.status = status;
         this.email = email;
         this.password = password;
-        this.status = status;
+        this.person = person;
     }
+
+    
 
     public int getAccountId() {
         return accountId;

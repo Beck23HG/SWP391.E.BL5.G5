@@ -29,54 +29,65 @@
         <body>
             
             <!-- Header Section -->
-            <header class="header fixed-top">
-                <nav class="navbar navbar-expand-lg navbar-light">
-                    <div class="container">
-                        <a class="navbar-brand" href="index">
-                            <img src="assets/images/children-care-logo-removebg.png" alt="Children Care Logo" class="logo">
-                        </a>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                        <div class="collapse navbar-collapse" id="navbarNav">
-                            <ul class="navbar-nav ms-auto align-items-center">
-                                <li class="nav-item">
-                                    <a class="nav-link active" href="/">Home</a>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <button class="nav-link dropdown-toggle btn btn-link" data-bs-toggle="dropdown">
-                                <a style="text-decoration: none; color: inherit;" href="services">Services</a>
-                            </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="services/pediatric">Pediatric Care</a></li>
-                                        <li><a class="dropdown-item" href="services/vaccination">Vaccination</a></li>
-                                        <li><a class="dropdown-item" href="services/development">Child Development</a></li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="doctors">Our Doctors</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="blogs">Blogs</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="contact">Contact</a>
-                                </li>
-                                <li class="nav-item ms-lg-3">
-                                    <a class="btn btn-primary rounded-pill px-4" href="appointment">
-                                        <i class="fas fa-calendar-check me-2"></i>Book Appointment
-                                    </a>
-                                </li>
-                                <li class="nav-item ms-lg-2">
-                                    <a class="btn btn-outline-primary rounded-pill px-4" href="login">
-                                        <i class="fas fa-user me-2"></i>Login
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
+            <header class="header">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="container">
+                    <a class="navbar-brand" href="index.html">
+                        <img src="assets/images/children-care-logo-removebg.png" alt="Children Care Logo" class="logo">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ms-auto align-items-center">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="home">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="services.html">Services</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Our Doctors</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="blog">Blogs</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Contact</a>
+                            </li>
+                            <li class="nav-item ms-lg-3">
+                                <a class="btn btn-primary rounded-pill px-4" href="#">
+                                    <i class="fas fa-calendar-check me-2"></i>Book Appointment
+                                </a>
+                            </li>
+
+                            <c:choose>
+                                <c:when test="${sessionScope.account == null}">
+                                    <li class="nav-item ms-lg-2">
+                                        <a class="btn btn-outline-primary rounded-pill px-4" href="login">
+                                            <i class="fas fa-user me-2"></i>Login
+                                        </a>
+                                    </li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="nav-item ms-lg-2">
+                                        <a class="btn btn-outline-primary rounded-pill px-4" href="#">
+                                            <i class="fas fa-user me-2"></i>Profile
+                                        </a>
+                                    </li>
+                                    <li class="nav-item ms-lg-2">
+                                        <a class="btn btn-outline-danger rounded-pill px-4" href="logout">
+                                            <i class="fas fa-sign-out-alt me-2"></i>Logout
+                                        </a>
+                                    </li>
+                                </c:otherwise>
+                            </c:choose>
+
+                        </ul>
                     </div>
-                </nav>
-            </header>
+                </div>
+            </nav>
+        </header>
 
             <!-- Main Content Area -->
             <main id="main-content">
