@@ -15,6 +15,8 @@ public class Person {
     private String personName, phone, email, address, image;
     private Date dateOfBirth;
     private boolean gender;
+    private Role role;
+    private Account account;
 
     public Person() {
     }
@@ -103,4 +105,19 @@ public class Person {
         this.gender = gender;
     }
     
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
 }
