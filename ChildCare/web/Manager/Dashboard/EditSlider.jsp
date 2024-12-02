@@ -170,13 +170,9 @@
                     <label for="sliderTitle">Title</label>
                     <input type="text" name="title" value="${slider.title}" required="">
                 </div>
-                
                 <div class="form-group">
                     <label for="sliderBacklink">Image</label>
-                    <div class="image-preview">
-                        <img id="preview" src="assets/images/Slider/${slider.image}" alt="Preview Image" style="object-fit: cover;">
-                    </div>
-                    <input type="file" name="image" id="sliderBacklink" accept="image/*" onchange="showPreview(event)">
+                    <input type="file" name="image" value="${slider.image}" required="">
                 </div>
                 <div class="form-group">
                     <label for="sliderBacklink">Backlink URL</label>
@@ -197,25 +193,13 @@
                         </label>
                     </div>
                 </div>
-                <input type="text" name="id" value="${slider.sliderId}" hidden="">
+                    <input type="text" name="id" value="${slider.sliderId}" hidden="">
                 <input type="submit" value="Edit">
             </form>
 
         </div>
 
-        <script>
-            function showPreview(event) {
-                const file = event.target.files[0]; // Lấy tệp được chọn
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        // Đặt src của ảnh preview thành dữ liệu từ tệp
-                        document.getElementById('preview').src = e.target.result;
-                    }
-                    reader.readAsDataURL(file); // Đọc tệp dưới dạng URL
-                }
-            }
-        </script>
+
         <script src="${pageContext.request.contextPath}/Manager/Dashboard/assets/js/main.js"></script>
     </body>
 
