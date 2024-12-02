@@ -26,7 +26,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UserListServlet</servlet-name>
-        <url-pattern>/Dashboard/userlist</url-pattern>
+        <url-pattern>/Admin/userlist</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddUserServlet</servlet-name>

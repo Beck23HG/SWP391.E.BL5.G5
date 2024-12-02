@@ -77,7 +77,7 @@ public class UserListServlet extends HttpServlet {
         request.setAttribute("totalPages", totalPages);
 
         // Chuyển hướng đến trang users.jsp
-        request.getRequestDispatcher("/Dashboard/users.jsp").forward(request, response);
+        request.getRequestDispatcher("/Admin/users.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

@@ -96,7 +96,7 @@
         <!-- Admin Section -->
         <div class="nav-section">
             <div class="nav-section-title">Administration</div>
-            <a href="#" class="nav-item">
+            <a href="index.html" class="nav-item">
                 <i class="fas fa-chart-line"></i>
                 <span>Dashboard</span>
             </a>
