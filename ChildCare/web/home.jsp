@@ -110,7 +110,7 @@
         <header class="header">
             <nav class="navbar navbar-expand-lg navbar-light">
                 <div class="container">
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="home">
                         <img src="assets/images/children-care-logo-removebg.png" alt="Children Care Logo" class="logo">
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
