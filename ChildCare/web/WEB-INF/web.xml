@@ -88,4 +88,12 @@
         <servlet-name>EditSliderServlet</servlet-name>
         <url-pattern>/editSlider</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>SliderDetailServlet</servlet-name>
+        <servlet-class>controller.ManagerController.SliderDetailServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SliderDetailServlet</servlet-name>
+        <url-pattern>/sliderDetail</url-pattern>
+    </servlet-mapping>
 </web-app>
