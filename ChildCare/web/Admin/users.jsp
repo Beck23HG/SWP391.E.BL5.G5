@@ -203,7 +203,7 @@
         <div class="page-header">
             <div class="header-content">
                 <h1>Users Management</h1>
-                <button class="btn-primary" onclick="window.location.href='new-user.html'">
+                <button class="btn-primary" onclick="window.location.href='new-user.jsp'">
                     <i class="fas fa-plus"></i>
                     New User
                 </button>

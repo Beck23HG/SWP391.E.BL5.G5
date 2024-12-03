@@ -34,7 +34,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddUserServlet</servlet-name>
-        <url-pattern>/Dashboard/adduser</url-pattern>
+        <url-pattern>/Admin/adduser</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>LoginServlet</servlet-name>

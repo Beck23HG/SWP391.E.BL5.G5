@@ -1,3 +1,5 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -133,7 +135,6 @@
             }
         }
     </style>
-
 </head>
 <body>
     <nav class="sidebar">
@@ -141,7 +142,6 @@
             <div class="sidebar-logo">HealthCare Admin</div>
         </div>
 
-        <!-- Admin Section -->
         <div class="nav-section">
             <div class="nav-section-title">Administration</div>
             <a href="index.html" class="nav-item">
@@ -166,86 +166,6 @@
                 <i class="fas fa-search"></i>
                 <input type="text" placeholder="Search...">
             </div>
-            <div class="user-menu">
-                <div class="notifications-wrapper">
-                    <div class="notifications">
-                        <i class="fas fa-bell"></i>
-                        <span class="notifications-count">3</span>
-                    </div>
-                    <div class="notifications-dropdown">
-                        <div class="notifications-header">
-                            <span class="notifications-title">Notifications</span>
-                            <span class="mark-all-read">Mark all as read</span>
-                        </div>
-                        <div class="notification-list">
-                            <div class="notification-item unread">
-                                <div class="notification-icon">
-                                    <i class="fas fa-calendar"></i>
-                                </div>
-                                <div class="notification-content">
-                                    <div class="notification-text">New appointment request from Sarah Johnson</div>
-                                    <div class="notification-time">5 minutes ago</div>
-                                </div>
-                            </div>
-                            <div class="notification-item unread">
-                                <div class="notification-icon">
-                                    <i class="fas fa-user-plus"></i>
-                                </div>
-                                <div class="notification-content">
-                                    <div class="notification-text">New patient registration: Michael Brown</div>
-                                    <div class="notification-time">2 hours ago</div>
-                                </div>
-                            </div>
-                            <div class="notification-item">
-                                <div class="notification-icon">
-                                    <i class="fas fa-comment-medical"></i>
-                                </div>
-                                <div class="notification-content">
-                                    <div class="notification-text">New feedback received for Dr. Smith</div>
-                                    <div class="notification-time">1 day ago</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="user-profile-wrapper">
-                    <div class="user-profile">
-                        <div class="user-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="user-info">
-                            <span class="user-name">John Doe</span>
-                            <span class="user-role">Administrator</span>
-                        </div>
-                    </div>
-                    <div class="user-dropdown">
-                        <div class="user-dropdown-header">
-                            <div class="user-avatar">
-                                <i class="fas fa-user"></i>
-                            </div>
-                            <div class="user-name">John Doe</div>
-                            <div class="user-role">Administrator</div>
-                        </div>
-                        <a href="#" class="user-dropdown-item">
-                            <i class="fas fa-user-circle"></i>
-                            <span>My Profile</span>
-                        </a>
-                        <a href="#" class="user-dropdown-item">
-                            <i class="fas fa-cog"></i>
-                            <span>Settings</span>
-                        </a>
-                        <a href="#" class="user-dropdown-item">
-                            <i class="fas fa-question-circle"></i>
-                            <span>Help Center</span>
-                        </a>
-                        <a href="#" class="user-dropdown-item">
-                            <i class="fas fa-sign-out-alt"></i>
-                            <span>Sign Out</span>
-                        </a>
-                    </div>
-                </div>
-                <div class="theme-toggle" title="Toggle theme"></div>
-            </div>
         </div>
 
         <div class="page-header">
@@ -256,12 +176,12 @@
 
         <div class="new-user-form">
             <h2>New User Registration</h2>
-            <form>
+            <form method="POST" action="adduser" enctype="multipart/form-data" onsubmit="return validateForm()">
                 <div class="avatar-upload">
-                    <input type="file" id="avatar" accept="image/*">
+                    <input type="file" id="avatar" name="avatar" accept="image/*" required onchange="previewImage(event)">
                     <label for="avatar">Upload Avatar</label>
                     <div class="avatar-preview">
-                        <img src="" alt="Avatar Preview" id="avatarPreview" style="display: none;">
+                        <img src="#" alt="User Avatar" id="avatarPreview" style="display: none;">
                     </div>
                 </div>
 
@@ -273,8 +193,8 @@
                     <div>
                         <label for="gender">Gender</label>
                         <select id="gender" name="gender" required>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
+                            <option value="1">Male</option>
+                            <option value="0">Female</option>
                         </select>
                     </div>
                 </div>
@@ -292,18 +212,25 @@
 
                 <div class="form-group">
                     <div>
+                        <label for="dob">Date of Birth</label>
+                        <input type="date" id="dob" name="dob" required>
+                    </div>
+                    <div>
                         <label for="role">Role</label>
                         <select id="role" name="role" required>
-                            <option value="admin">Admin</option>
-                            <option value="staff">Staff</option>
-                            <option value="manager">Manager</option>
+                            <option value="2">Staff</option>
+                            <option value="3">Manager</option>
+                            <option value="4">Admin</option>
                         </select>
                     </div>
+                </div>
+
+                <div class="form-group">
                     <div>
                         <label for="status">Status</label>
                         <select id="status" name="status" required>
-                            <option value="active">Active</option>
-                            <option value="inactive">Inactive</option>
+                            <option value="1">Active</option>
+                            <option value="0">Inactive</option>
                         </select>
                     </div>
                 </div>
@@ -320,21 +247,57 @@
             </form>
         </div>
     </div>
+    <script>
+        
+        function validateForm() {
+            const fullName = document.getElementById("fullName").value;
+            const mobile = document.getElementById("mobile").value;
 
-<!--    <script>
-        document.getElementById('avatar').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            const preview = document.getElementById('avatarPreview');
-            const reader = new FileReader();
+            // Kiểm tra fullname chỉ chứa chữ cái
+            const fullNameRegex = /^[a-zA-Z\s]+$/;
+            if (!fullNameRegex.test(fullName)) {
+                alert("Full Name must only contain letters and spaces.");
+                return false;
+            }
 
-            reader.onload = function(e) {
-                preview.src = e.target.result;
-                preview.style.display = 'block';
-            };
+            // Kiểm tra mobile chỉ chứa số và có độ dài từ 6 đến 11
+            const mobileRegex = /^[0-9]{6,11}$/;
+            if (!mobileRegex.test(mobile)) {
+                alert("Mobile Number must contain 6-11 digits and only numbers.");
+                return false;
+            }
 
-            reader.readAsDataURL(file);
-        });
-    </script>-->
-    <script src="assets/js/main.js"></script>
+            return true;
+        }
+        
+        function previewImage(event) {
+            const input = event.target; // Input file element
+            const preview = document.getElementById('avatarPreview'); // Image element
+
+            // Kiểm tra nếu có file được chọn
+            if (input.files && input.files[0]) {
+                const reader = new FileReader(); // Đối tượng đọc file
+
+                // Khi file được load, hiển thị ảnh
+                reader.onload = function (e) {
+                    preview.src = e.target.result; // Set đường dẫn ảnh
+                    preview.style.display = 'block'; // Hiển thị ảnh
+                };
+
+                // Đọc nội dung file
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                // Không có file nào được chọn, ẩn ảnh
+                preview.style.display = 'none';
+            }
+        }
+    </script>
+    
+    <!-- Hiển thị alert nếu email bị trùng -->
+    <c:if test="${not empty errorMessage}">
+        <script>
+            alert("${errorMessage}");
+        </script>
+    </c:if>
 </body>
 </html>

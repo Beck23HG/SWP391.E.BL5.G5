@@ -27,7 +27,7 @@ public class EmailUtil {
         props.put("mail.smtp.starttls.enable", "true"); // Sử dụng TLS để bảo mật
 
         // Xác thực thông tin Gmail của bạn
-         final String fromEmail = "bachtkhg627@gmail.com"; // Email của bạn
+        final String fromEmail = "bachtkhg627@gmail.com"; // Email của bạn
         final String password = "ishggiqkscquelbv"; // Mật khẩu của bạn (có thể cần mật khẩu ứng dụng)
 
         Session session = Session.getInstance(props, new javax.mail.Authenticator() {

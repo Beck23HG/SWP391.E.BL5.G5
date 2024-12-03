@@ -9,48 +9,11 @@ import model.Person;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class AccountDAO extends DBContext {
-
-    public void createNewPerson(String email, String password, int roleID,
-            int status, String personName, java.util.Date DOB, boolean gender, String phone) {
-
-        String sqlPerson = """
-                            INSERT INTO Person (PersonName, DateOfBirth, Gender, Phone, Email)
-                            VALUES (?, ?, ?, ?, ?)""";
-
-        String sqlAccount = """
-                            INSERT INTO Account (Email, Password, RoleId, PersonId, Status)
-                            VALUES (?, ?, ?, ?, ?)""";
-
-        try {
-            // Insert thông tin vào bảng Person
-            PreparedStatement psPerson = connection.prepareStatement(sqlPerson);
-            psPerson.setString(1, personName);
-            psPerson.setDate(2, new java.sql.Date(DOB.getTime())); // Chuyển từ java.util.Date sang java.sql.Date
-            psPerson.setBoolean(3, gender);
-            psPerson.setString(4, phone);
-            psPerson.setString(5, email);
-            psPerson.executeUpdate();
-
-            // Lấy PersonId vừa chèn vào
-            int personId = getPersonIdByMail(email);
-
-            // Insert thông tin vào bảng Account
-            PreparedStatement psAcc = connection.prepareStatement(sqlAccount);
-            psAcc.setString(1, email);
-            psAcc.setString(2, password);
-            psAcc.setInt(3, roleID);
-            psAcc.setInt(4, personId);
-            psAcc.setInt(5, status);
-            psAcc.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace(); // In lỗi để kiểm tra nguyên nhân
-        }
-    }
 
     public Account getAccountByEmailAndPassword(String email, String password) {
         try {
@@ -152,5 +115,48 @@ public class AccountDAO extends DBContext {
 
         }
         return false;
+    }
+
+    public void createAccountStaff(String email, String password, int roleID,
+            int status, String personName, java.util.Date DOB,
+            boolean gender, String phone, String address, String image) {
+        String sqlPerson = """
+                       INSERT INTO [Person] ([PersonName], [DateOfBirth], [Gender], 
+                                             [Phone], [Email], [Address], [Image])
+                       VALUES (?, ?, ?, ?, ?, ?, ?);
+                       """;
+
+        String sqlAccount = """
+                       INSERT INTO [Account] ([Email], [Password], [RoleId], [PersonId], [Status])
+                       VALUES (?, ?, ?, ?, ?);
+                       """;
+
+        try {
+            // Chèn thông tin vào bảng Person
+            PreparedStatement psPerson = connection.prepareStatement(sqlPerson);
+            psPerson.setString(1, personName);
+            psPerson.setDate(2, new java.sql.Date(DOB.getTime()));
+            psPerson.setBoolean(3, gender);
+            psPerson.setString(4, phone);
+            psPerson.setString(5, email);
+            psPerson.setString(6, address);
+            psPerson.setString(7, image);
+            psPerson.executeUpdate();
+
+            // Lấy PersonId vừa thêm vào
+            int personId = getPersonIdByMail(email);
+
+            // Chèn thông tin vào bảng Account
+            PreparedStatement psAcc = connection.prepareStatement(sqlAccount);
+            psAcc.setString(1, email);
+            psAcc.setString(2, password);
+            psAcc.setInt(3, roleID);
+            psAcc.setInt(4, personId);
+            psAcc.setInt(5, status);
+            psAcc.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace(); // In lỗi để kiểm tra nguyên nhân
+        }
     }
 }

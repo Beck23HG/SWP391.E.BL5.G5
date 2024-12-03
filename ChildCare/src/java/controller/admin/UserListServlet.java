@@ -40,7 +40,7 @@ public class UserListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-// Lấy thông tin phân trang và các tham số tìm kiếm
+        // Lấy thông tin phân trang và các tham số tìm kiếm
         int page = 1; // Mặc định trang đầu tiên
         String pageParam = request.getParameter("page");
         if (pageParam != null && !pageParam.isEmpty()) {

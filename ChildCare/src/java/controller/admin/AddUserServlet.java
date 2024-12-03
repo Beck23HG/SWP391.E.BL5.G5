@@ -1,91 +1,132 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
-
 package controller.admin;
 
+import EmailService.EmailUtil;
+import dal.AccountDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
+import java.io.File;
+import java.nio.file.Paths;
 import java.security.SecureRandom;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  *
  * @author fpt
  */
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+        maxFileSize = 1024 * 1024 * 10,      // 10MB
+        maxRequestSize = 1024 * 1024 * 50   // 50MB
+)
 public class AddUserServlet extends HttpServlet {
+    
+    private static final String UPLOAD_DIRECTORY = "uploads";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddUserServlet</title>");  
+            out.println("<title>Servlet AddUserServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddUserServlet at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet AddUserServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
-    } 
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        request.getRequestDispatcher("Dashboard/new-user.jsp").forward(request, response);
-    } 
+            throws ServletException, IOException {
+        request.getRequestDispatcher("/Admin/new-user.jsp").forward(request, response);
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        processRequest(request, response);
+            throws ServletException, IOException {
+        // Đường dẫn lưu file upload
+        String uploadPath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIRECTORY;
+        File uploadDir = new File(uploadPath);
+        if (!uploadDir.exists()) {
+            uploadDir.mkdir();
+        }
+
+        try {
+            String fullName = request.getParameter("fullName");
+            String email = request.getParameter("email");
+            String mobile = request.getParameter("mobile");
+            String dob = request.getParameter("dob");
+            String gender = request.getParameter("gender");
+            String role = request.getParameter("role");
+            String status = request.getParameter("status");
+            String address = request.getParameter("address");
+
+            // Xử lý file upload
+            String avatarPath = "";
+            Part filePart = (Part) request.getPart("avatar");
+            if (filePart != null && filePart.getSize() > 0) {
+                String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+                avatarPath = UPLOAD_DIRECTORY + File.separator + fileName; // Đường dẫn lưu file
+                filePart.write(uploadPath + File.separator + fileName);   // Lưu file vào server
+            }
+
+            // Validate email
+            AccountDAO accountDAO = new AccountDAO();
+            if (accountDAO.checkExistedEmail(email)) {
+                request.setAttribute("errorMessage", "Email already exists!");
+                request.getRequestDispatcher("/Admin/new-user.jsp").forward(request, response);
+                return;
+            }
+
+            String password = generateRandomPassword();
+
+            // Chuyển role và status từ string sang số
+            int roleId = Integer.parseInt(role);
+            int userStatus = Integer.parseInt(status);
+
+            accountDAO.createAccountStaff(email, password, roleId, userStatus, fullName,
+                    java.sql.Date.valueOf(dob), gender.equals("1"), mobile, address, avatarPath);
+
+            // Gửi email chứa mật khẩu cho người dùng
+            EmailUtil.sendEmail(email, "Your New Account", "Hello " + fullName
+                    + ",\n\nYour account has been successfully created.\nYour temporary password is: " + password);
+
+            response.sendRedirect("userlist");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            request.setAttribute("errorMessage", "An error occurred: " + ex.getMessage());
+            request.getRequestDispatcher("/Admin/new-user.jsp").forward(request, response);
+        }
     }
 
-    /** 
+    private String generateRandomPassword() {
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
+        SecureRandom random = new SecureRandom();
+        StringBuilder password = new StringBuilder();
+        for (int i = 0; i < 8; i++) {
+            int index = random.nextInt(chars.length());
+            password.append(chars.charAt(index));
+        }
+        return password.toString();
+    }
+
+    /**
      * Returns a short description of the servlet.
+     *
      * @return a String containing servlet description
      */
     @Override
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    
-    private boolean isValidEmail(String email) {
-        if (email == null) {
-            return false;
-        }
-        // Regular expression for email validation
-        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
-        Pattern pattern = Pattern.compile(emailRegex);
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
-    }
-
-    private static final String ALLOWED_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+";
-
-    private String generateRandomPassword(int length) {
-        if (length <= 0) {
-            throw new IllegalArgumentException("Password length must be greater than zero.");
-        }
-
-        SecureRandom random = new SecureRandom();
-        StringBuilder password = new StringBuilder(length);
-
-        for (int i = 0; i < length; i++) {
-            int randomIndex = random.nextInt(ALLOWED_CHARACTERS.length());
-            char randomChar = ALLOWED_CHARACTERS.charAt(randomIndex);
-            password.append(randomChar);
-        }
-
-        return password.toString();
-    }
 }
