@@ -89,14 +89,12 @@ public class AddUserServlet extends HttpServlet {
 
             String password = generateRandomPassword();
 
-            // Chuyển role và status từ string sang số
             int roleId = Integer.parseInt(role);
             int userStatus = Integer.parseInt(status);
 
             accountDAO.createAccountStaff(email, password, roleId, userStatus, fullName,
                     java.sql.Date.valueOf(dob), gender.equals("1"), mobile, address, avatarPath);
 
-            // Gửi email chứa mật khẩu cho người dùng
             EmailUtil.sendEmail(email, "Your New Account", "Hello " + fullName
                     + ",\n\nYour account has been successfully created.\nYour temporary password is: " + password);
 

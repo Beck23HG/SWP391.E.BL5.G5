@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dal;
 
 import java.sql.PreparedStatement;
@@ -145,18 +141,58 @@ public class PersonDAO extends DBContext {
         return totalCount;
     }
 
-    public static void main(String[] args) {
-        PersonDAO dao = new PersonDAO();
+    // Hàm lấy thông tin chi tiết của một người dùng dựa trên personId
+    public Person getPersonDetailsById(int personId) {
+        String sql = "SELECT p.personId, p.personName, p.dateOfBirth, p.gender, p.email, p.phone, "
+                + "p.address, p.image, a.roleId, a.status, r.roleName "
+                + "FROM Person p "
+                + "JOIN Account a ON p.personId = a.personId "
+                + "JOIN Role r ON a.roleId = r.roleId "
+                + "WHERE p.personId = ?";
+        try (PreparedStatement stm = connection.prepareStatement(sql)) {
+            stm.setInt(1, personId);
+            try (ResultSet rs = stm.executeQuery()) {
+                if (rs.next()) {
+                    Person person = new Person();
+                    person.setPersonId(rs.getInt("personId"));
+                    person.setPersonName(rs.getString("personName"));
+                    person.setDateOfBirth(rs.getDate("dateOfBirth"));
+                    person.setGender(rs.getBoolean("gender"));
+                    person.setEmail(rs.getString("email"));
+                    person.setPhone(rs.getString("phone"));
+                    person.setAddress(rs.getString("address"));
+                    person.setImage(rs.getString("image"));
 
-        List<Person> persons = dao.getAllPersons(1, null, null, null, "");
+                    Account account = new Account();
+                    account.setRoleId(rs.getInt("roleId"));
+                    account.setStatus(rs.getInt("status"));
 
-        if (persons != null && !persons.isEmpty()) {
-            System.out.println("Found " + persons.size() + " persons:");
-            for (Person person : persons) {
-                System.out.println(person.getPersonId() + ": " + person.getPersonName() + ", " + person.getEmail());
+                    Role role = new Role();
+                    role.setRoleName(rs.getString("roleName"));
+
+                    person.setAccount(account);
+                    person.setRole(role);
+
+                    return person;
+                }
             }
-        } else {
-            System.out.println("No persons found.");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
+        return null;
+    }
+
+    // Hàm cập nhật RoleId và Status của người dùng
+    public boolean updateUserRoleAndStatus(int personId, int roleId, int status) {
+        String sql = "UPDATE Account SET roleId = ?, status = ? WHERE personId = ?";
+        try (PreparedStatement stm = connection.prepareStatement(sql)) {
+            stm.setInt(1, roleId);
+            stm.setInt(2, status);
+            stm.setInt(3, personId);
+            return stm.executeUpdate() > 0; // Trả về true nếu update thành công
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
     }
 }

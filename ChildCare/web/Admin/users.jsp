@@ -8,8 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Users Management - Healthcare Admin</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/Dashboard/assets/css/style.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/Dashboard/assets/css/users.css"> 
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin/assets/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/Admin/assets/css/users.css"> 
     <!-- CSS Styles for the buttons -->
     <style>
         /* Styling for the New User button */
@@ -179,18 +179,6 @@
                             <div class="user-role">Administrator</div>
                         </div>
                         <a href="#" class="user-dropdown-item">
-                            <i class="fas fa-user-circle"></i>
-                            <span>My Profile</span>
-                        </a>
-                        <a href="#" class="user-dropdown-item">
-                            <i class="fas fa-cog"></i>
-                            <span>Settings</span>
-                        </a>
-                        <a href="#" class="user-dropdown-item">
-                            <i class="fas fa-question-circle"></i>
-                            <span>Help Center</span>
-                        </a>
-                        <a href="#" class="user-dropdown-item">
                             <i class="fas fa-sign-out-alt"></i>
                             <span>Sign Out</span>
                         </a>
@@ -226,10 +214,10 @@
 
                         <select class="filter-select" id="roleFilter" name="role">
                             <option value="">All Roles</option>
-                            <option value="1" ${param.role == '1' ? 'selected' : ''}>Admin</option>
-                            <option value="2" ${param.role == '2' ? 'selected' : ''}>Customer</option>
-                            <option value="3" ${param.role == '3' ? 'selected' : ''}>Staff</option>
-                            <option value="4" ${param.role == '4' ? 'selected' : ''}>Manager</option>
+                            <option value="1" ${param.role == '1' ? 'selected' : ''}>Customer</option>
+                            <option value="2" ${param.role == '2' ? 'selected' : ''}>Staff</option>
+                            <option value="3" ${param.role == '3' ? 'selected' : ''}>Manager</option>
+                            <option value="4" ${param.role == '4' ? 'selected' : ''}>Admin</option>
                         </select>
 
                         <select class="filter-select" id="statusFilter" name="status">
@@ -254,7 +242,7 @@
                 <thead>
                     <tr>
                         <th class="sortable" data-sort="id">ID <i class="fas fa-sort"></i></th>
-                        <th>Avatar</th>
+<!--                        <th>Avatar</th>-->
                         <th class="sortable" data-sort="fullName">Full Name <i class="fas fa-sort"></i></th>
                         <th class="sortable" data-sort="gender">Gender <i class="fas fa-sort"></i></th>
                         <th class="sortable" data-sort="email">Email <i class="fas fa-sort"></i></th>
@@ -268,7 +256,7 @@
                     <c:forEach var="person" items="${persons}">
                         <tr>
                             <td>${person.personId}</td>
-                            <td><img src="${person.image}" alt="Avatar" width="50" height="50"></td>
+<!--                            <td><img src="${person.image}" alt="Avatar" width="50" height="50"></td>-->
                             <td>${person.personName}</td>
                             <td>${person.gender ? 'Male' : 'Female'}</td>
                             <td>${person.email}</td>
@@ -276,7 +264,7 @@
                             <td>${person.role.roleName}</td>
                             <td>${person.account.status == 1 ? 'Active' : 'Inactive'}</td>
                             <td>
-                                <a href="#">Edit</a> | <a href="#">Delete</a>
+                                <a href="edituser?personId=${person.personId}" class="btn-primary">Edit</a>    
                             </td>
                         </tr>
                     </c:forEach>
@@ -320,65 +308,6 @@
                 </button>
             </div>
             <div class="pagination-info">
-            </div>
-        </div>
-    </div>
-
-    <!-- User Details Modal -->
-    <div class="modal" id="userDetailsModal">
-        <div class="modal-overlay"></div>
-        <div class="modal-container">
-            <div class="modal-header">
-                <h2 class="modal-title">User Details</h2>
-                <button class="modal-close">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-content">
-                <div class="user-details">
-                    <div class="user-preview">
-                        <img src="" alt="User avatar" id="detailsAvatar">
-                        <div class="user-badges">
-                            <div class="role-badge"></div>
-                            <div class="status-badge"></div>
-                        </div>
-                    </div>
-
-                    <div class="details-section">
-                        <div class="detail-group">
-                            <label>Full Name</label>
-                            <div class="detail-value" id="detailsFullName"></div>
-                        </div>
-
-                        <div class="detail-row">
-                            <div class="detail-group">
-                                <label>Gender</label>
-                                <div class="detail-value" id="detailsGender"></div>
-                            </div>
-                            <div class="detail-group">
-                                <label>Mobile</label>
-                                <div class="detail-value" id="detailsMobile"></div>
-                            </div>
-                        </div>
-
-                        <div class="detail-group">
-                            <label>Email</label>
-                            <div class="detail-value" id="detailsEmail"></div>
-                        </div>
-
-                        <div class="detail-group">
-                            <label>Address</label>
-                            <div class="detail-value" id="detailsAddress"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn-secondary" data-action="close">Close</button>
-                <button class="btn-primary" data-action="edit">
-                    <i class="fas fa-edit"></i>
-                    Edit User
-                </button>
             </div>
         </div>
     </div>
