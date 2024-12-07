@@ -15,7 +15,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-    
+
 <body>
     <!-- Include Header -->
     <header class="header fixed-top">
@@ -33,13 +33,13 @@
                             <a class="nav-link active" href="/">Home</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <button class="nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Services
+                            <button class="nav-link dropdown-toggle btn btn-link" data-bs-toggle="dropdown">
+                                <a style="text-decoration: none; color: inherit;" href="/services">Services</a>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="services/pediatric">Pediatric Care</a></li>
-                                <li><a class="dropdown-item" href="services/vaccination">Vaccination</a></li>
-                                <li><a class="dropdown-item" href="services/development">Child Development</a></li>
+                                <li><a class="dropdown-item" href="/services/pediatric">Pediatric Care</a></li>
+                                <li><a class="dropdown-item" href="/services/vaccination">Vaccination</a></li>
+                                <li><a class="dropdown-item" href="/services/development">Child Development</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -73,9 +73,9 @@
             <div class="container">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item"><a href="services.html">Services</a></li>
-                        <li class="breadcrumb-item"><a href="reservation-detail.html">Reservation Details</a></li>
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item"><a href="/services">Services</a></li>
+                        <li class="breadcrumb-item"><a href="/reservation-detail">Reservation Details</a></li>
                         <li class="breadcrumb-item active">Contact Information</li>
                     </ol>
                 </nav>
@@ -283,14 +283,14 @@
                 </div>
             </div>
             <div class="footer-bottom text-center mt-5 pt-4 border-top">
-                <p class="mb-0">Â© 2024 Children Care. All rights reserved.</p>
+                <p class="mb-0">© 2024 Children Care. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="./assets/js/reservation-contact.js"></script>
+    <script src="assets/js/reservation-contact.js"></script>
 </body>
 
 </html>
