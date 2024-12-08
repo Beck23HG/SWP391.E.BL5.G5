@@ -31,6 +31,64 @@
                 object-fit: cover;
                 border-radius: 5px;
             }
+            .category-list {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                display: flex;
+                flex-direction: column;
+                gap: 12px; 
+                max-width: 300px;
+                margin: 0 auto;
+            }
+
+            .category-list li {
+                position: relative;
+            }
+
+            .category-list .btn {
+                font-size: 16px;
+                font-weight: 600;
+                color: #ffffff;
+                background-color: #3498db;
+                border: none; 
+                border-radius: 8px;
+                padding: 12px 24px;
+                text-align: center; 
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center; 
+                gap: 12px; 
+                transition: all 0.3s ease; 
+            }
+
+            .category-list .btn i {
+                font-size: 20px;
+                transition: transform 0.3s ease;
+            }
+
+            .category-list .btn:hover {
+                background-color: #e74c3c;
+                color: #fff;
+            }
+
+            .category-list .btn:hover i {
+                transform: rotate(15deg);
+            }
+
+            .category-list li:hover .btn {
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+                transform: translateY(-5px);
+            }
+
+            .category-list li:hover {
+                background-color: #f0f3f7;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                transition: all 0.3s ease;
+            }
+
         </style>
     </head>
 
@@ -269,40 +327,50 @@
                             <!-- Service Categories -->
                             <div class="sidebar-card mb-4">
                                 <h4>Price Ranges</h4>
-                                <ul class="category-list" id="priceRanges">
+                                <ul class="category-list mt-4" id="priceRanges">
                                     <li>
                                         <form action="services" method="get">
                                             <input type="hidden" name="price1" value="0">
                                             <input type="hidden" name="price2" value="100">
-                                            <button type="submit" class="btn btn-link text-start w-100">Under $100</button>
+                                            <button type="submit" class="btn btn-link text-start w-100">
+                                                <i class="fas fa-tag"></i> Under $100
+                                            </button>
                                         </form>
                                     </li>
                                     <li>
                                         <form action="services" method="get">
                                             <input type="hidden" name="price1" value="100">
                                             <input type="hidden" name="price2" value="150">
-                                            <button type="submit" class="btn btn-link text-start w-100">$100 - $150</button>
+                                            <button type="submit" class="btn btn-link text-start w-100">
+                                                <i class="fas fa-tag"></i> $100 - $150
+                                            </button>
                                         </form>
                                     </li>
                                     <li>
                                         <form action="services" method="get">
                                             <input type="hidden" name="price1" value="150">
                                             <input type="hidden" name="price2" value="200">
-                                            <button type="submit" class="btn btn-link text-start w-100">$150 - $200</button>
+                                            <button type="submit" class="btn btn-link text-start w-100">
+                                                <i class="fas fa-tag"></i> $150 - $200
+                                            </button>
                                         </form>
                                     </li>
                                     <li>
                                         <form action="services" method="get">
                                             <input type="hidden" name="price1" value="200">
                                             <input type="hidden" name="price2" value="250">
-                                            <button type="submit" class="btn btn-link text-start w-100">$200 - $250</button>
+                                            <button type="submit" class="btn btn-link text-start w-100">
+                                                <i class="fas fa-tag"></i> $200 - $250
+                                            </button>
                                         </form>
                                     </li>
                                     <li>
                                         <form action="services" method="get">
                                             <input type="hidden" name="price1" value="250">
                                             <input type="hidden" name="price2" value="300">
-                                            <button type="submit" class="btn btn-link text-start w-100">$250 - $300</button>
+                                            <button type="submit" class="btn btn-link text-start w-100">
+                                                <i class="fas fa-tag"></i> $250 - $300
+                                            </button>
                                         </form>
                                     </li>
                                 </ul>
