@@ -25,8 +25,8 @@
                     <img src="assets/images/children-care-logo-removebg.png" alt="Children Care Logo" class="logo">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto align-items-center">
                         <li class="nav-item">
@@ -34,8 +34,8 @@
                         </li>
                         <li class="nav-item dropdown">
                             <button class="nav-link dropdown-toggle btn btn-link" data-bs-toggle="dropdown">
-                                <a style="text-decoration: none; color: inherit;" href="/services">Services</a>
-                            </button>
+                                    <a style="text-decoration: none; color: inherit;" href="/services">Services</a>
+                                </button>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="/services/pediatric">Pediatric Care</a></li>
                                 <li><a class="dropdown-item" href="/services/vaccination">Vaccination</a></li>
@@ -88,30 +88,30 @@
             <div class="container">
                 <div class="row">
                     <!-- Main Content -->
-                    <div class="col-lg-8">
+                    <div class="col-lg-12">
                         <!-- Selected Services Summary -->
                         <div class="content-card mb-4">
                             <div class="d-flex justify-content-between align-items-center mb-4">
                                 <h2>Selected Services</h2>
-                                <a href="/reservation-detail" class="btn btn-outline-primary">
+                                <a href="/ChildCare/reservationView" class="btn btn-outline-primary">
                                     <i class="fas fa-edit me-2"></i>Change Services
                                 </a>
                             </div>
                             <div class="selected-services" id="selectedServices">
-                                <!-- Services will be loaded dynamically -->
                                 <div class="table-responsive">
                                     <table class="table">
                                         <thead>
                                             <tr>
+                                                <th>Imagine</th>
                                                 <th>ID</th>
                                                 <th>Service</th>
                                                 <th>Price</th>
-                                                <th>Persons</th>
-                                                <th>Total</th>
+                                                <th class="text-center">Quantity</th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody id="servicesTableBody">
-                                            <!-- Service rows will be loaded dynamically -->
+
                                         </tbody>
                                         <tfoot>
                                             <tr>
@@ -131,7 +131,44 @@
                                 </div>
                             </div>
                         </div>
+                        <script>
+                            const services = JSON.parse(localStorage.getItem('serviceList')) || [];
+                            const tbody = document.getElementById('servicesTableBody');
 
+                            services.forEach(service => {
+                                tbody.innerHTML += `
+                                        <tr class="align-middle">
+                                            <td>
+                                                <img src="\${service.image}" 
+                                                     alt="Service" 
+                                                     class="img-fluid rounded shadow-sm" 
+                                                     style="width: 60px; height: 60px; object-fit: cover;">
+                                            </td>
+                                            <td class="fw-medium text-secondary">#\${service.id}</td>
+                                            <td class="fw-semibold text-primary">\${service.name}</td>
+                                            <td class="fw-bold text-success">\${service.price}</td>
+                                            <td class="text-center fw-medium">
+                                                <span class="badge bg-light text-dark px-3 py-2">1</span>
+                                            </td>
+                                        </tr>
+                                    `;
+                            });
+
+                            const subtotal = services.reduce((sum, service) => {
+                                // Remove '$' and convert to float
+                                const price = parseFloat(service.price.replace(/[^0-9.-]+/g, ''));
+                                return sum + price;
+                            }, 0);
+
+                            // Calculate tax (10%) and total
+                            const tax = subtotal * 0.1;
+                            const total = subtotal + tax;
+
+                            // Update display with proper formatting
+                            document.getElementById('subtotal').textContent = "$" + subtotal.toFixed(2);
+                            document.getElementById('tax').textContent = "$" + tax.toFixed(2);
+                            document.getElementById('total').textContent = "$" + total.toFixed(2);
+                        </script>
                         <!-- Contact Information Form -->
                         <div class="content-card">
                             <h2 class="mb-4">Contact Information</h2>
@@ -145,11 +182,11 @@
                                     <div class="col-md-6">
                                         <label class="form-label">Gender</label>
                                         <select class="form-select" id="gender" required>
-                                            <option value="">Select gender</option>
-                                            <option value="male">Male</option>
-                                            <option value="female">Female</option>
-                                            <option value="other">Other</option>
-                                        </select>
+                                                <option value="">Select gender</option>
+                                                <option value="male">Male</option>
+                                                <option value="female">Female</option>
+                                                <option value="other">Other</option>
+                                            </select>
                                         <div class="invalid-feedback">Please select your gender</div>
                                     </div>
                                     <div class="col-md-6">
@@ -175,66 +212,33 @@
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" id="termsCheck" required>
                                             <label class="form-check-label" for="termsCheck">
-                                                I agree to the <a href="/terms">Terms of Service</a> and
-                                                <a href="/privacy">Privacy Policy</a>
-                                            </label>
+                                                    I agree to the <a href="/terms">Terms of Service</a> and
+                                                    <a href="/privacy">Privacy Policy</a>
+                                                </label>
                                             <div class="invalid-feedback">
                                                 You must agree before submitting
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-12 text-end">
-                                        <button type="button" class="btn btn-outline-secondary me-2" onclick="window.location.href='/reservation-detail'">
-                                            Back to Details
-                                        </button>
+                                        <button type="button" class="btn btn-outline-secondary me-2" onclick="window.location.href = '/reservation-detail'">
+                                                Back to Details
+                                            </button>
                                         <button type="submit" class="btn btn-primary">
-                                            <span class="btn-text">
-                                                <i class="fas fa-check me-2"></i>Submit Reservation
-                                            </span>
-                                            <span class="btn-loader d-none">
-                                                <i class="fas fa-circle-notch fa-spin"></i>
-                                            </span>
-                                        </button>
+                                                <span class="btn-text">
+                                                    <i class="fas fa-check me-2"></i>Submit Reservation
+                                                </span>
+                                                <span class="btn-loader d-none">
+                                                    <i class="fas fa-circle-notch fa-spin"></i>
+                                                </span>
+                                            </button>
                                     </div>
                                 </div>
                             </form>
                         </div>
                     </div>
 
-                    <!-- Sidebar -->
-                    <div class="col-lg-4">
-                        <!-- Search Box -->
-                        <div class="sidebar-card mb-4">
-                            <h4>Search Services</h4>
-                            <div class="search-box">
-                                <input type="text" class="form-control" placeholder="Search services...">
-                                <button class="btn btn-primary">
-                                    <i class="fas fa-search"></i>
-                                </button>
-                            </div>
-                        </div>
 
-                        <!-- Service Categories -->
-                        <div class="sidebar-card mb-4">
-                            <h4>Categories</h4>
-                            <ul class="category-list">
-                                <li><a href="#">Pediatric Care <span>(15)</span></a></li>
-                                <li><a href="#">Vaccination <span>(8)</span></a></li>
-                                <li><a href="#">Child Development <span>(12)</span></a></li>
-                                <li><a href="#">Emergency Care <span>(6)</span></a></li>
-                            </ul>
-                        </div>
-
-                        <!-- Contact Information -->
-                        <div class="sidebar-card mb-4">
-                            <h4>Need Help?</h4>
-                            <div class="contact-info">
-                                <p><i class="fas fa-phone me-2"></i>+1 234 567 890</p>
-                                <p><i class="fas fa-envelope me-2"></i>support@childrencare.com</p>
-                                <p><i class="fas fa-clock me-2"></i>24/7 Emergency Support</p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
@@ -291,6 +295,83 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/reservation-contact.js"></script>
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Validate form
+            if (!this.checkValidity()) {
+                e.stopPropagation();
+                this.classList.add('was-validated');
+                return;
+            }
+
+            // Check services
+            const services = JSON.parse(localStorage.getItem('serviceList') || '[]');
+            if (services.length === 0) {
+                alert('Please select at least one service');
+                return;
+            }
+
+            // Show loading state
+            const submitBtn = this.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.querySelector('.btn-text').classList.add('d-none');
+            submitBtn.querySelector('.btn-loader').classList.remove('d-none');
+
+            // Prepare form data
+            const formData = new URLSearchParams();
+            formData.append('fullName', document.getElementById('fullName').value);
+            formData.append('gender', document.getElementById('gender').value === 'male');
+            formData.append('email', document.getElementById('email').value);
+            formData.append('mobile', document.getElementById('mobile').value);
+            formData.append('address', document.getElementById('address').value);
+            formData.append('notes', document.getElementById('notes').value);
+            formData.append('services', JSON.stringify(services));
+
+            // Submit form
+            fetch('reservationAddCustomer', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: formData
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text();
+                })
+                .then(text => {
+                    try {
+                        return JSON.parse(text);
+                    } catch (e) {
+                        console.error('Error parsing JSON:', text);
+                        throw new Error('Invalid JSON response');
+                    }
+                })
+                .then(data => {
+                    if (data.success) {
+                        localStorage.removeItem('serviceList');
+                        alert('Reservation created successfully!');
+                        window.location.href = '/ChildCare';
+                    } else {
+                        throw new Error(data.message || 'Failed to create reservation');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred: ' + error.message);
+                })
+                .finally(() => {
+                    // Reset button state
+                    submitBtn.disabled = false;
+                    submitBtn.querySelector('.btn-text').classList.remove('d-none');
+                    submitBtn.querySelector('.btn-loader').classList.add('d-none');
+                });
+        });
+    </script>
 </body>
 
 </html>
