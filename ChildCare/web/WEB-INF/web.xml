@@ -115,4 +115,36 @@
         <servlet-name>SliderDetailServlet</servlet-name>
         <url-pattern>/sliderDetail</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>ChangePasswordServlet</servlet-name>
+        <servlet-class>controller.CommonFeature.ChangePasswordServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProfileInformation</servlet-name>
+        <servlet-class>controller.CommonFeature.ProfileServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ForgotPassword</servlet-name>
+        <servlet-class>controller.CommonFeature.ForgotPassword</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServicesServlet</servlet-name>
+        <servlet-class>controller.PublicFeature.ServicesServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ChangePasswordServlet</servlet-name>
+        <url-pattern>/changePassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProfileInformation</servlet-name>
+        <url-pattern>/userProfile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ForgotPassword</servlet-name>
+        <url-pattern>/forgotPassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServicesServlet</servlet-name>
+        <url-pattern>/services</url-pattern>
+    </servlet-mapping>
 </web-app>

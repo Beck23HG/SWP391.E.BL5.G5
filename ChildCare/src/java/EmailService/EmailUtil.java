@@ -5,6 +5,7 @@
 package EmailService;
 
 import java.util.Properties;
+import java.util.Random;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -18,6 +19,12 @@ import javax.mail.internet.MimeMessage;
  * @author Admin
  */
 public class EmailUtil {
+    public static String getRandomCode() {
+        Random rnd = new Random();
+        int number = rnd.nextInt(999999);
+
+        return String.format("%06d", number);
+    }
     public static void sendEmail(String toEmail, String subject, String messageText) {
         // Cấu hình các thuộc tính cho email
         Properties props = new Properties();
@@ -27,7 +34,7 @@ public class EmailUtil {
         props.put("mail.smtp.starttls.enable", "true"); // Sử dụng TLS để bảo mật
 
         // Xác thực thông tin Gmail của bạn
-        final String fromEmail = "bachtkhg627@gmail.com"; // Email của bạn
+         final String fromEmail = "bachtkhg627@gmail.com"; // Email của bạn
         final String password = "ishggiqkscquelbv"; // Mật khẩu của bạn (có thể cần mật khẩu ứng dụng)
 
         Session session = Session.getInstance(props, new javax.mail.Authenticator() {
@@ -47,7 +54,6 @@ public class EmailUtil {
 
             // Gửi email
             Transport.send(message);
-            System.out.println("Email sent successfully to " + toEmail);
 
         } catch (MessagingException e) {
             e.printStackTrace();

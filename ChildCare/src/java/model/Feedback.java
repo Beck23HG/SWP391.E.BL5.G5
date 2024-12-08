@@ -11,17 +11,22 @@ package model;
 public class Feedback {
     private int feedbackId, customerId, serviceId, starRating;
     private String content, responseFeedback;
+    
+    private Person person;
+    private Service service;
 
     public Feedback() {
     }
 
-    public Feedback(int feedbackId, int customerId, int serviceId, int starRating, String content, String responseFeedback) {
+    public Feedback(int feedbackId, int customerId, int serviceId, int starRating, String content, String responseFeedback, Person person, Service service) {
         this.feedbackId = feedbackId;
         this.customerId = customerId;
         this.serviceId = serviceId;
         this.starRating = starRating;
         this.content = content;
         this.responseFeedback = responseFeedback;
+        this.person = person;
+        this.service = service;
     }
 
     public int getFeedbackId() {
@@ -70,6 +75,22 @@ public class Feedback {
 
     public void setResponseFeedback(String responseFeedback) {
         this.responseFeedback = responseFeedback;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
+    public Service getService() {
+        return service;
+    }
+
+    public void setService(Service service) {
+        this.service = service;
     }
     
 }
