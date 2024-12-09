@@ -142,6 +142,46 @@ public class BlogDAO extends DBContext {
         }
         return blogs;
     }
+    
+    public List<Blog> getBlogList() {
+        List<Blog> blogs = new ArrayList<>();
+
+        try {
+            String sql = "SELECT top 3 b.[BlogId], b.[Title], b.[Content], b.[Created_Date], \n"
+                    + "                    b.[Image], b.[Description], b.[PersonId], b.[CategoryId], \n"
+                    + "                     p.[PersonName] as PersonName, c.[CategoryName] as CategoryName \n"
+                    + "                     FROM [dbo].[Blog] b \n"
+                    + "                     INNER JOIN [dbo].[Person] p ON b.[PersonId] = p.[PersonId] \n"
+                    + "                     INNER JOIN [dbo].[Category] c ON b.[CategoryId] = c.[CategoryId]";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Blog blog = new Blog();
+                blog.setBlogId(rs.getInt("BlogId"));
+                blog.setTitle(rs.getString("Title"));
+                blog.setContent(rs.getString("Content"));
+                blog.setCreated_Date(rs.getDate("Created_Date"));
+                blog.setImage(rs.getString("Image"));
+                blog.setDescription(rs.getString("Description"));
+
+                Person person = new Person();
+                person.setPersonId(rs.getInt("PersonId"));
+                person.setPersonName(rs.getString("PersonName"));
+                blog.setPerson(person);
+
+                Category category = new Category();
+                category.setCategoryId(rs.getInt("CategoryId"));
+                category.setCategoryName(rs.getString("CategoryName"));
+                blog.setCategory(category);
+
+                blogs.add(blog);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return blogs;
+    }
 
     public static void main(String[] args) {
         BlogDAO blogDao = new BlogDAO();

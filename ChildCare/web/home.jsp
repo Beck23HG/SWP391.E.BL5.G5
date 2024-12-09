@@ -76,6 +76,12 @@
             .carousel-control-next {
                 right: 15px; /* Khoảng cách từ bên phải */
             }
+            .service-image img {
+                width: 100%; /* Chiều rộng chiếm toàn bộ container */
+                height: 200px; /* Đặt chiều cao cố định */
+                object-fit: cover; /* Đảm bảo hình ảnh vừa khít mà không bị méo */
+                border-radius: 5px; /* Thêm góc bo (tuỳ chọn) */
+            }
         </style>
     </head>
 
@@ -122,7 +128,7 @@
                                 <a class="nav-link active" href="home">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="services.html">Services</a>
+                                <a class="nav-link" href="services">Services</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Our Doctors</a>
@@ -149,7 +155,7 @@
                                 </c:when>
                                 <c:otherwise>
                                     <li class="nav-item ms-lg-2">
-                                        <a class="btn btn-outline-primary rounded-pill px-4" href="#">
+                                        <a class="btn btn-outline-primary rounded-pill px-4" href="userProfile">
                                             <i class="fas fa-user me-2"></i>Profile
                                         </a>
                                     </li>
@@ -320,62 +326,71 @@
             <section class="why-choose-us py-5">
                 <div class="container">
                     <div class="section-header text-center mb-5">
-                        <span class="badge bg-primary-soft mb-3">Why Choose Us</span>
-                        <h2 class="display-5 fw-bold">The Best Choice For Your Child's Future</h2>
-                        <p class="text-muted">Discover why parents trust us with their children's health</p>
+                        <span class="badge bg-primary-soft mb-3">Our Blogs</span>
+                        <h2 class="display-5 fw-bold">Information For Your Child's Future</h2>
+                        <p class="text-muted">Discover some information for children's health</p>
                     </div>
-                    <div class="row align-items-center">
-                        <div class="col-lg-6">
-                            <div class="why-choose-image position-relative">
-                                <img src="assets/images/why-choose.jpg" alt="Why Choose Us" class="img-fluid rounded-4">
-                                <div class="experience-badge">
-                                    <span class="h2 fw-bold d-block">25+</span>
-                                    <span class="text-muted">Years Experience</span>
+                    <div class="row g-4" id="blogContainer">
+                        <c:forEach items="${blogs}" var="blog">
+                            <div class="col-md-6 col-lg-4 blog-item">
+                                <article class="blog-card featured">
+                                    <div class="blog-card-image">
+                                        <img src="${blog.image}" alt="${blog.title}" class="img-fluid">
+                                        <span class="category-badge">Health Tips</span>
+                                    </div>
+                                    <div class="blog-card-content">
+                                        <div class="blog-meta">
+                                            <span><i class="far fa-calendar me-2"></i>
+                                                <fmt:formatDate value="${blog.created_Date}" pattern="MMM dd, yyyy"/>
+                                            </span>
+                                            <span><i class="far fa-clock me-2"></i>5 min read</span>
+                                        </div>
+                                        <h3 class="blog-title">${blog.title}</h3>
+                                        <p class="blog-excerpt">${blog.description}</p>
+                                        <a href="blog-detail?id=${blog.blogId}" class="btn btn-link text-primary p-0">
+                                            Read More <i class="fas fa-arrow-right ms-2"></i>
+                                        </a>
+                                    </div>
+                                </article>
+                            </div>
+                        </c:forEach>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Services Section -->
+            <section class="services-section py-5">
+                <div class="container">
+                    <div class="section-header text-center mb-5">
+                        <span class="badge bg-primary-soft mb-3">Our Services</span>
+                        <h2 class="display-5 fw-bold gradient-text">Healthcare Services for Your Child</h2>
+                        <p class="text-muted">Discover our comprehensive range of pediatric care services</p>
+                    </div>
+                    <div class="row g-4">
+
+                        <c:forEach items="${services}" var="s">
+                            <div class="service-card col-4">
+                                <div class="service-image">
+                                    <img src="${s.image}">
+                                </div>
+                                <div class="service-content">
+                                    <h3 class="service-title">
+                                        ${s.serviceName}
+                                    </h3>
+                                    <p class="service-brief">${s.description}</p>
+                                    <div class="service-price sale-price">
+                                        ${s.price}$
+                                    </div>
+                                    <div class="service-actions">
+                                        <button class="btn btn-primary">
+                                            <i class="fas fa-eye"></i>      
+                                            View detail
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="why-choose-content ps-lg-5">
-                                <div class="row g-4">
-                                    <div class="col-md-6">
-                                        <div class="choose-card">
-                                            <div class="icon-box mb-3">
-                                                <i class="fas fa-certificate"></i>
-                                            </div>
-                                            <h4>Certified Doctors</h4>
-                                            <p>Our team consists of certified and experienced pediatric specialists</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="choose-card">
-                                            <div class="icon-box mb-3">
-                                                <i class="fas fa-clock"></i>
-                                            </div>
-                                            <h4>24/7 Support</h4>
-                                            <p>Round-the-clock medical assistance for your child's needs</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="choose-card">
-                                            <div class="icon-box mb-3">
-                                                <i class="fas fa-heart"></i>
-                                            </div>
-                                            <h4>Child Friendly</h4>
-                                            <p>Warm and welcoming environment designed for children</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="choose-card">
-                                            <div class="icon-box mb-3">
-                                                <i class="fas fa-comments"></i>
-                                            </div>
-                                            <h4>Parent Support</h4>
-                                            <p>Regular consultation and guidance for parents</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        </c:forEach>
+
                     </div>
                 </div>
             </section>
@@ -389,29 +404,28 @@
                         <p class="text-muted">Hear from our happy parents about their experience</p>
                     </div>
                     <div class="row testimonials-slider">
-                        <div class="col-lg-4">
-                            <div class="testimonial-card">
-                                <div class="testimonial-content">
-                                    <div class="rating mb-3">
-                                        <i class="fas fa-heart text-primary"></i>
-                                        <i class="fas fa-heart text-primary"></i>
-                                        <i class="fas fa-heart text-primary"></i>
-                                        <i class="fas fa-heart text-primary"></i>
-                                        <i class="fas fa-heart text-primary"></i>
-                                    </div>
-                                    <p class="mb-4">"Outstanding care and attention to detail. The staff is incredibly
-                                        professional and caring. My child loves coming here!"</p>
-                                    <div class="testimonial-author d-flex align-items-center">
-                                        <img src="assets/images/parent-1.jpg" alt="Parent" class="rounded-circle">
-                                        <div class="ms-3">
-                                            <h5 class="mb-1">Sarah Thompson</h5>
-                                            <p class="small mb-0">Mother of 2</p>
+
+                        <c:forEach items="${feedbacks}" var="f">
+                            <div class="col-lg-4">
+                                <div class="testimonial-card">
+                                    <div class="testimonial-content">
+                                        <h4>Service: ${f.service.serviceName}</h4>
+                                        <div class="rating mb-3">
+                                            <c:forEach var="i" begin="1" end="5">
+                                                <i class="fas fa-heart ${i <= f.starRating ? 'text-primary' : ''}"></i>
+                                            </c:forEach>
+                                        </div>
+                                        <p class="mb-4">"${f.content}"</p>
+                                        <div class="testimonial-author d-flex align-items-center">
+                                            <img src="assets/images/Profile/${f.person.image}" alt="Parent" class="rounded-circle">
+                                            <div class="ms-3">
+                                                <h5 class="mb-1">${f.person.personName}</h5>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Add more testimonials -->
+                        </c:forEach>
                     </div>
                 </div>
             </section>
@@ -460,20 +474,6 @@
                 </div>
             </section>
 
-            <!-- Services Section -->
-            <section class="services-section py-5">
-                <div class="container">
-                    <div class="section-header text-center mb-5">
-                        <span class="badge bg-primary-soft mb-3">Our Services</span>
-                        <h2 class="display-5 fw-bold gradient-text">Healthcare Services for Your Child</h2>
-                        <p class="text-muted">Discover our comprehensive range of pediatric care services</p>
-                    </div>
-                    <div class="row g-4" id="services-container">
-                        <!-- Services will be loaded dynamically -->
-                    </div>
-                </div>
-            </section>
-
         </main>
 
         <!-- Footer Section -->
@@ -491,13 +491,14 @@
                             <a href="#"><i class="fab fa-linkedin-in"></i></a>
                         </div>
                     </div>
-                    <div class="col-lg-2">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-4">
                         <h5 class="fw-bold mb-4">Quick Links</h5>
                         <ul class="list-unstyled footer-links">
-                            <li><a href="services.html">Services</a></li>
-                            <li><a href="blogs.html">Blogs</a></li>
-                            <li><a href="contact">Contact</a></li>
-                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="#">Services</a></li>
+                            <li><a href="blog">Blogs</a></li>
+                            <li><a href="#">Contact</a></li>
+                            <li><a href="#">About Us</a></li>
                         </ul>
                     </div>
                     <div class="col-lg-3">
@@ -507,16 +508,6 @@
                             <li><i class="fas fa-envelope text-primary"></i> info@childrencare.com</li>
                             <li><i class="fas fa-location-dot text-primary"></i> 123 Healthcare St, Medical City</li>
                         </ul>
-                    </div>
-                    <div class="col-lg-3">
-                        <h5 class="fw-bold mb-4">Newsletter</h5>
-                        <p class="text-muted">Subscribe for health tips and updates</p>
-                        <form class="newsletter-form">
-                            <div class="input-group">
-                                <input type="email" class="form-control" placeholder="Your email">
-                                <button class="btn btn-primary" type="submit">Subscribe</button>
-                            </div>
-                        </form>
                     </div>
                 </div>
                 <div class="footer-bottom text-center mt-5 pt-4 border-top">

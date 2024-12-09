@@ -90,5 +90,12 @@ public class Service {
     public void setPrice(float price) {
         this.price = price;
     }
+
+    @Override
+    public String toString() {
+        return "Service{" + "serviceId=" + serviceId + ", status=" + status + ", staffId=" + staffId + ", managerId=" + managerId + ", serviceName=" + serviceName + ", description=" + description + ", image=" + image + ", price=" + price + '}';
+    }
+    
+    
     
 }

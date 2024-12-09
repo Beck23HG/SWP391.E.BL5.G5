@@ -53,7 +53,13 @@ public class RegisterServlet extends HttpServlet {
             String ms = "Email is already in use";
             request.setAttribute("ms", ms);
             request.getRequestDispatcher("register.jsp").forward(request, response);
-        } else {
+        }
+        else if(AccDB.checkExistedPhone(phone) == true){
+            String ms = "Phone is already in use";
+            request.setAttribute("ms", ms);
+            request.getRequestDispatcher("register.jsp").forward(request, response);
+        }
+        else {
             AccDB.createAccount(email, password, roleId, status, fullname, dob, gender, phone);
             String subject = "Registration Successful";
             String message = "Dear " + fullname + ",\n\nYour account in ChildCare website has been successfully created!";

@@ -117,6 +117,91 @@ public class AccountDAO extends DBContext {
         return false;
     }
 
+    
+    public boolean checkExistedPhone(String phone) {
+        String sql = """
+                     SELECT * FROM Account a join Person p on a.PersonId = p.PersonId
+                     where Phone = ?""";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, phone);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            
+        }
+        return false;
+    }
+    
+    public void updatePassword(String password, int id) {
+        try {
+            String sql = """
+                         UPDATE [Account]
+                            SET [Password] = ?
+                          WHERE AccountId = ?""";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, password);
+            statement.setInt(2, id);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void resetPassword(String password, String email) {
+        try {
+            String sql = """
+                         UPDATE [Account]
+                            SET [Password] = ?
+                          WHERE Email = ?""";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, password);
+            statement.setString(2, email);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void updateImage(String image, int id) {
+        try {
+            String sql = """
+                         UPDATE [Person]
+                            SET [Image] = ?
+                          WHERE PersonId = ?""";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, image);
+            statement.setInt(2, id);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void updateProfile(String fullname, String phone, boolean gender, java.util.Date DOB, String address, int id) {
+        try {
+            String sql = """
+                         UPDATE [Person]
+                         SET [PersonName] = ?
+                               ,[DateOfBirth] = ?
+                               ,[Gender] = ?
+                               ,[Phone] = ?
+                               ,[Address] = ?
+                          WHERE PersonId = ?""";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, fullname);
+            statement.setDate(2, new java.sql.Date(DOB.getTime()));
+            statement.setBoolean(3, gender);
+            statement.setString(4, phone);
+            statement.setString(5, address);
+            statement.setInt(6, id);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public void createAccountStaff(String email, String password, int roleID,
             int status, String personName, java.util.Date DOB,
             boolean gender, String phone, String address, String image) {
