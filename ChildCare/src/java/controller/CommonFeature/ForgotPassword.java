@@ -40,7 +40,7 @@ public class ForgotPassword extends HttpServlet {
                 boolean exists = accDB.checkExistedEmail(email);
                 if (exists) {
                     String verifyOTP = EmailUtil.getRandomCode();
-                    EmailUtil.sendEmail(email, "", verifyOTP);
+                    EmailUtil.sendEmail(email, "Reset password for ChildCare system", "Your OTP: "+verifyOTP);
                     session.setAttribute("verifyOTP", verifyOTP);
                     session.setAttribute("emailRS", email);
                     session.setAttribute("step", 2);
