@@ -11,10 +11,39 @@ import java.util.Date;
  * @author admin
  */
 public class MedicalExamination {
+
     private int meId, reservationId, staffId, customerId;
     private String symptoms, diagnosis, notes;
     private Date examinationDate;
     private float examinationFee;
+    private Person customer;
+    private Service service; // Dịch vụ được sử dụng
+    private Medicine medicine; 
+
+    public Medicine getMedicine() {
+        return medicine;
+    }
+
+    public void setMedicine(Medicine medicine) {
+        this.medicine = medicine;
+    }
+
+    // Getter và Setter cho service
+    public Service getService() {
+        return service;
+    }
+
+    public void setService(Service service) {
+        this.service = service;
+    }
+
+    public Person getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Person customer) {
+        this.customer = customer;
+    }
 
     public MedicalExamination() {
     }
@@ -102,5 +131,5 @@ public class MedicalExamination {
     public void setExaminationFee(float examinationFee) {
         this.examinationFee = examinationFee;
     }
-    
+
 }

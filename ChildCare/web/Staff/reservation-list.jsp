@@ -61,11 +61,11 @@
                 <i class="fas fa-list"></i>
                 <span>Services List</span>
             </a>
-            <a href="#" class="nav-item">
+            <a href="reservationlist" class="nav-item">
                 <i class="fas fa-calendar-check"></i>
                 <span>Reservations</span>
             </a>
-            <a href="#" class="nav-item">
+            <a href="medicalexamination" class="nav-item">
                 <i class="fas fa-stethoscope"></i>
                 <span>Medical Examinations</span>
             </a>
@@ -197,7 +197,7 @@
                 <tbody>
                     <c:forEach var="reservation" items="${reservations}">
                         <tr>
-                            <td><a href="reservation-details.jsp?id=${reservation.reservationId}">${reservation.reservationId}</a></td>
+                            <td><a href="reservationdetail?id=${reservation.reservationId}">${reservation.reservationId}</a></td>
                             <td>${reservation.reservationDate}</td>
                             <td>${reservation.customer.personName}</td>
                             <td>${reservation.service.serviceName}</td> 
@@ -299,5 +299,25 @@
             </div>
         </div>
     </div>
+    
+    <script>
+        document.querySelector('form').addEventListener('submit', function (event) {
+            const dateFrom = document.querySelector('input[name="dateFrom"]').value;
+            const dateTo = document.querySelector('input[name="dateTo"]').value;
+
+            // Kiểm tra nếu cả hai ngày được nhập
+            if (dateFrom && dateTo) {
+                const fromDate = new Date(dateFrom);
+                const toDate = new Date(dateTo);
+
+                // Kiểm tra nếu ngày bắt đầu lớn hơn ngày kết thúc
+                if (fromDate > toDate) {
+                    event.preventDefault(); // Ngăn chặn form được submit
+                    alert('Start date must be less than or equal to the end date. Please correct the dates.');
+                }
+            }
+        });
+    </script>
+
 </body>
 </html>

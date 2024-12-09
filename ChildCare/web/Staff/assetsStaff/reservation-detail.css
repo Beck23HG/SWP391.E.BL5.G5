@@ -1,0 +1,127 @@
+
+/* Additional Custom Styles */
+.details-section {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-item label {
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 5px;
+    font-size: 0.9em;
+}
+
+.detail-item.full-width {
+    grid-column: span 4;
+}
+
+.single-service {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.service-thumbnail img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 20px;
+}
+
+.service-details {
+    flex-grow: 1;
+}
+
+.service-details h3 {
+    margin: 0 0 15px 0;
+    color: #333;
+    font-size: 1.5em;
+}
+
+.service-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.service-info {
+    display: flex;
+    gap: 15px;
+    color: #666;
+}
+
+.service-info span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.service-pricing .service-cost {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #4a4a4a;
+}
+
+.service-description {
+    color: #666;
+    line-height: 1.6;
+}
+
+.action-section {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+}
+
+.status-select {
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+@media (max-width: 768px) {
+    .details-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .single-service {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .service-thumbnail {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+
+    .service-meta {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .service-info {
+        flex-direction: column;
+        align-items: center;
+    }
+}
