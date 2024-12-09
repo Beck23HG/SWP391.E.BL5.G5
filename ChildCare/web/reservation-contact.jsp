@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -258,7 +259,7 @@
                                         </div>
                                     </div>
                                     <div class="col-12 text-end">
-                                        <button type="button" class="btn btn-outline-secondary me-2" onclick="window.location.href = '/reservation-detail'">
+                                        <button type="button" class="btn btn-outline-secondary me-2" onclick="window.location.href = 'reservationView'">
                                                 Back to Details
                                             </button>
                                         <button type="submit" class="btn btn-primary">
