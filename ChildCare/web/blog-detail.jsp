@@ -27,66 +27,92 @@
         </head>
 
         <body>
-            <!-- Include Header -->
-            <header class="header">
-                <nav class="navbar navbar-expand-lg navbar-light">
-                    <div class="container">
-                        <a class="navbar-brand" href="index.html">
-                            <img src="assets/images/children-care-logo-removebg.png" alt="Children Care Logo" class="logo">
-                        </a>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                        <div class="collapse navbar-collapse" id="navbarNav">
-                            <ul class="navbar-nav ms-auto align-items-center">
-                                <li class="nav-item">
-                                    <a class="nav-link active" href="home">Home</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="services.html">Services</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Our Doctors</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="blog">Blogs</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Contact</a>
-                                </li>
-                                <li class="nav-item ms-lg-3">
-                                    <a class="btn btn-primary rounded-pill px-4" href="#">
-                                        <i class="fas fa-calendar-check me-2"></i>Book Appointment
-                                    </a>
-                                </li>
-
-                                <c:choose>
-                                    <c:when test="${sessionScope.account == null}">
-                                        <li class="nav-item ms-lg-2">
-                                            <a class="btn btn-outline-primary rounded-pill px-4" href="login">
-                                                <i class="fas fa-user me-2"></i>Login
-                                            </a>
-                                        </li>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <li class="nav-item ms-lg-2">
-                                            <a class="btn btn-outline-primary rounded-pill px-4" href="#">
-                                                <i class="fas fa-user me-2"></i>Profile
-                                            </a>
-                                        </li>
-                                        <li class="nav-item ms-lg-2">
-                                            <a class="btn btn-outline-danger rounded-pill px-4" href="logout">
-                                                <i class="fas fa-sign-out-alt me-2"></i>Logout
-                                            </a>
-                                        </li>
-                                    </c:otherwise>
-                                </c:choose>
-
-                            </ul>
+            <!-- Top Bar -->
+        <div class="top-bar py-2 d-none d-lg-block">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-8">
+                        <div class="d-flex text-muted">
+                            <div class="me-4">
+                                <i class="fas fa-phone-alt me-2"></i>Emergency: +1 234 567 890
+                            </div>
+                            <div>
+                                <i class="fas fa-clock me-2"></i>Opening Hours: Mon - Fri, 8AM - 9PM
+                            </div>
                         </div>
                     </div>
-                </nav>
-            </header>
+                    <div class="col-lg-4">
+                        <div class="social-links text-end">
+                            <a href="#" class="me-3"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="me-3"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="me-3"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Header Section -->
+        <header class="header">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="container">
+                    <a class="navbar-brand" href="home">
+                        <img src="assets/images/children-care-logo-removebg.png" alt="Children Care Logo" class="logo">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ms-auto align-items-center">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="home">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="services">Services</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Our Doctors</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="blog">Blogs</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Contact</a>
+                            </li>
+                            <li class="nav-item ms-lg-3">
+                                <a class="btn btn-primary rounded-pill px-4" href="reservationView">
+                                    <i class="fas fa-calendar-check me-2"></i>Book Appointment
+                                </a>
+                            </li>
+
+                            <c:choose>
+                                <c:when test="${sessionScope.account == null}">
+                                    <li class="nav-item ms-lg-2">
+                                        <a class="btn btn-outline-primary rounded-pill px-4" href="login">
+                                            <i class="fas fa-user me-2"></i>Login
+                                        </a>
+                                    </li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="nav-item ms-lg-2">
+                                        <a class="btn btn-outline-primary rounded-pill px-4" href="userProfile">
+                                            <i class="fas fa-user me-2"></i>Profile
+                                        </a>
+                                    </li>
+                                    <li class="nav-item ms-lg-2">
+                                        <a class="btn btn-outline-danger rounded-pill px-4" href="logout">
+                                            <i class="fas fa-sign-out-alt me-2"></i>Logout
+                                        </a>
+                                    </li>
+                                </c:otherwise>
+                            </c:choose>
+
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
 
             <!-- Main Content Area -->
             <main id="main-content">
@@ -244,51 +270,43 @@
 
             <!-- Footer -->
             <footer class="footer bg-light py-5">
-                <div class="container">
-                    <div class="row g-4">
-                        <div class="col-lg-4">
-                            <h5 class="fw-bold mb-4">About Children Care</h5>
-                            <p class="text-muted">Providing comprehensive healthcare services for children with care, compassion, and expertise.</p>
-                            <div class="social-links mt-4">
-                                <a href="#" class="me-3"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#" class="me-3"><i class="fab fa-twitter"></i></a>
-                                <a href="#" class="me-3"><i class="fab fa-instagram"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                            </div>
-                        </div>
-                        <div class="col-lg-2">
-                            <h5 class="fw-bold mb-4">Quick Links</h5>
-                            <ul class="list-unstyled footer-links">
-                                <li><a href="/services">Services</a></li>
-                                <li><a href="/blogs">Blogs</a></li>
-                                <li><a href="/contact">Contact</a></li>
-                                <li><a href="/about">About Us</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-lg-3">
-                            <h5 class="fw-bold mb-4">Contact Info</h5>
-                            <ul class="list-unstyled contact-info">
-                                <li><i class="fas fa-phone text-primary"></i> +1 234 567 890</li>
-                                <li><i class="fas fa-envelope text-primary"></i> info@childrencare.com</li>
-                                <li><i class="fas fa-location-dot text-primary"></i> 123 Healthcare St, Medical City</li>
-                            </ul>
-                        </div>
-                        <div class="col-lg-3">
-                            <h5 class="fw-bold mb-4">Newsletter</h5>
-                            <p class="text-muted">Subscribe for health tips and updates</p>
-                            <form class="newsletter-form">
-                                <div class="input-group">
-                                    <input type="email" class="form-control" placeholder="Your email">
-                                    <button class="btn btn-primary" type="submit">Subscribe</button>
-                                </div>
-                            </form>
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-lg-4">
+                        <h5 class="fw-bold mb-4">About Children Care</h5>
+                        <p class="text-muted">Providing comprehensive healthcare services for children with care,
+                            compassion, and expertise.</p>
+                        <div class="social-links mt-4">
+                            <a href="#" class="me-3"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="me-3"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="me-3"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
                         </div>
                     </div>
-                    <div class="footer-bottom text-center mt-5 pt-4 border-top">
-                        <p class="mb-0"> 2024 Children Care. All rights reserved.</p>
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-4">
+                        <h5 class="fw-bold mb-4">Quick Links</h5>
+                        <ul class="list-unstyled footer-links">
+                            <li><a href="services">Services</a></li>
+                            <li><a href="blog">Blogs</a></li>
+                            <li><a href="#">Contact</a></li>
+                            <li><a href="#">About Us</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3">
+                        <h5 class="fw-bold mb-4">Contact Info</h5>
+                        <ul class="list-unstyled contact-info">
+                            <li><i class="fas fa-phone text-primary"></i> +1 234 567 890</li>
+                            <li><i class="fas fa-envelope text-primary"></i> info@childrencare.com</li>
+                            <li><i class="fas fa-location-dot text-primary"></i> 123 Healthcare St, Medical City</li>
+                        </ul>
                     </div>
                 </div>
-            </footer>
+                <div class="footer-bottom text-center mt-5 pt-4 border-top">
+                    <p class="mb-0">© 2024 Children Care. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
 
             <!-- Scripts -->
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
