@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservation Details - Healthcare Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="../Admin/assets/css/style.css" rel="stylesheet" type="text/css"/>
+    <link href="../Admin/assets/css/feedbacks.css" rel="stylesheet" type="text/css"/>
+    <link href="../Admin/assets/css/reservation.css" rel="stylesheet" type="text/css"/>
+    <link href="assetsStaff/reservation-detail.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">HealthCare Admin</div>
+        </div>
+
+        <!-- Staff Section -->
+        <div class="nav-section">
+            <div class="nav-section-title">Staff Management</div>
+            <a href="services.html" class="nav-item">
+                <i class="fas fa-list"></i>
+                <span>Services List</span>
+            </a>
+            <a href="#" class="nav-item active">
+                <i class="fas fa-calendar-check"></i>
+                <span>Reservations</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-stethoscope"></i>
+                <span>Medical Examinations</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-users"></i>
+                <span>Customers</span>
+            </a>
+            <a href="feedbacks.html" class="nav-item">
+                <i class="fas fa-comments"></i>
+                <span>Feedbacks</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-prescription"></i>
+                <span>Prescriptions</span>
+            </a>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <!-- Top Navigation -->
+        <div class="top-nav">
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search...">
+            </div>
+            <div class="user-menu">
+                <div class="notifications-wrapper">
+                    <div class="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="notifications-count">3</span>
+                    </div>
+                    <div class="notifications-dropdown">
+                        <div class="notifications-header">
+                            <span class="notifications-title">Notifications</span>
+                            <span class="mark-all-read">Mark all as read</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="user-profile-wrapper">
+                    <div class="user-profile">
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="user-info">
+                            <span class="user-name">John Doe</span>
+                            <span class="user-role">Administrator</span>
+                        </div>
+                    </div>
+                    <div class="user-dropdown">
+                        <div class="user-dropdown-header">
+                            <div class="user-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="user-name">John Doe</div>
+                            <div class="user-role">Administrator</div>
+                        </div>
+                        <a href="#" class="user-dropdown-item">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Sign Out</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reservation Details Content -->
+        <div class="page-container">
+            <div class="page-header">
+                <h1>Reservation Details</h1>
+                <div class="action-buttons">
+                    <a href="reservationlist" class="btn btn-back">
+                        <i class="fas fa-arrow-left"></i> Back to Reservation Management
+                    </a>
+                </div>
+            </div>
+
+            <div class="reservation-details-container">
+                <!-- Reservation Basic Information -->
+                <div class="details-section">
+                    <h2>Reservation Information</h2>
+                    <div class="details-grid">
+                        <div class="detail-item">
+                            <label>Reservation ID</label>
+                            <span>#RES12345</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Customer Name</label>
+                            <span>Emma Johnson</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Email</label>
+                            <span>emma.johnson@example.com</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Mobile</label>
+                            <span>+1 (555) 123-4567</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Reservation Date</label>
+                            <span>December 15, 2024</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Total Cost</label>
+                            <span>$350.00</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Reservation Name</label>
+                            <span>Annual Health Check-up</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Status</label>
+                            <select class="status-select">
+                                <option value="pending">Pending</option>
+                                <option value="confirmed" selected>Confirmed</option>
+                                <option value="completed">Completed</option>
+                                <option value="cancelled">Cancelled</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Receiver Information -->
+                <div class="details-section">
+                    <h2>Receiver Information</h2>
+                    <div class="details-grid">
+                        <div class="detail-item">
+                            <label>Full Name</label>
+                            <span>Emma Johnson</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Gender</label>
+                            <span>Female</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Email</label>
+                            <span>emma.johnson@example.com</span>
+                        </div>
+                        <div class="detail-item">
+                            <label>Mobile</label>
+                            <span>+1 (555) 123-4567</span>
+                        </div>
+                        <div class="detail-item full-width">
+                            <label>Address</label>
+                            <span>123 Health Street, Wellness City, HC 54321</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reserved Service -->
+                <div class="details-section">
+                    <h2>Reserved Service</h2>
+                    <div class="service-item single-service">
+                        <div class="service-thumbnail">
+                            <img src="/api/placeholder/200/200" alt="Service Thumbnail">
+                        </div>
+                        <div class="service-details">
+                            <h3>Full Body Health Check-up</h3>
+                            <div class="service-meta">
+                                <div class="service-info">
+                                    <span class="service-category">
+                                        <i class="fas fa-tag"></i> Medical Examination
+                                    </span>
+                                    <span class="service-duration">
+                                        <i class="fas fa-clock"></i> 2 hours
+                                    </span>
+                                </div>
+                                <div class="service-pricing">
+                                    <span class="service-cost">$350.00</span>
+                                </div>
+                            </div>
+                            <div class="service-description">
+                                Comprehensive health examination including physical check-up, blood tests, and detailed health assessment.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="details-section action-section">
+                    <button class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save Changes
+                    </button>
+                    <button class="btn btn-secondary">
+                        <i class="fas fa-print"></i> Print Details
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -4,6 +4,14 @@
         <servlet-name>ReservationListServlet</servlet-name>
         <servlet-class>controller.Staff.ReservationListServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ReservationDetailServlet</servlet-name>
+        <servlet-class>controller.Staff.ReservationDetailServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MedicalExaminationServlet</servlet-name>
+        <servlet-class>controller.Staff.MedicalExaminationServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>EditUserServlet</servlet-name>
         <url-pattern>/Admin/edituser</url-pattern>
@@ -11,6 +19,14 @@
     <servlet-mapping>
         <servlet-name>ReservationListServlet</servlet-name>
         <url-pattern>/Staff/reservationlist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReservationDetailServlet</servlet-name>
+        <url-pattern>/Staff/reservationdetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MedicalExaminationServlet</servlet-name>
+        <url-pattern>/Staff/medicalexamination</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home</welcome-file>

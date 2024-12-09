@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Examinations - Healthcare Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="../Admin/assets/css/style.css" rel="stylesheet" type="text/css"/>
+    <link href="../Admin/assets/css/feedbacks.css" rel="stylesheet" type="text/css"/>
+    <link href="../Admin/assets/css/reservation.css" rel="stylesheet" type="text/css"/>
+    <link href="assetsStaff/medical-examination.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<body>
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">HealthCare Admin</div>
+        </div>
+
+        <!-- Staff Section (Same as previous HTML) -->
+        <div class="nav-section">
+            <div class="nav-section-title">Staff Management</div>
+            <a href="services.html" class="nav-item">
+                <i class="fas fa-list"></i>
+                <span>Services List</span>
+            </a>
+            <a href="reservationlist" class="nav-item">
+                <i class="fas fa-calendar-check"></i>
+                <span>Reservations</span>
+            </a>
+            <a href="medical-examination.html" class="nav-item active">
+                <i class="fas fa-stethoscope"></i>
+                <span>Medical Examinations</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-users"></i>
+                <span>Customers</span>
+            </a>
+            <a href="feedbacks.html" class="nav-item">
+                <i class="fas fa-comments"></i>
+                <span>Feedbacks</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-prescription"></i>
+                <span>Prescriptions</span>
+            </a>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="top-nav">
+            <!-- Top navigation from previous HTML -->
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search...">
+            </div>
+            <div class="user-menu">
+                <div class="notifications-wrapper">
+                    <div class="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="notifications-count">3</span>
+                    </div>
+                </div>
+                <div class="user-profile-wrapper">
+                    <div class="user-profile">
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="user-info">
+                            <span class="user-name">John Doe</span>
+                            <span class="user-role">Administrator</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-header">
+            <div class="header-content">
+                <h1>Medical Examinations</h1>
+            </div>
+        </div>
+
+        <div class="medical-exam-container">
+            <div class="filter-section">
+                <select id="service-filter">
+                    <option value="">All Services</option>
+                    <option value="general-checkup">General Checkup</option>
+                    <option value="blood-test">Blood Test</option>
+                    <option value="vaccination">Vaccination</option>
+                </select>
+                <input type="date" id="date-filter">
+                <input type="text" id="medicine-filter" placeholder="Medicine Name">
+                <input type="text" id="medicine-filter" placeholder="Patient Name">
+                <button class="btn btn-primary">Apply Filters</button>
+                <button class="btn btn-success" onclick="openAddPrescriptionModal()">
+                    <i class="fas fa-plus"></i> Add Prescription
+                </button>
+            </div>
+
+            <table class="medical-history-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Patient Name</th>
+                        <th>Services</th>
+                        <th>Prescribed Medicines</th>
+                        <th class="actions-column">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2024-01-15</td>
+                        <td>Emily Johnson</td>
+                        <td>General Checkup, Blood Test</td>
+                        <td>Amoxicillin, Vitamin D</td>
+                        <td class="actions-column">
+                            <i class="fas fa-eye action-btn" title="View Details"></i>
+                            <i class="fas fa-edit action-btn" title="Edit"></i>
+                            <i class="fas fa-trash action-btn" title="Delete"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2024-02-03</td>
+                        <td>Michael Chen</td>
+                        <td>Vaccination</td>
+                        <td>Flu Vaccine</td>
+                        <td class="actions-column">
+                            <i class="fas fa-eye action-btn" title="View Details"></i>
+                            <i class="fas fa-edit action-btn" title="Edit"></i>
+                            <i class="fas fa-trash action-btn" title="Delete"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Add Prescription Modal -->
+    <div id="addPrescriptionModal" class="add-prescription-modal">
+        <div class="modal-content">
+            <h2>Add New Prescription</h2>
+            <form>
+                <div class="form-group">
+                    <label>Patient Name</label>
+                    <input type="text" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Service</label>
+                    <select class="form-control">
+                        <option>General Checkup</option>
+                        <option>Blood Test</option>
+                        <option>Vaccination</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Medicines</label>
+                    <input type="text" class="form-control" placeholder="Enter medicine names">
+                </div>
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="date" class="form-control" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeAddPrescriptionModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Prescription</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openAddPrescriptionModal() {
+            document.getElementById('addPrescriptionModal').style.display = 'block';
+        }
+
+        function closeAddPrescriptionModal() {
+            document.getElementById('addPrescriptionModal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
