@@ -147,7 +147,7 @@
                                 <a class="nav-link" href="#">Contact</a>
                             </li>
                             <li class="nav-item ms-lg-3">
-                                <a class="btn btn-primary rounded-pill px-4" href="#">
+                                <a class="btn btn-primary rounded-pill px-4" href="reservationView">
                                     <i class="fas fa-calendar-check me-2"></i>Book Appointment
                                 </a>
                             </li>
@@ -401,7 +401,7 @@
                     <div class="col-lg-4">
                         <h5 class="fw-bold mb-4">Quick Links</h5>
                         <ul class="list-unstyled footer-links">
-                            <li><a href="#">Services</a></li>
+                            <li><a href="services">Services</a></li>
                             <li><a href="blog">Blogs</a></li>
                             <li><a href="#">Contact</a></li>
                             <li><a href="#">About Us</a></li>
