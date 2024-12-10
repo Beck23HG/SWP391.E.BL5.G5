@@ -140,7 +140,7 @@
                                 <a class="nav-link" href="#">Contact</a>
                             </li>
                             <li class="nav-item ms-lg-3">
-                                <a class="btn btn-primary rounded-pill px-4" href="#">
+                                <a class="btn btn-primary rounded-pill px-4" href="reservationView">
                                     <i class="fas fa-calendar-check me-2"></i>Book Appointment
                                 </a>
                             </li>
