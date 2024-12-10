@@ -168,21 +168,26 @@
                 </button>
             </div>
         </div>
-
+        <c:if test="${not empty message}">
+            <div style="color: green;">${message}</div>
+        </c:if>
+        <c:if test="${not empty error}">
+            <div style="color: red;">${error}</div>
+        </c:if>
         <div class="medical-exam-container">
             <!-- Bộ lọc dữ liệu -->
             <div class="filter-section">
                 <form action="medicalexamination" method="post">
-                    <select name="serviceFilter">
+<!--                    <select name="serviceFilter">
                         <option value="">All Service</option>
                         <c:forEach var="service" items="${services}">
                             <option value="${service.serviceName}">${service.serviceName}</option>
                         </c:forEach>
-                    </select>
+                    </select>-->
                     <input type="date" name="dateFrom" placeholder="From Date">
                     <input type="date" name="dateTo" placeholder="To Date">
-                    <input type="text" name="medicineName" placeholder="Medicine Name">
-                    <input type="text" name="patientName" placeholder="Patient Name">
+                    <input type="text" name="medicineFilter" placeholder="Medicine Name">
+                    <input type="text" name="patientNameFilter" placeholder="Patient Name">
                     <button type="submit">Apply Filter</button>
                 </form>
             </div>
@@ -193,7 +198,7 @@
                     <tr>
                         <th>Date</th>
                         <th>Patient Name</th>
-                        <th>Services</th>
+<!--                        <th>Services</th>-->
                         <th>Medicines Name</th>
                         <th>Symptoms</th>
                         <th>Diagnosis</th>
@@ -205,7 +210,7 @@
                         <tr>
                             <td>${history.examinationDate}</td>
                             <td>${history.customer.personName}</td>
-                            <td>${history.service.serviceName}</td>
+<!--                            <td>${history.service.serviceName}</td>-->
                             <td>${history.medicine.name}</td>
                             <td>${history.symptoms}</td>
                             <td>${history.diagnosis}</td>
@@ -221,57 +226,71 @@
     <div id="addPrescriptionModal" style="display:none;">
         <div class="modal-content">
             <h2>Add New Prescription</h2>
-            <form method="post" action="medicalexamination?action=addPrescription">
-                <!-- Examination ID -->
+            <form method="post" action="medicalexamination">
+                <input type="hidden" name="action" value="addMedicalExamination">
                 <div>
-                    <label for="examinationId">Examination </label>
-                    <input type="text" id="examinationId" name="examinationId" placeholder="Enter Examination " required>
+                    <label for="reservationId">Reservation ID</label>
+                    <input type="text" id="reservationId" name="reservationId" placeholder="Enter Reservation ID" required>
                 </div>
-
-                <!-- Doctor ID -->
                 <div>
-                    <label for="doctorId">Doctor </label>
-                    <input type="text" id="doctorId" name="doctorId" placeholder="Enter Doctor " required>
+                    <label for="customerId">Customer ID</label>
+                    <input type="text" id="customerId" name="customerId" placeholder="Enter Customer ID" required>
                 </div>
-
-                <!-- Customer ID -->
                 <div>
-                    <label for="customerId">Customer </label>
-                    <input type="text" id="customerId" name="customerId" placeholder="Enter Customer " required>
-                </div>
-
-                <!-- Medicine ID -->
-                <div>
-                    <label for="medicineId">Medicine</label>
-                    <select name="medicineFilter">
-                        <c:forEach var="medicine" items="${medicines}">
-                            <option value="${medicine.name}">${medicine.name}</option>
+                    <label for="serviceId">Service</label>
+                    <select id="serviceId" name="serviceId" required>
+                        <c:forEach var="service" items="${services}">
+                            <option value="${service.serviceId}">${service.serviceName}</option>
                         </c:forEach>
                     </select>
                 </div>
-
-                <!-- Dosage -->
+                <div>
+                    <label for="staffId">Staff ID</label>
+                    <input type="text" id="staffId" name="staffId" placeholder="Enter Staff ID" required>
+                </div>
+                <div>
+                    <label for="doctorId">Doctor ID</label> <!-- Thêm DoctorId -->
+                    <input type="text" id="doctorId" name="doctorId" placeholder="Enter Doctor ID" required>
+                </div>
+                <div>
+                    <label for="symptoms">Symptoms</label>
+                    <input type="text" id="symptoms" name="symptoms" placeholder="Enter Symptoms" required>
+                </div>
+                <div>
+                    <label for="diagnosis">Diagnosis</label>
+                    <input type="text" id="diagnosis" name="diagnosis" placeholder="Enter Diagnosis" required>
+                </div>
+                <div>
+                    <label for="notes">Notes</label>
+                    <textarea id="notes" name="notes" placeholder="Enter Notes"></textarea>
+                </div>
+                <div>
+                    <label for="examinationFee">Examination Fee</label>
+                    <input type="number" id="examinationFee" name="examinationFee" placeholder="Enter Examination Fee" required>
+                </div>
+                <div>
+                    <label for="medicineId">Medicine</label>
+                    <select id="medicineId" name="medicineId" required>
+                        <c:forEach var="medicine" items="${medicines}">
+                            <option value="${medicine.medicineId}">${medicine.name}</option>
+                        </c:forEach>
+                    </select>
+                </div>
                 <div>
                     <label for="dosage">Dosage</label>
                     <input type="text" id="dosage" name="dosage" placeholder="Enter Dosage" required>
                 </div>
-
-                <!-- Note -->
                 <div>
-                    <label for="note">Note</label>
-                    <textarea id="note" name="note" placeholder="Enter Notes"></textarea>
+                    <label for="prescriptionNote">Prescription Note</label>
+                    <textarea id="prescriptionNote" name="prescriptionNote" placeholder="Enter Prescription Notes"></textarea>
                 </div>
-
-                <!-- Total Cost -->
                 <div>
                     <label for="totalCost">Total Cost</label>
                     <input type="number" id="totalCost" name="totalCost" placeholder="Enter Total Cost" required>
                 </div>
-
-                <!-- Buttons -->
-                <div style="margin-top: 20px;">
-                    <button type="submit" style="background-color: #28a745; color: white; padding: 10px 20px; border: none; border-radius: 5px;">Save</button>
-                    <button type="button" onclick="closeAddPrescriptionModal()" style="background-color: #dc3545; color: white; padding: 10px 20px; border: none; border-radius: 5px;">Cancel</button>
+                <div>
+                    <button type="submit">Save</button>
+                    <button type="button" onclick="closeAddPrescriptionModal()">Cancel</button>
                 </div>
             </form>
         </div>

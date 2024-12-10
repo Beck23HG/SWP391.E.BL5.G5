@@ -53,7 +53,7 @@ public class ReservationListServlet extends HttpServlet {
             page = Integer.parseInt(pageParam);
         }
 
-        int pageSize = 2; // Số bản ghi trên mỗi trang
+        int pageSize = 10; // Số bản ghi trên mỗi trang
 
         // Tạo đối tượng DAO để lấy dữ liệu từ database
         ReservationDAO reservationDAO = new ReservationDAO();

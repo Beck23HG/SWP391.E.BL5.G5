@@ -67,21 +67,160 @@ public class MedicalDAO extends DBContext {
         return medicalHistory;
     }
 
-    public boolean addPrescription(int examinationId, int medicineId, String dosage, String note, float totalCost) {
-        String sql = "INSERT INTO Prescription (ExaminationId, MedicineId, Dosage, Note, TotalCost) "
-                + "VALUES (?, ?, ?, ?, ?)";
-        try (PreparedStatement stm = connection.prepareStatement(sql)) {
-            stm.setInt(1, examinationId);
-            stm.setInt(2, medicineId);
-            stm.setString(3, dosage);
-            stm.setString(4, note);
-            stm.setFloat(5, totalCost);
-            int rows = stm.executeUpdate();
-            return rows > 0;
+    public boolean addMedicalExaminationAndPrescription(
+            int reservationId,
+            int customerId,
+            int staffId,
+            String symptoms,
+            String diagnosis,
+            String notes,
+            float examinationFee,
+            int medicineId,
+            String dosage,
+            String prescriptionNote,
+            float totalCost,
+            int doctorId,
+            int serviceId // Thêm ServiceId
+    ) {
+        String insertMedicalExaminationSQL = "INSERT INTO MedicalExamination (ReservationId, CustomerId, StaffId, Symptoms, Diagnosis, Notes, ExaminationDate, ExaminationFee) "
+                + "VALUES (?, ?, ?, ?, ?, ?, GETDATE(), ?)";
+        String insertPrescriptionSQL = "INSERT INTO Prescription (ExaminationId, DoctorId, CustomerId, MedicineId, Dosage, Note, TotalCost) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String insertPersonsServicesSQL = "INSERT INTO Persons_Services (PersonId, ServiceId) VALUES (?, ?)";
+
+        try {
+            connection.setAutoCommit(false); // Bắt đầu giao dịch
+
+            // Thêm bản ghi vào bảng MedicalExamination
+            PreparedStatement medicalStm = connection.prepareStatement(insertMedicalExaminationSQL, PreparedStatement.RETURN_GENERATED_KEYS);
+            medicalStm.setInt(1, reservationId);
+            medicalStm.setInt(2, customerId);
+            medicalStm.setInt(3, staffId);
+            medicalStm.setString(4, symptoms);
+            medicalStm.setString(5, diagnosis);
+            medicalStm.setString(6, notes);
+            medicalStm.setFloat(7, examinationFee);
+            medicalStm.executeUpdate();
+
+            // Lấy ID của bản ghi vừa thêm vào bảng MedicalExamination
+            ResultSet rs = medicalStm.getGeneratedKeys();
+            int examinationId = -1;
+            if (rs.next()) {
+                examinationId = rs.getInt(1);
+            }
+            rs.close();
+            medicalStm.close();
+
+            if (examinationId == -1) {
+                System.err.println("Failed to retrieve generated ExaminationId.");
+                connection.rollback();
+                return false;
+            }
+
+            // Thêm bản ghi vào bảng Prescription
+            PreparedStatement prescriptionStm = connection.prepareStatement(insertPrescriptionSQL);
+            prescriptionStm.setInt(1, examinationId);
+            prescriptionStm.setInt(2, doctorId);
+            prescriptionStm.setInt(3, customerId);
+            prescriptionStm.setInt(4, medicineId);
+            prescriptionStm.setString(5, dosage);
+            prescriptionStm.setString(6, prescriptionNote);
+            prescriptionStm.setFloat(7, totalCost);
+            prescriptionStm.executeUpdate();
+            prescriptionStm.close();
+
+            // Thêm bản ghi vào bảng Persons_Services
+            PreparedStatement personsServicesStm = connection.prepareStatement(insertPersonsServicesSQL);
+            personsServicesStm.setInt(1, customerId);
+            personsServicesStm.setInt(2, serviceId); // Liên kết với ServiceId
+            personsServicesStm.executeUpdate();
+            personsServicesStm.close();
+
+            connection.commit(); // Xác nhận giao dịch
+            return true;
+
         } catch (SQLException e) {
             e.printStackTrace();
+            try {
+                connection.rollback(); // Hoàn tác nếu xảy ra lỗi
+            } catch (SQLException rollbackEx) {
+                rollbackEx.printStackTrace();
+            }
+        } finally {
+            try {
+                connection.setAutoCommit(true); // Đặt lại trạng thái tự động commit
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
-        return false;
+        return false; // Trả về false nếu xảy ra lỗi
+    }
+
+    public boolean addMedicalExaminationAndPrescription(int reservationId, int customerId, int staffId, String symptoms, String diagnosis, String notes, float examinationFee, int medicineId, String dosage, String prescriptionNote, float totalCost, int doctorId) {
+        String insertMedicalExaminationSQL = "INSERT INTO MedicalExamination (ReservationId, CustomerId, StaffId, Symptoms, Diagnosis, Notes, ExaminationDate, ExaminationFee) "
+                + "VALUES (?, ?, ?, ?, ?, ?, GETDATE(), ?)";
+        String insertPrescriptionSQL = "INSERT INTO Prescription (ExaminationId, DoctorId, CustomerId, MedicineId, Dosage, Note, TotalCost) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+        try {
+            connection.setAutoCommit(false); // Bắt đầu giao dịch
+
+            // Thêm bản ghi vào bảng MedicalExamination
+            PreparedStatement medicalStm = connection.prepareStatement(insertMedicalExaminationSQL, PreparedStatement.RETURN_GENERATED_KEYS);
+            medicalStm.setInt(1, reservationId);
+            medicalStm.setInt(2, customerId);
+            medicalStm.setInt(3, staffId);
+            medicalStm.setString(4, symptoms);
+            medicalStm.setString(5, diagnosis);
+            medicalStm.setString(6, notes);
+            medicalStm.setFloat(7, examinationFee);
+            medicalStm.executeUpdate();
+
+            // Lấy ID của bản ghi vừa thêm vào bảng MedicalExamination
+            ResultSet rs = medicalStm.getGeneratedKeys();
+            int examinationId = -1;
+            if (rs.next()) {
+                examinationId = rs.getInt(1);
+            }
+            rs.close();
+            medicalStm.close();
+
+            if (examinationId == -1) {
+                System.err.println("Failed to retrieve generated ExaminationId.");
+                connection.rollback();
+                return false;
+            }
+
+            // Thêm bản ghi vào bảng Prescription
+            PreparedStatement prescriptionStm = connection.prepareStatement(insertPrescriptionSQL);
+            prescriptionStm.setInt(1, examinationId);
+            prescriptionStm.setInt(2, doctorId); // Thêm DoctorId
+            prescriptionStm.setInt(3, customerId);
+            prescriptionStm.setInt(4, medicineId);
+            prescriptionStm.setString(5, dosage);
+            prescriptionStm.setString(6, prescriptionNote);
+            prescriptionStm.setFloat(7, totalCost);
+            prescriptionStm.executeUpdate();
+            prescriptionStm.close();
+
+            connection.commit(); // Xác nhận giao dịch
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try {
+                connection.rollback(); // Hoàn tác nếu xảy ra lỗi
+            } catch (SQLException rollbackEx) {
+                rollbackEx.printStackTrace();
+            }
+        } finally {
+            try {
+                connection.setAutoCommit(true); // Đặt lại trạng thái tự động commit
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false; // Trả về false nếu xảy ra lỗi
     }
 
     // Lấy danh sách dịch vụ
@@ -120,5 +259,47 @@ public class MedicalDAO extends DBContext {
         return medicines;
     }
 
+    public static void main(String[] args) {
+        MedicalDAO dao = new MedicalDAO();
+
+        // Giá trị giả lập để kiểm tra
+        int reservationId = 1; // ID đặt chỗ (thay bằng ID thực tế nếu cần)
+        int customerId = 3;    // ID khách hàng (thay bằng ID thực tế nếu cần)
+        int staffId = 3;       // ID nhân viên (thay bằng ID thực tế nếu cần)
+        int doctorId = 4;      // ID bác sĩ (thay bằng ID thực tế nếu cần)
+        int serviceId = 1;     // ID dịch vụ (thay bằng ID thực tế nếu cần)
+        String symptoms = "Headache, fever"; // Triệu chứng
+        String diagnosis = "Common flu";     // Chẩn đoán
+        String notes = "Prescribed medication and rest"; // Ghi chú
+        float examinationFee = 50.0f;        // Phí khám bệnh
+        int medicineId = 1;                  // ID thuốc (thay bằng ID thực tế nếu cần)
+        String dosage = "2 times a day after meals"; // Liều lượng
+        String prescriptionNote = "Take for 5 days"; // Ghi chú đơn thuốc
+        float totalCost = 10.0f;             // Tổng chi phí đơn thuốc
+
+        // Thử thêm dữ liệu bằng hàm addMedicalExaminationAndPrescription
+        boolean success = dao.addMedicalExaminationAndPrescription(
+                reservationId,
+                customerId,
+                staffId,
+                symptoms,
+                diagnosis,
+                notes,
+                examinationFee,
+                medicineId,
+                dosage,
+                prescriptionNote,
+                totalCost,
+                doctorId,
+                serviceId
+        );
+
+        // Kiểm tra kết quả
+        if (success) {
+            System.out.println("Medical examination and prescription added successfully!");
+        } else {
+            System.err.println("Failed to add medical examination and prescription. Please check the input data.");
+        }
+    }
 
 }

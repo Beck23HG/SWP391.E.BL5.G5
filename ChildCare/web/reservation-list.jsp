@@ -125,12 +125,12 @@
                                         <i class="fas fa-chevron-right ms-auto"></i>
                                     </a>
                                     <a href="changePassword"
-                                       class="nav-link rounded-3 p-3 d-flex align-items-center active" data-tab="changePassword">
+                                       class="nav-link rounded-3 p-3 d-flex align-items-center " data-tab="changePassword">
                                         <i class="fas fa-lock me-3"></i>Change Password
                                         <i class="fas fa-chevron-right ms-auto"></i>
                                     </a>
                                     <a href="myReservation"
-                                       class="nav-link rounded-3 p-3 d-flex align-items-center" data-tab="myReservations">
+                                       class="nav-link rounded-3 p-3 d-flex align-items-center active" data-tab="myReservations">
                                         <i class="fas fa-calendar-check me-3"></i>My Reservations
                                         <i class="fas fa-chevron-right ms-auto"></i>
                                     </a>
@@ -142,51 +142,9 @@
                         <div class="col-lg-9">
                             <!-- Change Password Tab -->
                             <div class="content-card bg-white rounded-4 shadow-sm p-4 tab-content">
-                                <h2 class="mb-4">Change Password</h2>
+                                <h2 class="mb-4">My Reservations</h2>
 
-                                <form action="changePassword" method="post" onsubmit="showAlert();">
-                                    <div class="row g-4">
-                                        <div class="col-md-12">
-                                            <label class="form-label">Current Password</label>
-                                            <div class="input-group">
-                                                <input type="password" name="currentPassword" class="form-control" id="currentPassword" required>
-                                                <button class="btn btn-outline-secondary toggle-password" type="button">
-                                                    <i class="fas fa-eye"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <label class="form-label">New Password</label>
-                                            <div class="input-group">
-                                                <input type="password" name="newPassword" class="form-control" id="newPassword" required>
-                                                <button class="btn btn-outline-secondary toggle-password" type="button">
-                                                    <i class="fas fa-eye"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <label class="form-label">Confirm New Password</label>
-                                            <div class="input-group">
-                                                <input type="password" name="confirmPassword" class="form-control" id="confirmPassword" required>
-                                                <button class="btn btn-outline-secondary toggle-password" type="button">
-                                                    <i class="fas fa-eye"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <input type="text" name="realPassword" value="${sessionScope.account.password}" hidden="">
-                                        <input type="text" name="accountId" value="${sessionScope.account.accountId}" hidden="">
-                                        <div class="col-12 text-end">
-                                            <button type="submit" class="btn btn-primary">
-                                                <span class="btn-text">
-                                                    <i class="fas fa-key me-2"></i>Update Password
-                                                </span>
-                                                <span class="btn-loader d-none">
-                                                    <i class="fas fa-circle-notch fa-spin"></i>
-                                                </span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
+                                
 
                             </div>
                         </div>
@@ -243,41 +201,6 @@
                 </div>
             </div>
         </footer>
-
-        <!-- Scripts -->
-        <script>
-            window.onload = function () {
-                var message = '<%= request.getAttribute("ms") != null ? request.getAttribute("ms") : "" %>';
-                var messageSuccess = '<%= request.getAttribute("msSuccess") != null ? request.getAttribute("msSuccess") : "" %>';
-
-                if (message) {
-                    alert(message);
-                    window.location.href = "changePassword";
-                } else if (messageSuccess) {
-                    alert(messageSuccess);
-                    window.location.href = "home";
-                }
-            };
-        </script>
-
-        <script>
-            document.querySelectorAll(".toggle-password").forEach(function (button) {
-                button.addEventListener("click", function () {
-                    const passwordInput = this.previousElementSibling;
-                    const icon = this.querySelector("i");
-
-                    if (passwordInput.type === "password") {
-                        passwordInput.type = "text";
-                        icon.classList.remove("fa-eye");
-                        icon.classList.add("fa-eye-slash");
-                    } else {
-                        passwordInput.type = "password";
-                        icon.classList.remove("fa-eye-slash");
-                        icon.classList.add("fa-eye");
-                    }
-                });
-            });
-        </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 

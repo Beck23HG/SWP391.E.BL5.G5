@@ -156,7 +156,7 @@
                                         <i class="fas fa-lock me-3"></i>Change Password
                                         <i class="fas fa-chevron-right ms-auto"></i>
                                     </a>
-                                    <a href="#"
+                                    <a href="myReservation"
                                        class="nav-link rounded-3 p-3 d-flex align-items-center" data-tab="myReservations">
                                         <i class="fas fa-calendar-check me-3"></i>My Reservations
                                         <i class="fas fa-chevron-right ms-auto"></i>
