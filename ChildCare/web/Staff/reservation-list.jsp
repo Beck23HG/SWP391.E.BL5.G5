@@ -45,6 +45,13 @@
             align-items: center;
             gap: 15px; /* Khoảng cách giữa các filter */
         }
+        /* Add this to your CSS */
+        .reservations-table th:nth-child(1), /* Target the Reservation ID column header */
+        .reservations-table td:nth-child(1) /* Target the Reservation ID column cells */ {
+            width: 100px; /* Adjust width as necessary */
+            text-align: center; /* Center align the content */
+            white-space: nowrap; /* Prevent wrapping */
+        }
     </style>
 </head>
 
@@ -192,16 +199,17 @@
                         <th class="sortable" data-sort="service">Service <i class="fas fa-sort"></i></th>
                         <th class="sortable" data-sort="cost">Total Cost <i class="fas fa-sort"></i></th>
                         <th class="sortable" data-sort="status">Status <i class="fas fa-sort"></i></th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     <c:forEach var="reservation" items="${reservations}">
                         <tr>
-                            <td><a href="reservationdetail?id=${reservation.reservationId}">${reservation.reservationId}</a></td>
+                            <td>${reservation.reservationId}</td>
                             <td>${reservation.reservationDate}</td>
                             <td>${reservation.customer.personName}</td>
                             <td>${reservation.service.serviceName}</td> 
-                            <td>${reservation.service.price}</td>
+                            <td class="total-cost">${reservation.service.price}</td>
                             <td>
                                 <c:choose>
                                     <c:when test="${reservation.status == 1}">Confirmed</c:when>
@@ -209,6 +217,11 @@
                                     <c:when test="${reservation.status == 3}">Completed</c:when>
                                     <c:when test="${reservation.status == 4}">Cancelled</c:when>
                                 </c:choose>
+                            </td>
+                            <td>
+                                <a href="reservationdetail?id=${reservation.reservationId}" class="btn-action">
+                                    <i class="fas fa-eye"></i>
+                                </a>
                             </td>
                         </tr>
                     </c:forEach>
@@ -318,6 +331,24 @@
             }
         });
     </script>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Lấy tất cả các ô trong cột Total Cost
+            const totalCostCells = document.querySelectorAll(".reservations-table td.total-cost");
 
+            totalCostCells.forEach(cell => {
+                const value = parseFloat(cell.textContent.trim());
+                if (!isNaN(value)) {
+                    // Kiểm tra nếu số sau dấu chấm là 0, thì xóa số 0 và dấu chấm
+                    if (value % 1 === 0) {
+                        cell.textContent = value.toFixed(0); // Xóa dấu chấm và số 0
+                    } else {
+                        cell.textContent = value.toFixed(2); // Giữ nguyên nếu khác không
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>

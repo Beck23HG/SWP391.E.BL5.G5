@@ -93,7 +93,7 @@ public class ReservationDAO extends DBContext {
                 + "JOIN Person p ON r.CustomerId = p.PersonId "
                 + "JOIN Account a ON p.PersonId = a.PersonId "
                 + "JOIN Role ro ON a.RoleId = ro.RoleId "
-                + "WHERE ro.RoleId = 1 "; 
+                + "WHERE ro.RoleId = 1 ";
 
         if (search != null && !search.isEmpty()) {
             sql += "AND (r.ReservationId LIKE ? OR p.PersonName LIKE ?) ";
@@ -139,16 +139,16 @@ public class ReservationDAO extends DBContext {
     public Reservation getReservationDetail(int reservationId) {
         Reservation reservation = null;
         String sql = "SELECT r.ReservationId, r.ReservationDate, r.Status, r.Note, "
-                   + "c.PersonId AS CustomerId, c.PersonName AS CustomerName, c.Email AS CustomerEmail, c.Phone AS CustomerPhone, "
-                   + "c.Address AS CustomerAddress, c.Gender AS CustomerGender, "
-                   + "SUM(s.Price) AS TotalCost "
-                   + "FROM Reservation r "
-                   + "JOIN Person c ON r.CustomerId = c.PersonId "
-                   + "JOIN Services_Reservations sr ON r.ReservationId = sr.ReservationId "
-                   + "JOIN Service s ON sr.ServiceId = s.ServiceId "
-                   + "WHERE r.ReservationId = ? "
-                   + "GROUP BY r.ReservationId, r.ReservationDate, r.Status, r.Note, "
-                   + "c.PersonId, c.PersonName, c.Email, c.Phone, c.Address, c.Gender";
+                + "c.PersonId AS CustomerId, c.PersonName AS CustomerName, c.Email AS CustomerEmail, c.Phone AS CustomerPhone, "
+                + "c.Address AS CustomerAddress, c.Gender AS CustomerGender, "
+                + "SUM(s.Price) AS TotalCost "
+                + "FROM Reservation r "
+                + "JOIN Person c ON r.CustomerId = c.PersonId "
+                + "JOIN Services_Reservations sr ON r.ReservationId = sr.ReservationId "
+                + "JOIN Service s ON sr.ServiceId = s.ServiceId "
+                + "WHERE r.ReservationId = ? "
+                + "GROUP BY r.ReservationId, r.ReservationDate, r.Status, r.Note, "
+                + "c.PersonId, c.PersonName, c.Email, c.Phone, c.Address, c.Gender";
 
         try (PreparedStatement stm = connection.prepareStatement(sql)) {
             stm.setInt(1, reservationId);
@@ -169,7 +169,7 @@ public class ReservationDAO extends DBContext {
                 customer.setGender(rs.getBoolean("CustomerGender"));
                 reservation.setCustomer(customer);
 
-                reservation.setService(new Service()); 
+                reservation.setService(new Service());
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -181,9 +181,9 @@ public class ReservationDAO extends DBContext {
     public List<Service> getReservedServices(int reservationId) {
         List<Service> services = new ArrayList<>();
         String sql = "SELECT s.ServiceId, s.ServiceName, s.Price, s.Image, s.Description "
-                   + "FROM Services_Reservations sr "
-                   + "JOIN Service s ON sr.ServiceId = s.ServiceId "
-                   + "WHERE sr.ReservationId = ?";
+                + "FROM Services_Reservations sr "
+                + "JOIN Service s ON sr.ServiceId = s.ServiceId "
+                + "WHERE sr.ReservationId = ?";
 
         try (PreparedStatement stm = connection.prepareStatement(sql)) {
             stm.setInt(1, reservationId);
@@ -194,7 +194,7 @@ public class ReservationDAO extends DBContext {
                 service.setServiceName(rs.getString("ServiceName"));
                 service.setPrice(rs.getFloat("Price"));
                 service.setImage(rs.getString("Image"));
-                service.setDescription(rs.getString("Description")); 
+                service.setDescription(rs.getString("Description"));
                 services.add(service);
             }
         } catch (SQLException ex) {
@@ -202,7 +202,7 @@ public class ReservationDAO extends DBContext {
         }
         return services;
     }
-    
+
     // Hàm cập nhật trạng thái Reservation
     public boolean updateReservationStatus(int reservationId, int newStatus) {
         String sql = "UPDATE Reservation SET Status = ? WHERE ReservationId = ?";
@@ -216,47 +216,93 @@ public class ReservationDAO extends DBContext {
         }
         return false;
     }
-    
-    public static void main(String[] args) {
-        ReservationDAO dao = new ReservationDAO();
 
-        // Kiểm tra hàm getReservationDetail
-        int testReservationId = 1; // ID của Reservation cần kiểm tra
-        System.out.println("===== Kiểm tra hàm getReservationDetail =====");
-        Reservation reservation = dao.getReservationDetail(testReservationId);
-        if (reservation != null) {
-            System.out.println("Reservation ID: " + reservation.getReservationId());
-            System.out.println("Reservation Date: " + reservation.getReservationDate());
-            System.out.println("Status: " + reservation.getStatus());
-            System.out.println("Note: " + reservation.getNote());
-            
-            Person customer = reservation.getCustomer();
-            if (customer != null) {
-                System.out.println("Customer Name: " + customer.getPersonName());
-                System.out.println("Customer Email: " + customer.getEmail());
-                System.out.println("Customer Phone: " + customer.getPhone());
-                System.out.println("Customer Address: " + customer.getAddress());
-                System.out.println("Customer Gender: " + (customer.isGender() ? "Male" : "Female"));
-            }
-        } else {
-            System.out.println("Không tìm thấy Reservation với ID: " + testReservationId);
+    public List<Reservation> getPaginatedUserReservations(int customerId, String search, String dateFrom, String dateTo, int page) {
+        List<Reservation> reservations = new ArrayList<>();
+        String sql = "SELECT r.ReservationId, r.ReservationDate, r.Created_Date, r.Status, "
+                + "s.ServiceName, SUM(s.Price) AS TotalCost "
+                + "FROM Reservation r "
+                + "JOIN Services_Reservations sr ON r.ReservationId = sr.ReservationId "
+                + "JOIN Service s ON sr.ServiceId = s.ServiceId "
+                + "WHERE r.CustomerId = ? ";
+
+        if (search != null && !search.isEmpty()) {
+            sql += "AND s.ServiceName LIKE ? ";
+        }
+        if (dateFrom != null && !dateFrom.isEmpty()) {
+            sql += "AND r.Created_Date >= ? ";
+        }
+        if (dateTo != null && !dateTo.isEmpty()) {
+            sql += "AND r.Created_Date <= ? ";
         }
 
-        // Kiểm tra hàm getReservedServices
-        System.out.println("===== Kiểm tra hàm getReservedServices =====");
-        List<Service> services = dao.getReservedServices(testReservationId);
-        if (!services.isEmpty()) {
-            System.out.println("Danh sách các dịch vụ trong Reservation ID: " + testReservationId);
-            for (Service service : services) {
-                System.out.println("Service ID: " + service.getServiceId());
-                System.out.println("Service Name: " + service.getServiceName());
-                System.out.println("Service Price: " + service.getPrice());
-                System.out.println("Service Image: " + service.getImage());
-                System.out.println("Service Image: " + service.getDescription());
-                System.out.println("------------------------");
+        sql += "GROUP BY r.ReservationId, r.ReservationDate, r.Created_Date, r.Status, s.ServiceName "
+                + "ORDER BY r.ReservationDate DESC "
+                + "OFFSET ? ROWS FETCH NEXT 3 ROWS ONLY";
+
+        try (PreparedStatement stm = connection.prepareStatement(sql)) {
+            int index = 1;
+            stm.setInt(index++, customerId);
+            if (search != null && !search.isEmpty()) {
+                stm.setString(index++, "%" + search + "%");
             }
+            if (dateFrom != null && !dateFrom.isEmpty()) {
+                stm.setString(index++, dateFrom);
+            }
+            if (dateTo != null && !dateTo.isEmpty()) {
+                stm.setString(index++, dateTo);
+            }
+            stm.setInt(index++, (page - 1) * 3);
+
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Reservation reservation = new Reservation();
+                reservation.setReservationId(rs.getInt("ReservationId"));
+                reservation.setReservationDate(rs.getDate("ReservationDate"));
+                reservation.setCreated_Date(rs.getDate("Created_Date"));
+                reservation.setStatus(rs.getInt("Status"));
+
+                Service service = new Service();
+                service.setServiceName(rs.getString("ServiceName"));
+                service.setPrice(rs.getFloat("TotalCost"));
+                reservation.setService(service);
+
+                reservations.add(reservation);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return reservations;
+    }
+
+    public static void main(String[] args) {
+        ReservationDAO reservationDAO = new ReservationDAO();
+
+        // Test parameters
+        int customerId = 18; // Giả định customerId = 1 (RoleId = 1)
+        String search = ""; // Tìm kiếm theo tên dịch vụ
+        String dateFrom = ""; // Ngày bắt đầu lọc
+        String dateTo = ""; // Ngày kết thúc lọc
+        int page = 1; // Trang đầu tiên
+
+        // Gọi hàm getPaginatedUserReservations
+        List<Reservation> reservations = reservationDAO.getPaginatedUserReservations(customerId, search, dateFrom, dateTo, page);
+
+        // In kết quả ra console
+        if (reservations.isEmpty()) {
+            System.out.println("No reservations found for the given filters.");
         } else {
-            System.out.println("Không có dịch vụ nào được đặt trong Reservation với ID: " + testReservationId);
+            for (Reservation reservation : reservations) {
+                System.out.println("Reservation ID: " + reservation.getReservationId());
+                System.out.println("Reserved Date: " + reservation.getReservationDate());
+                System.out.println("Created Date: " + reservation.getCreated_Date());
+                System.out.println("Service Name: " + reservation.getService().getServiceName());
+                System.out.println("Total Cost: " + reservation.getService().getPrice());
+                System.out.println("Status: " + (reservation.getStatus() == 1 ? "Pending"
+                        : reservation.getStatus() == 2 ? "Completed" : "Cancelled"));
+                System.out.println("---------------");
+            }
         }
     }
+
 }

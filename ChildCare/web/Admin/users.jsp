@@ -115,7 +115,6 @@
                 <span></span>
             </div>
             <div class="search-bar">
-                <i class="fas fa-search"></i>
                 <input type="text" placeholder="Search...">
             </div>
             <div class="user-menu">
@@ -202,7 +201,6 @@
                 <form method="get" action="userlist">
                 <div class="search-filters">
                     <div class="search-bar">
-                        <i class="fas fa-search"></i>
                         <input type="text" name="search" value="${param.search}" placeholder="Search by name, email, phone">
                     </div>
                     <div class="filter-group">
