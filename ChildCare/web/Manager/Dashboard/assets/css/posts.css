@@ -1,4 +1,5 @@
 /* Theme Variables */
+
 :root {
     /* Light Theme (Default) */
     --surface-color: #ffffff;
@@ -7,25 +8,24 @@
     --text-color: #212529;
     --text-muted: #6c757d;
     --surface-hover: #f1f3f5;
-
     --primary: #0d6efd;
     --primary-rgb: 13, 110, 253;
     --primary-light: rgba(13, 110, 253, 0.1);
     --primary-dark: #0b5ed7;
-
     --success: #198754;
     --success-light: rgba(25, 135, 84, 0.1);
     --warning: #ffc107;
     --warning-light: rgba(255, 193, 7, 0.1);
     --danger: #dc3545;
     --danger-light: rgba(220, 53, 69, 0.1);
-
     --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
     --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
 }
 
+
 /* Dark Theme */
+
 [data-theme="dark"] {
     --surface-color: #212529;
     --background-color: #343a40;
@@ -33,47 +33,41 @@
     --text-color: #f8f9fa;
     --text-muted: #adb5bd;
     --surface-hover: #2b3035;
-
     --primary: #0d6efd;
     --primary-rgb: 13, 110, 253;
     --primary-light: rgba(13, 110, 253, 0.15);
     --primary-dark: #0b5ed7;
-
     --success: #198754;
     --success-light: rgba(25, 135, 84, 0.15);
     --warning: #ffc107;
     --warning-light: rgba(255, 193, 7, 0.15);
     --danger: #dc3545;
     --danger-light: rgba(220, 53, 69, 0.15);
-
     --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
     --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.3);
     --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.3);
 }
 
-/* Dark Theme Specific Overrides */
-[data-theme="dark"] {
 
+/* Dark Theme Specific Overrides */
+
+[data-theme="dark"] {
     /* Table Styles */
     .posts-table {
         background: var(--surface-color);
         box-shadow: var(--shadow-sm);
     }
-
     .posts-table tr:hover {
         background: var(--surface-hover);
     }
-
     /* Modal Styles */
     .modal-overlay {
         background: rgba(0, 0, 0, 0.7);
     }
-
     .notification {
         background: var(--surface-color);
         box-shadow: var(--shadow-lg);
     }
-
     /* Form Elements */
     input,
     select,
@@ -82,78 +76,66 @@
         color: var(--text-color) !important;
         border-color: var(--border-color) !important;
     }
-
     input:focus,
     select:focus,
     textarea:focus {
         border-color: var(--primary) !important;
         box-shadow: 0 0 0 3px var(--primary-light) !important;
     }
-
     /* Image Upload */
     .image-upload-container {
         border-color: var(--border-color);
         background: var(--background-color);
     }
-
     .image-preview.loading::after {
         background: rgba(0, 0, 0, 0.7);
     }
-
     /* Status Badges */
     .status-badge {
         &.published {
             background: rgba(25, 135, 84, 0.2);
         }
-
         &.draft {
             background: rgba(255, 193, 7, 0.2);
         }
-
         &.archived {
             background: rgba(220, 53, 69, 0.2);
         }
     }
-
     /* Filter Tags */
     .filter-tag {
         background: var(--primary-light);
     }
-
     /* Buttons */
     .btn-icon {
         background: var(--surface-hover);
-
         &:hover {
             background: var(--primary-light);
         }
-
         &.delete:hover {
             background: var(--danger-light);
         }
     }
-
     /* Scrollbar Styles */
-    ::-webkit-scrollbar {
+     ::-webkit-scrollbar {
         width: 8px;
         height: 8px;
     }
-
-    ::-webkit-scrollbar-track {
+     ::-webkit-scrollbar-track {
         background: var(--background-color);
     }
-
-    ::-webkit-scrollbar-thumb {
+     ::-webkit-scrollbar-thumb {
         background: var(--border-color);
         border-radius: 4px;
     }
-
-    ::-webkit-scrollbar-thumb:hover {
+     ::-webkit-scrollbar-thumb:hover {
         background: var(--text-muted);
     }
 }
 
+
 /* Enhanced Loading States for Both Themes */
+
 .loading-state {
     background: var(--surface-color) !important;
 }
@@ -163,35 +145,39 @@
     border-top-color: var(--primary);
 }
 
+
 /* Enhanced Empty States */
+
 .empty-state {
     background: var(--surface-color) !important;
-
     i {
         color: var(--text-muted);
     }
-
     p {
         color: var(--text-muted);
     }
 }
 
+
 /* Enhanced Error States */
+
 .error-state {
     background: var(--surface-color) !important;
-
     i {
         color: var(--danger);
     }
-
     p {
         color: var(--text-muted);
     }
 }
 
+
 /* Transition Styles for Theme Switching */
+
 body {
     transition: background-color 0.3s ease, color 0.3s ease;
+    background-color: var(--background-color);
+    color: var(--text-color);
 }
 
 .modal-container,
@@ -204,13 +190,12 @@ textarea,
 .btn-icon,
 .status-badge,
 .filter-tag {
-    transition: background-color 0.3s ease,
-        border-color 0.3s ease,
-        color 0.3s ease,
-        box-shadow 0.3s ease;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 
+
 /* Posts Table Styles */
+
 .posts-table {
     background: var(--surface-color);
     border-radius: 8px;
@@ -227,8 +212,8 @@ textarea,
 .posts-table th,
 .posts-table td {
     padding: 1rem;
-    text-align: left;
     border-bottom: 1px solid var(--border-color);
+    text-align: left;
 }
 
 .posts-table th {
@@ -253,7 +238,9 @@ textarea,
     border-radius: 4px;
 }
 
+
 /* Status Badge Styles */
+
 .status-badge {
     padding: 0.25rem 0.75rem;
     border-radius: 1rem;
@@ -277,13 +264,17 @@ textarea,
     color: var(--danger);
 }
 
+
 /* Featured Badge */
+
 .featured-badge {
     color: var(--warning);
     font-size: 1.25rem;
 }
 
+
 /* Action Buttons */
+
 .action-buttons {
     display: flex;
     gap: 0.5rem;
@@ -304,7 +295,9 @@ textarea,
     color: var(--primary);
 }
 
+
 /* Post Form Styles */
+
 .post-form {
     display: flex;
     flex-direction: column;
@@ -320,7 +313,9 @@ textarea,
     flex: 1;
 }
 
+
 /* Post Details Styles */
+
 .post-details {
     display: flex;
     flex-direction: column;
@@ -347,7 +342,9 @@ textarea,
     gap: 0.5rem;
 }
 
+
 /* Filter Styles */
+
 .filter-group {
     display: flex;
     gap: 1rem;
@@ -357,7 +354,9 @@ textarea,
     min-width: 150px;
 }
 
+
 /* Active Filters */
+
 .active-filters {
     display: flex;
     flex-wrap: wrap;
@@ -383,12 +382,13 @@ textarea,
     cursor: pointer;
 }
 
+
 /* Responsive Design */
+
 @media (max-width: 1024px) {
     .form-row {
         flex-direction: column;
     }
-
     .filter-group {
         flex-direction: column;
     }
@@ -398,18 +398,18 @@ textarea,
     .posts-table {
         font-size: 0.875rem;
     }
-
     .posts-table th,
     .posts-table td {
         padding: 0.75rem;
     }
-
     .action-buttons {
         flex-direction: column;
     }
 }
 
+
 /* Page Header Styles */
+
 .page-header {
     margin-bottom: 2rem;
 }
@@ -427,7 +427,9 @@ textarea,
     color: var(--text-color);
 }
 
+
 /* Enhanced Filter Section */
+
 .filters-section {
     background: var(--surface-color);
     padding: 1.25rem;
@@ -487,7 +489,9 @@ textarea,
     box-shadow: 0 0 0 3px var(--primary-light);
 }
 
+
 /* Enhanced Table Styles */
+
 .posts-table {
     margin: 1.5rem 0;
     background: var(--surface-color);
@@ -526,7 +530,9 @@ textarea,
     background: var(--surface-hover);
 }
 
+
 /* Enhanced Thumbnail Styles */
+
 .posts-table td img.thumbnail {
     width: 100px;
     height: 70px;
@@ -540,7 +546,9 @@ textarea,
     transform: scale(1.05);
 }
 
+
 /* Enhanced Badge Styles */
+
 .status-badge {
     padding: 0.4rem 1rem;
     border-radius: 2rem;
@@ -588,7 +596,9 @@ textarea,
     background: var(--danger);
 }
 
+
 /* Enhanced Action Buttons */
+
 .action-buttons {
     display: flex;
     gap: 0.5rem;
@@ -613,7 +623,9 @@ textarea,
     transform: translateY(-1px);
 }
 
+
 /* Enhanced Modal Styles */
+
 .modal-container {
     max-width: 700px;
     width: 90%;
@@ -642,7 +654,9 @@ textarea,
     gap: 1rem;
 }
 
+
 /* Form Styles */
+
 .form-group {
     margin-bottom: 1.5rem;
 }
@@ -674,7 +688,9 @@ textarea,
     box-shadow: 0 0 0 3px var(--primary-light);
 }
 
+
 /* Image Upload Styles */
+
 .image-upload-container {
     border: 2px dashed var(--border-color);
     border-radius: 8px;
@@ -723,7 +739,9 @@ textarea,
     opacity: 1;
 }
 
+
 /* Switch Toggle Styles */
+
 .switch-wrapper {
     display: flex;
     align-items: center;
@@ -760,43 +778,41 @@ input:checked+.switch::after {
     transform: translateX(1.5rem);
 }
 
+
 /* Responsive Adjustments */
+
 @media (max-width: 1024px) {
     .search-filters {
         flex-direction: column;
     }
-
     .filter-group {
         width: 100%;
     }
-
     .filter-select {
         width: 100%;
     }
 }
 
 @media (max-width: 768px) {
-
     .posts-table th,
     .posts-table td {
         padding: 0.75rem;
     }
-
     .action-buttons {
         flex-direction: column;
     }
-
     .modal-container {
         width: 95%;
     }
 }
 
+
 /* Animation Styles */
+
 @keyframes fadeIn {
     from {
         opacity: 0;
     }
-
     to {
         opacity: 1;
     }
@@ -810,7 +826,9 @@ input:checked+.switch::after {
     animation: fadeIn 0.3s ease;
 }
 
+
 /* Loading State Styles */
+
 .loading-overlay {
     position: absolute;
     top: 0;
@@ -839,7 +857,9 @@ input:checked+.switch::after {
     }
 }
 
+
 /* New Post Button Styles */
+
 .btn-primary {
     display: inline-flex;
     align-items: center;
@@ -870,7 +890,9 @@ input:checked+.switch::after {
     font-size: 0.875rem;
 }
 
+
 /* Enhanced Pagination Styles */
+
 .pagination {
     display: flex;
     align-items: center;
@@ -989,7 +1011,9 @@ input:checked+.switch::after {
     outline: none;
 }
 
+
 /* Responsive Pagination */
+
 @media (max-width: 768px) {
     .pagination {
         flex-direction: column;
@@ -997,25 +1021,23 @@ input:checked+.switch::after {
         align-items: stretch;
         padding: 1rem;
     }
-
     .pagination-info {
         text-align: center;
     }
-
     .pagination-controls {
         justify-content: center;
     }
-
     .items-per-page {
         justify-content: center;
     }
-
     .items-per-page select {
         width: 150px;
     }
 }
 
+
 /* Button Loading State */
+
 .btn-primary.loading {
     position: relative;
     color: transparent;
@@ -1039,7 +1061,9 @@ input:checked+.switch::after {
     }
 }
 
+
 /* Loading, Error, and Empty States */
+
 .loading-state,
 .error-state,
 .empty-state {
@@ -1077,7 +1101,9 @@ input:checked+.switch::after {
     margin-bottom: 1rem;
 }
 
+
 /* Table Enhancements */
+
 .posts-table {
     background: var(--surface-color);
     border-radius: 8px;
@@ -1102,7 +1128,9 @@ input:checked+.switch::after {
     background: var(--hover-color);
 }
 
+
 /* Post Thumbnail */
+
 .post-thumbnail {
     width: 50px;
     height: 50px;
@@ -1115,7 +1143,9 @@ input:checked+.switch::after {
     transform: scale(1.1);
 }
 
+
 /* Status Badges */
+
 .status-badge {
     padding: 0.25rem 0.75rem;
     border-radius: 1rem;
@@ -1138,7 +1168,9 @@ input:checked+.switch::after {
     color: var(--danger);
 }
 
+
 /* Action Buttons */
+
 .actions {
     display: flex;
     gap: 0.5rem;
@@ -1170,7 +1202,9 @@ tr:hover .actions {
     color: var(--danger);
 }
 
+
 /* Filter Section */
+
 .filters-section {
     background: var(--surface-color);
     border-radius: 8px;
@@ -1199,7 +1233,9 @@ tr:hover .actions {
     background: var(--background-color);
 }
 
+
 /* Active Filters */
+
 .active-filters {
     display: flex;
     gap: 0.5rem;
@@ -1226,7 +1262,9 @@ tr:hover .actions {
     cursor: pointer;
 }
 
+
 /* Pagination */
+
 .pagination {
     background: var(--surface-color);
     border-radius: 8px;
@@ -1235,7 +1273,9 @@ tr:hover .actions {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
+
 /* Modal Animations */
+
 .modal {
     opacity: 0;
     visibility: hidden;
@@ -1267,7 +1307,9 @@ tr:hover .actions {
     opacity: 1;
 }
 
+
 /* Enhanced New Post Button */
+
 .btn-primary {
     position: relative;
     overflow: hidden;
@@ -1302,7 +1344,9 @@ tr:hover .actions {
     transform: translateY(1px);
 }
 
+
 /* Modal Content Animations */
+
 .modal-content>* {
     opacity: 0;
     transform: translateY(10px);
@@ -1317,14 +1361,15 @@ tr:hover .actions {
         opacity: 0;
         transform: translateY(10px);
     }
-
     to {
         opacity: 1;
         transform: translateY(0);
     }
 }
 
+
 /* Staggered Animation for Form Elements */
+
 .modal.show .form-group {
     animation: slideUpFade 0.3s ease forwards;
     opacity: 0;
@@ -1350,7 +1395,9 @@ tr:hover .actions {
     animation-delay: 0.3s;
 }
 
+
 /* Enhanced Modal Close Button */
+
 .modal-close {
     position: relative;
     width: 32px;
@@ -1368,7 +1415,9 @@ tr:hover .actions {
     transform: rotate(90deg);
 }
 
+
 /* Modal Footer Button Animations */
+
 .modal-footer button {
     position: relative;
     overflow: hidden;
@@ -1392,7 +1441,9 @@ tr:hover .actions {
     height: 200px;
 }
 
+
 /* Image Upload Animation */
+
 .image-upload-container {
     position: relative;
     overflow: hidden;
@@ -1405,10 +1456,7 @@ tr:hover .actions {
     left: -100%;
     width: 200%;
     height: 200%;
-    background: linear-gradient(45deg,
-            transparent 0%,
-            rgba(var(--primary-rgb), 0.1) 50%,
-            transparent 100%);
+    background: linear-gradient(45deg, transparent 0%, rgba(var(--primary-rgb), 0.1) 50%, transparent 100%);
     transition: transform 0.6s ease;
 }
 
@@ -1416,13 +1464,17 @@ tr:hover .actions {
     transform: translate(50%, 50%);
 }
 
+
 /* Enhanced Modal Backdrop */
+
 .modal-overlay {
     backdrop-filter: blur(4px);
     background: rgba(0, 0, 0, 0.2);
 }
 
+
 /* Loading Button State */
+
 .btn-primary.loading {
     color: transparent;
 }
@@ -1441,18 +1493,17 @@ tr:hover .actions {
     animation: spin 0.8s linear infinite;
 }
 
-/* Delete Confirmation Animation */
-@keyframes shake {
 
+/* Delete Confirmation Animation */
+
+@keyframes shake {
     0%,
     100% {
         transform: translateX(0);
     }
-
     25% {
         transform: translateX(-5px);
     }
-
     75% {
         transform: translateX(5px);
     }
@@ -1462,7 +1513,9 @@ tr:hover .actions {
     animation: shake 0.4s ease;
 }
 
+
 /* Notification Styles */
+
 .notification {
     position: fixed;
     top: 20px;
@@ -1505,7 +1558,9 @@ tr:hover .actions {
     color: var(--danger);
 }
 
+
 /* Image Upload Loading State */
+
 .image-preview.loading {
     position: relative;
 }
@@ -1538,7 +1593,9 @@ tr:hover .actions {
     z-index: 1;
 }
 
+
 /* Modal Base Styles */
+
 .modal {
     position: fixed;
     top: 0;
@@ -1565,7 +1622,9 @@ tr:hover .actions {
     opacity: 1;
 }
 
+
 /* Modal Overlay */
+
 .modal-overlay {
     position: absolute;
     top: 0;
@@ -1578,7 +1637,9 @@ tr:hover .actions {
     transition: opacity 0.3s ease;
 }
 
+
 /* Modal Container */
+
 .modal-container {
     position: relative;
     width: 90%;
@@ -1596,7 +1657,9 @@ tr:hover .actions {
     flex-direction: column;
 }
 
+
 /* Modal Header */
+
 .modal-header {
     display: flex;
     align-items: center;
@@ -1612,7 +1675,9 @@ tr:hover .actions {
     margin: 0;
 }
 
+
 /* Modal Content */
+
 .modal-content {
     padding: 1.5rem;
     overflow-y: auto;
@@ -1620,7 +1685,9 @@ tr:hover .actions {
     /* Account for header and footer */
 }
 
+
 /* Modal Footer */
+
 .modal-footer {
     display: flex;
     align-items: center;
@@ -1633,7 +1700,9 @@ tr:hover .actions {
     border-bottom-right-radius: 12px;
 }
 
+
 /* Modal Close Button */
+
 .modal-close {
     width: 32px;
     height: 32px;
@@ -1654,7 +1723,9 @@ tr:hover .actions {
     transform: rotate(90deg);
 }
 
+
 /* Modal Form Styles */
+
 .modal .form-group {
     margin-bottom: 1.5rem;
 }
@@ -1687,18 +1758,18 @@ tr:hover .actions {
     outline: none;
 }
 
+
 /* Responsive Modal */
+
 @media (max-width: 768px) {
     .modal-container {
         width: 95%;
         margin: 1rem;
         max-height: calc(100vh - 2rem);
     }
-
     .modal-content {
         max-height: calc(100vh - 180px);
     }
-
     .modal-header,
     .modal-content,
     .modal-footer {
@@ -1706,13 +1777,14 @@ tr:hover .actions {
     }
 }
 
+
 /* Modal Animation Keyframes */
+
 @keyframes modalIn {
     from {
         opacity: 0;
         transform: translateY(20px);
     }
-
     to {
         opacity: 1;
         transform: translateY(0);
@@ -1724,9 +1796,78 @@ tr:hover .actions {
         opacity: 1;
         transform: translateY(0);
     }
-
     to {
         opacity: 0;
         transform: translateY(20px);
     }
+}
+
+
+/* Đặt màu nền tối cho tất cả các thẻ div khi ở chế độ tối */
+
+[data-theme="dark"] div {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+
+/* Đảm bảo các phần tử cụ thể cũng có màu nền tối */
+
+.posts-table,
+.filters-section,
+.pagination,
+.modal-container {
+    background-color: var(--surface-color);
+    color: var(--text-color);
+}
+
+
+/* Dark Theme Overrides */
+
+[data-theme="dark"] {
+    /* Định nghĩa lại các biến màu cho dark theme */
+    --surface-color: #212529;
+    --background-color: #343a40;
+    --border-color: #495057;
+    --text-color: #f8f9fa;
+    --text-muted: #adb5bd;
+    --surface-hover: #2b3035;
+}
+
+
+/* Đảm bảo các phần tử cụ thể có màu nền tối trong dark mode */
+
+[data-theme="dark"] .search-filters,
+[data-theme="dark"] .filters-section,
+[data-theme="dark"] .posts-table,
+[data-theme="dark"] .pagination,
+[data-theme="dark"] input,
+[data-theme="dark"] select {
+    background-color: var(--surface-color) !important;
+    color: var(--text-color) !important;
+}
+
+
+/* Điều chỉnh màu nền cho phần search */
+
+[data-theme="dark"] .search-bar input {
+    background-color: var(--surface-color) !important;
+    color: var(--text-color) !important;
+    border-color: var(--border-color) !important;
+}
+
+
+/* Điều chỉnh màu nền cho các dropdown và select */
+
+[data-theme="dark"] .filter-select {
+    background-color: var(--surface-color) !important;
+    color: var(--text-color) !important;
+    border-color: var(--border-color) !important;
+}
+
+
+/* Đảm bảo màu nền cho toàn bộ container */
+
+[data-theme="dark"] .main-content {
+    background-color: var(--background-color) !important;
 }

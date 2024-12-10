@@ -109,7 +109,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>PostServlet</servlet-name>
-        <url-pattern>/postList</url-pattern>
+        <url-pattern>/Manager/Dashboard/postList</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SliderServlet</servlet-name>
