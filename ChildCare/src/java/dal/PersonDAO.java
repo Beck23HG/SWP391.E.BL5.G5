@@ -195,4 +195,125 @@ public class PersonDAO extends DBContext {
         }
         return false;
     }
+
+    public List<Person> getCustomers(int page, Integer status, String search) {
+        List<Person> customers = new ArrayList<>();
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            String sql = "SELECT p.personId, p.personName, p.gender, p.email, p.phone, a.status "
+                    + "FROM Person p "
+                    + "JOIN Account a ON p.personId = a.personId "
+                    + "WHERE a.roleId = 1 "; // Chỉ lấy customer với roleId = 1
+
+            // Thêm điều kiện lọc trạng thái (status)
+            if (status != null) {
+                sql += "AND a.status = ? ";
+            }
+            // Thêm điều kiện tìm kiếm theo tên, email, hoặc số điện thoại
+            if (search != null && !search.isEmpty()) {
+                sql += "AND (p.personName LIKE ? OR p.email LIKE ? OR p.phone LIKE ?) ";
+            }
+
+            sql += "ORDER BY p.personId "
+                    + "OFFSET ? ROWS FETCH NEXT 5 ROWS ONLY"; // Phân trang, 5 người mỗi trang
+
+            stm = connection.prepareStatement(sql);
+            int index = 1;
+
+            // Gán giá trị cho tham số lọc
+            if (status != null) {
+                stm.setInt(index++, status);
+            }
+            if (search != null && !search.isEmpty()) {
+                stm.setString(index++, "%" + search + "%");
+                stm.setString(index++, "%" + search + "%");
+                stm.setString(index++, "%" + search + "%");
+            }
+            stm.setInt(index++, (page - 1) * 5); // Gán giá trị cho OFFSET
+
+            rs = stm.executeQuery();
+
+            while (rs.next()) {
+                Person customer = new Person();
+                customer.setPersonId(rs.getInt("personId"));
+                customer.setPersonName(rs.getString("personName"));
+                customer.setGender(rs.getBoolean("gender"));
+                customer.setEmail(rs.getString("email"));
+                customer.setPhone(rs.getString("phone"));
+
+                Account account = new Account();
+                account.setStatus(rs.getInt("status"));
+                customer.setAccount(account);
+
+                customers.add(customer);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return customers;
+    }
+
+    public int getTotalCustomers(Integer status, String search) {
+        int total = 0;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            String sql = "SELECT COUNT(*) FROM Person p "
+                    + "JOIN Account a ON p.personId = a.personId "
+                    + "WHERE a.roleId = 1 "; // Chỉ đếm customer với roleId = 1
+
+            // Thêm điều kiện lọc trạng thái (status)
+            if (status != null) {
+                sql += "AND a.status = ? ";
+            }
+            // Thêm điều kiện tìm kiếm theo tên, email, hoặc số điện thoại
+            if (search != null && !search.isEmpty()) {
+                sql += "AND (p.personName LIKE ? OR p.email LIKE ? OR p.phone LIKE ?) ";
+            }
+
+            stm = connection.prepareStatement(sql);
+            int index = 1;
+
+            // Gán giá trị cho tham số lọc
+            if (status != null) {
+                stm.setInt(index++, status);
+            }
+            if (search != null && !search.isEmpty()) {
+                stm.setString(index++, "%" + search + "%");
+                stm.setString(index++, "%" + search + "%");
+                stm.setString(index++, "%" + search + "%");
+            }
+
+            rs = stm.executeQuery();
+            if (rs.next()) {
+                total = rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return total;
+    }
 }

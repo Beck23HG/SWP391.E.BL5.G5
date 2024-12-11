@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -317,7 +318,7 @@
                     </div>
                 </div>
                 <div class="footer-bottom text-center mt-5 pt-4 border-top">
-                    <p class="mb-0">© 2024 Children Care. All rights reserved.</p>
+                    <p class="mb-0">Â© 2024 Children Care. All rights reserved.</p>
                 </div>
             </div>
         </footer>

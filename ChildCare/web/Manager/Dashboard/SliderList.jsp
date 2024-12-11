@@ -67,6 +67,10 @@
                     <i class="fas fa-list"></i>
                     <span>Services List</span>
                 </a>
+                <a href="customerList" class="nav-item">
+                    <i class="fas fa-list"></i>
+                    <span>Customer List</span>
+                </a>
             </div>
 
         </nav>

@@ -1,11 +1,7 @@
-<%-- 
-    Document   : PostList
-    Created on : Nov 26, 2024, 5:22:37 PM
-    Author     : Admin
---%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
+
 <html lang="en">
 
     <head>
@@ -13,33 +9,85 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Posts Management - Healthcare Admin</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/Manager/Dashboard/assets/css/style.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/Manager/Dashboard/assets/css/posts.css">
+        <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="stylesheet" href="assets/css/posts.css">
     </head>
 
     <body>
         <nav class="sidebar">
             <div class="sidebar-header">
-                <div class="sidebar-logo">HealthCare Manager</div>
+                <div class="sidebar-logo">HealthCare Admin</div>
+            </div>
+
+            <!-- Staff Section -->
+            <div class="nav-section">
+                <div class="nav-section-title">Staff Management</div>
+                <a href="services.html" class="nav-item">
+                    <i class="fas fa-list"></i>
+                    <span>Services List</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Reservations</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-stethoscope"></i>
+                    <span>Medical Examinations</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-users"></i>
+                    <span>Customers</span>
+                </a>
+                <a href="feedbacks.html" class="nav-item">
+                    <i class="fas fa-comments"></i>
+                    <span>Feedbacks</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-prescription"></i>
+                    <span>Prescriptions</span>
+                </a>
             </div>
 
             <!-- Manager Section -->
             <div class="nav-section">
                 <div class="nav-section-title">Manager Tools</div>
-                <a href="post-list.jsp" class="nav-item">
+                <a href="#" class="nav-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="posts.html" class="nav-item">
                     <i class="fas fa-newspaper"></i>
                     <span>Posts</span>
                 </a>
-                <a href="sliderList" class="nav-item">
+                <a href="sliders.html" class="nav-item">
                     <i class="fas fa-images"></i>
                     <span>Sliders</span>
                 </a>
+<<<<<<< HEAD
                 <a href="#" class="nav-item">
                     <i class="fas fa-list"></i>
                     <span>Services List</span>
                 </a>
+                <a href="customerList" class="nav-item">
+                    <i class="fas fa-list"></i>
+                    <span>Customer List</span>
+                </a>
+=======
+>>>>>>> c1d16c9eb87092a5e2fe1516a37b9e8b0ba123ba
             </div>
 
+            <!-- Admin Section -->
+            <div class="nav-section">
+                <div class="nav-section-title">Administration</div>
+                <a href="users.html" class="nav-item">
+                    <i class="fas fa-user-shield"></i>
+                    <span>Users Management</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </div>
         </nav>
 
         <!-- Main Content Area -->
@@ -55,23 +103,82 @@
                     <input type="text" placeholder="Search...">
                 </div>
                 <div class="user-menu">
+                    <div class="notifications-wrapper">
+                        <div class="notifications">
+                            <i class="fas fa-bell"></i>
+                            <span class="notifications-count">3</span>
+                        </div>
+                        <div class="notifications-dropdown">
+                            <div class="notifications-header">
+                                <span class="notifications-title">Notifications</span>
+                                <span class="mark-all-read">Mark all as read</span>
+                            </div>
+                            <div class="notification-list">
+                                <div class="notification-item unread">
+                                    <div class="notification-icon">
+                                        <i class="fas fa-calendar"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                        <div class="notification-text">New appointment request from Sarah Johnson</div>
+                                        <div class="notification-time">5 minutes ago</div>
+                                    </div>
+                                </div>
+                                <div class="notification-item unread">
+                                    <div class="notification-icon">
+                                        <i class="fas fa-user-plus"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                        <div class="notification-text">New patient registration: Michael Brown</div>
+                                        <div class="notification-time">2 hours ago</div>
+                                    </div>
+                                </div>
+                                <div class="notification-item">
+                                    <div class="notification-icon">
+                                        <i class="fas fa-comment-medical"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                        <div class="notification-text">New feedback received for Dr. Smith</div>
+                                        <div class="notification-time">1 day ago</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="user-profile-wrapper">
                         <div class="user-profile">
                             <div class="user-avatar">
                                 <i class="fas fa-user"></i>
                             </div>
                             <div class="user-info">
-                                <span class="user-name">${sessionScope.account.person.personName}</span>
-                                <span class="user-role">Manager</span>
+                                <span class="user-name">John Doe</span>
+                                <span class="user-role">Administrator</span>
                             </div>
                         </div>
-
-                    </div>
-                    <div class="user-profile">
-                        <a href="logout" style="padding: 10% 0">
-                            <i class="fas fa-sign-out-alt"></i>
-                            <span>Sign Out</span>
-                        </a>
+                        <div class="user-dropdown">
+                            <div class="user-dropdown-header">
+                                <div class="user-avatar">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="user-name">John Doe</div>
+                                <div class="user-role">Administrator</div>
+                            </div>
+                            <a href="#" class="user-dropdown-item">
+                                <i class="fas fa-user-circle"></i>
+                                <span>My Profile</span>
+                            </a>
+                            <a href="#" class="user-dropdown-item">
+                                <i class="fas fa-cog"></i>
+                                <span>Settings</span>
+                            </a>
+                            <a href="#" class="user-dropdown-item">
+                                <i class="fas fa-question-circle"></i>
+                                <span>Help Center</span>
+                            </a>
+                            <a href="#" class="user-dropdown-item">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Sign Out</span>
+                            </a>
+                        </div>
                     </div>
                     <div class="theme-toggle" title="Toggle theme">
                     </div>
@@ -136,41 +243,30 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <c:forEach items="${blogs}" var="blog">
+                        <c:forEach items="${blogs}" var="blog" varStatus="status">
                             <tr>
-                                <td>${blog.blogId}</td>
+                                <td>${status.index + 1}</td>
                                 <td>
-                                    <img src="${blog.image}" alt="${blog.title}" onerror="this.src='https://via.placeholder.com/50x50?text=No+Image'" class="post-thumbnail">
+                                    <img src="${blog.image}" alt="${blog.title}" class="post-thumbnail">
                                 </td>
                                 <td>${blog.title}</td>
                                 <td><span class="badge">${blog.category.categoryName}</span></td>
                                 <td>${blog.person.personName}</td>
                                 <td><i class="fas fa-star featured-badge"></i></td>
-                                <td><span class="status-badge ${blog.status}">${blog.status}</span></td>
+                                <td><span class="status-badge published">Published</span></td>
                                 <td class="actions">
-                                    <button class="btn-icon" onclick="postsManager.openDetailsModal(${blog.blogId})" title="View Details">
+                                    <button class="btn-icon" title="View Details">
                                         <i class="fas fa-eye"></i>
                                     </button>
-                                    <button class="btn-icon" onclick="postsManager.openEditModal(${blog.blogId})" title="Edit">
+                                    <button class="btn-icon" title="Edit">
                                         <i class="fas fa-edit"></i>
                                     </button>
-                                    <button class="btn-icon delete" onclick="postsManager.deletePost(${blog.blogId})" title="Delete">
+                                    <button class="btn-icon delete" title="Delete">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </td>
                             </tr>
                         </c:forEach>
-                        <c:if test="${empty blogs}">
-                            <tr>
-                                <td colspan="8" class="empty-state">
-                                    <i class="fas fa-file-alt"></i>
-                                    <p>No posts found</p>
-                                    <button class="btn-primary" onclick="postsManager.openCreateModal()">
-                                        <i class="fas fa-plus"></i> Create New Post
-                                    </button>
-                                </td>
-                            </tr>
-                        </c:if>
                     </tbody>
                 </table>
             </div>
@@ -233,7 +329,7 @@
                             <div class="form-group">
                                 <label for="postAuthor">Author</label>
                                 <select id="postAuthor" name="author" required>
-                                    Authors will be populated dynamically 
+                                    <!-- Authors will be populated dynamically -->
                                 </select>
                             </div>
                         </div>
@@ -340,8 +436,8 @@
             </div>
         </div>
 
-        <script src="${pageContext.request.contextPath}/Manager/Dashboard/assets/js/main.js"></script>
-        <script src="${pageContext.request.contextPath}/Manager/Dashboard/assets/js/posts.js"></script>
+        <script src="assets/js/main.js"></script>
+        <script src="assets/js/posts.js"></script>
     </body>
 
 </html>

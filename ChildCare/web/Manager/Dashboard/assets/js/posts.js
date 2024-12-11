@@ -1,5 +1,6 @@
 class PostsManager {
-    constructor() {
+    constructor () {
+        this.posts = [];
         this.currentPage = 1;
         this.itemsPerPage = 10;
         this.sortField = 'id';
@@ -10,9 +11,13 @@ class PostsManager {
             author: '',
             status: ''
         };
+        this.isLoading = false;
 
-        // Initialize event listeners
+        // Initialize event listeners and load posts
         this.initializeEventListeners();
+        this.loadPosts();
+
+        // Initialize theme handler
         this.initializeThemeHandler();
     }
 
@@ -23,16 +28,16 @@ class PostsManager {
         });
 
         // Filter handlers
-        document.getElementById('categoryFilter') ? .addEventListener('change', (e) =>
+        document.getElementById('categoryFilter')?.addEventListener('change', (e) =>
             this.updateFilter('category', e.target.value));
-        document.getElementById('authorFilter') ? .addEventListener('change', (e) =>
+        document.getElementById('authorFilter')?.addEventListener('change', (e) =>
             this.updateFilter('author', e.target.value));
-        document.getElementById('statusFilter') ? .addEventListener('change', (e) =>
+        document.getElementById('statusFilter')?.addEventListener('change', (e) =>
             this.updateFilter('status', e.target.value));
 
         // Search handler
         const searchInput = document.querySelector('.search-bar input');
-        searchInput ? .addEventListener('input', (e) => {
+        searchInput?.addEventListener('input', (e) => {
             this.updateFilter('search', e.target.value);
         });
 
@@ -108,7 +113,7 @@ class PostsManager {
             console.error('Error creating post:', error);
             this.showNotification('Failed to create post', 'error');
         } finally {
-            submitBtn ? .classList.remove('loading');
+            submitBtn?.classList.remove('loading');
         }
     }
 
@@ -137,7 +142,7 @@ class PostsManager {
             console.error('Error updating post:', error);
             this.showNotification('Failed to update post', 'error');
         } finally {
-            submitBtn ? .classList.remove('loading');
+            submitBtn?.classList.remove('loading');
         }
     }
 
@@ -402,9 +407,9 @@ class PostsManager {
             const bValue = b[this.sortField];
 
             if (typeof aValue === 'string') {
-                return this.sortDirection === 'asc' ?
-                    aValue.localeCompare(bValue) :
-                    bValue.localeCompare(aValue);
+                return this.sortDirection === 'asc'
+                    ? aValue.localeCompare(bValue)
+                    : bValue.localeCompare(aValue);
             }
 
             return this.sortDirection === 'asc' ? aValue - bValue : bValue - aValue;
@@ -498,7 +503,8 @@ class PostsManager {
     }
 
     async getMockPosts() {
-        return [{
+        return [
+            {
                 id: 1,
                 title: 'Healthcare Tips for Summer',
                 category: 'health',
@@ -530,9 +536,9 @@ class PostsManager {
         if (this.filters.author) activeFilters.push('author');
         if (this.filters.status) activeFilters.push('status');
 
-        return activeFilters.length > 0 ?
-            ` matching the selected ${activeFilters.join(', ')}` :
-            '';
+        return activeFilters.length > 0
+            ? ` matching the selected ${activeFilters.join(', ')}`
+            : '';
     }
 
     closeModals() {
