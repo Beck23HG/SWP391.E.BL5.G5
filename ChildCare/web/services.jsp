@@ -37,7 +37,7 @@
                 margin: 0;
                 display: flex;
                 flex-direction: column;
-                gap: 12px; 
+                gap: 12px;
                 max-width: 300px;
                 margin: 0 auto;
             }
@@ -51,16 +51,16 @@
                 font-weight: 600;
                 color: #ffffff;
                 background-color: #3498db;
-                border: none; 
+                border: none;
                 border-radius: 8px;
                 padding: 12px 24px;
-                text-align: center; 
+                text-align: center;
                 width: 100%;
                 display: flex;
                 justify-content: center;
-                align-items: center; 
-                gap: 12px; 
-                transition: all 0.3s ease; 
+                align-items: center;
+                gap: 12px;
+                transition: all 0.3s ease;
             }
 
             .category-list .btn i {
@@ -217,10 +217,12 @@
                                                 ${s.price}$
                                             </div>
                                             <div class="service-actions">
-                                                <button class="btn btn-primary">
+                                                <a href="serviceDetail?id=${s.serviceId}"
+                                                   <button class="btn btn-primary">
                                                     <i class="fas fa-eye"></i>      
                                                     View detail
-                                                </button>
+                                                    </button>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>

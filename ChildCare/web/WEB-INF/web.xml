@@ -8,6 +8,10 @@
         <servlet-name>ServicesListServlet</servlet-name>
         <servlet-class>controller.ManagerController.ServicesListServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServiceDetailManagerServlet</servlet-name>
+        <servlet-class>controller.ManagerController.ServiceDetailManagerServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServiceDetailServlet</servlet-name>
         <url-pattern>/serviceDetail</url-pattern>
@@ -67,6 +71,10 @@
     <servlet-mapping>
         <servlet-name>CustomerDetailServlet</servlet-name>
         <url-pattern>/customerDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServiceDetailManagerServlet</servlet-name>
+        <url-pattern>/DetailService</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home</welcome-file>

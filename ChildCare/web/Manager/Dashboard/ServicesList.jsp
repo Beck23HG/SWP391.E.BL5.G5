@@ -12,7 +12,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Services Management - Healthcare Admin</title>
+        <title>Services Management - Healthcare Manager</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/Manager/Dashboard/assets/css/style.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/Manager/Dashboard/assets/css/services.css">
@@ -151,6 +151,14 @@
                                 <input type="text" name="serviceName" placeholder="Search by name...">
                             </div>
                             <div class="filter-group">
+                                <select name="personName" class="filter-select" id="statusFilter">
+                                    <option value="">All manager</option>
+                                    <c:forEach items="${names}" var="s">
+                                        <option value="${s}">${s}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                            <div class="filter-group">
                                 <select name="status" class="filter-select" id="statusFilter">
                                     <option value="">All Status</option>
                                     <option value="1">Active</option>
@@ -203,8 +211,8 @@
                                     </span>
                                 </td>
                                 <td class="table-actions">
-                                    <form action="" method="get" >
-                                        <input type="hidden" name="serviceId" value="${s.serviceId}">
+                                    <form action="DetailService" method="get" >
+                                        <input type="hidden" name="id" value="${s.serviceId}">
                                         <button class="btn-icon" title="View Details" onclick="this.closest('form').submit(); return false;">
                                             <i class="fas fa-eye"></i>
                                         </button>
@@ -228,19 +236,19 @@
                 </div>
                 <div class="pagination-controls">
                     <!-- Prev button -->
-                    <button class="btn-icon" ${indexx == 1 ? 'disabled' : ''} onclick="window.location = '?serviceName=${param.serviceName}&status=${param.status}&index=${indexx - 1}'">
+                    <button class="btn-icon" ${indexx == 1 ? 'disabled' : ''} onclick="window.location = '?serviceName=${param.serviceName}&personName=${param.personName}&status=${param.status}&index=${indexx - 1}'">
                         <i class="fas fa-chevron-left"></i>
                     </button>
 
                     <!-- Page Numbers -->
                     <div class="page-numbers">
                         <c:forEach var="i" begin="1" end="${endPage}">
-                            <button class="${i == indexx ? 'active' : ''}" onclick="window.location = '?serviceName=${param.serviceName}&status=${param.status}&index=${i}'">${i}</button>
+                            <button class="${i == indexx ? 'active' : ''}" onclick="window.location = '?serviceName=${param.serviceName}&personName=${param.personName}&status=${param.status}&index=${i}'">${i}</button>
                         </c:forEach>
                     </div>
 
                     <!-- Next button -->
-                    <button class="btn-icon" ${indexx == endPage ? 'disabled' : ''} onclick="window.location = '?serviceName=${param.serviceName}&status=${param.status}&index=${indexx + 1}'">
+                    <button class="btn-icon" ${indexx == endPage ? 'disabled' : ''} onclick="window.location = '?serviceName=${param.serviceName}&personName=${param.personName}&status=${param.status}&index=${indexx + 1}'">
                         <i class="fas fa-chevron-right"></i>
                     </button>
                 </div>

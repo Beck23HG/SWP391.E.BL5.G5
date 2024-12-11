@@ -20,13 +20,16 @@ import model.Service;
  */
 public class ServiceDAO extends DBContext {
 
-    public List<Service> getAllServices(String name, String status, int index) {
+    public List<Service> getAllServices(String name, String personName, String status, int index) {
         List<Service> services = new ArrayList<>();
         try {
             String sql = "SELECT * FROM Service s join Person p on s.ManagerId = p.PersonId "
                     + "where 1=1 ";
             if (name != null && !name.isEmpty()) {
                 sql += "AND ServiceName like '%" + name + "%' ";
+            }
+            if (personName != null) {
+                sql += "AND PersonName like '%" + personName + "%' ";
             }
             if (status != null) {
                 sql += "AND Status like '%" + status + "%' ";
@@ -68,12 +71,15 @@ public class ServiceDAO extends DBContext {
         return services;
     }
     
-    public int getNumberOfService(String name, String status) {
+    public int getNumberOfService(String name, String personName, String status) {
         try {
             String sql = "SELECT count(*) FROM Service s join Person p on s.ManagerId = p.PersonId "
                     + "where 1=1 ";
             if (name != null && !name.isEmpty()) {
                 sql += "AND ServiceName like '%" + name + "%' ";
+            }
+            if (personName != null) {
+                sql += "AND PersonName like '%" + personName + "%' ";
             }
             if (status != null) {
                 sql += "AND Status like '%" + status + "%' ";
@@ -87,6 +93,24 @@ public class ServiceDAO extends DBContext {
             Logger.getLogger(SliderDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 0;
+    }
+    
+    public List<String> getAllManagerCreateService(){
+        List<String> names = new ArrayList<>();
+        try{
+            String sql = """
+                         SELECT PersonName FROM Service s 
+                         join Person p on s.ManagerId = p.PersonId 
+                         group by PersonName""";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                names.add(rs.getString("PersonName"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SliderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return names;
     }
 
     public List<Service> getAllServicesActive() {
