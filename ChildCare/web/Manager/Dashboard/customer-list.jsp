@@ -170,6 +170,44 @@
             .pagination .btn-next:hover {
                 background-color: #0056b3;
             }
+            /* Button styling */
+            .btn-active {
+                background-color: #28a745; /* Màu xanh lá cây */
+                color: white;
+                border: none;
+                padding: 10px 15px;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            .btn-active:hover {
+                background-color: #218838; /* Màu xanh đậm hơn */
+            }
+
+            .btn-inactive {
+                background-color: #dc3545; /* Màu đỏ */
+                color: white;
+                border: none;
+                padding: 10px 15px;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            .btn-inactive:hover {
+                background-color: #c82333; /* Màu đỏ đậm hơn */
+            }
+
+            /* Status styling */
+            .status-active {
+                color: #28a745; /* Màu xanh lá cây */
+                font-weight: bold;
+            }
+
+            .status-inactive {
+                color: #dc3545; /* Màu đỏ */
+                font-weight: bold;
         </style>
     </head>
 
@@ -275,9 +313,20 @@
                                 <td>${customer.gender ? 'Male' : 'Female'}</td>
                                 <td>${customer.email}</td>
                                 <td>${customer.phone}</td>
-                                <td>${customer.account.status == 1 ? 'Active' : 'Inactive'}</td>
+                                <td>
+                                    <span class="${customer.account.status == 1 ? 'status-active' : 'status-inactive'}">
+                                        ${customer.account.status == 1 ? 'Active' : 'Inactive'}
+                                    </span>
+                                </td>
                                 <td class="actions">
-                                    <a href="editCustomer?personId=${customer.personId}" class="btn-edit">Edit</a>
+                                    <form method="post" action="customerList">
+                                        <input type="hidden" name="personId" value="${customer.personId}" />
+                                        <input type="hidden" name="action" value="toggleStatus" />
+                                        <button type="submit" 
+                                                class="${customer.account.status == 1 ? 'btn-inactive' : 'btn-active'}">
+                                            ${customer.account.status == 1 ? 'Deactivate' : 'Activate'}
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                         </c:forEach>

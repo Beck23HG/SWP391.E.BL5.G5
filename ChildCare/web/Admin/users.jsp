@@ -84,7 +84,115 @@
         .filters-section button:hover {
             background-color: #218838; /* Darker green on hover */
         }
-    </style>
+        /* Status Styling */
+        .status-active {
+            color: #28a745; /* Green */
+            font-weight: bold;
+        }
+
+        .status-inactive {
+            color: #dc3545; /* Red */
+            font-weight: bold;
+        }
+
+        /* Edit Button with Tooltip */
+        .btn-edit {
+            background-color: #007bff; /* Blue */
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            position: relative; /* For tooltip */
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-edit:hover {
+            background-color: #0056b3; /* Darker blue */
+        }
+
+        .btn-edit i {
+            font-size: 16px;
+        }
+
+        .btn-edit::after {
+            content: "Edit Customer";
+            position: absolute;
+            bottom: 125%; /* Above the button */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .btn-edit:hover::after {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Pagination Styling */
+        .pagination {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+            font-family: Arial, sans-serif;
+        }
+
+        .pagination a,
+        .pagination button {
+            background-color: #f8f9fa; /* Light background */
+            color: #007bff; /* Blue text */
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 8px 15px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .pagination a.active {
+            background-color: #007bff; /* Blue background */
+            color: white; /* White text */
+            font-weight: bold;
+        }
+
+        .pagination a:hover,
+        .pagination button:hover {
+            background-color: #0056b3; /* Darker blue */
+            color: white;
+        }
+
+        .pagination .dots {
+            padding: 8px 15px;
+            font-size: 14px;
+            color: #999;
+        }
+
+        .pagination .disabled {
+            color: #999;
+            pointer-events: none; /* Disable click */
+        }
+
+        .pagination button {
+            border: none;
+            cursor: pointer;
+        }
+
+        .pagination button.disabled {
+            background-color: #f8f9fa;
+            color: #999;
+            cursor: default;
+        }
+        </style>
 </head>
 
 <body>
@@ -214,9 +322,15 @@
                             <td>${person.email}</td>
                             <td>${person.phone}</td>
                             <td>${person.role.roleName}</td>
-                            <td>${person.account.status == 1 ? 'Active' : 'Inactive'}</td>
                             <td>
-                                <a href="edituser?personId=${person.personId}" class="btn-primary">Edit</a>    
+                                <span class="${person.account.status == 1 ? 'status-active' : 'status-inactive'}">
+                                    ${person.account.status == 1 ? 'Active' : 'Inactive'}
+                                </span>
+                            </td>
+                            <td>
+                                <a href="edituser?personId=${person.personId}" class="btn-edit">
+                                    <i class="fas fa-wrench"></i>
+                                </a> 
                             </td>
                         </tr>
                     </c:forEach>
@@ -232,36 +346,40 @@
 
         <!-- Pagination -->
         <div class="pagination">
-            <div class="pagination-info">
-            </div>
-            <div class="pagination-controls">
-                <button class="btn-icon">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <div class="page-numbers">
-                    <c:if test="${page > 1}">
-                        <a href="?page=${page - 1}" class="btn-icon">
-                            <i class="fas fa-chevron-left"></i>
-                        </a>
-                    </c:if>
-                    
-                    <c:forEach var="i" begin="1" end="${totalPages}">
-                        <a href="?page=${i}" class="${i == page ? 'active' : ''}">${i}</a>
-                    </c:forEach>
+        <!-- Nút Previous -->
+        <c:if test="${page > 1}">
+            <a href="?page=${page - 1}" class="btn-icon">
+                &laquo; Previous
+            </a>
+        </c:if>
+        <c:if test="${page <= 1}">
+            <span class="btn-icon disabled">&laquo; Previous</span>
+        </c:if>
 
-                    <c:if test="${page < totalPages}">
-                        <a href="?page=${page + 1}" class="btn-icon">
-                            <i class="fas fa-chevron-right"></i>
-                        </a>
-                    </c:if>
-                </div>
-                <button class="btn-icon">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
-            </div>
-            <div class="pagination-info">
-            </div>
-        </div>
+        <!-- Hiển thị số trang -->
+        <c:forEach var="i" begin="1" end="${totalPages}">
+            <c:if test="${i == 1 || i == totalPages || (i >= page - 1 && i <= page + 1)}">
+                <a href="?page=${i}" class="${i == page ? 'active' : ''}">${i}</a>
+            </c:if>
+            <c:if test="${i == 2 && page > 3}">
+                <span class="dots">...</span>
+            </c:if>
+            <c:if test="${i == totalPages - 1 && page < totalPages - 2}">
+                <span class="dots">...</span>
+            </c:if>
+        </c:forEach>
+
+        <!-- Nút Next -->
+        <c:if test="${page < totalPages}">
+            <a href="?page=${page + 1}" class="btn-icon">
+                Next &raquo;
+            </a>
+        </c:if>
+        <c:if test="${page >= totalPages}">
+            <span class="btn-icon disabled">Next &raquo;</span>
+        </c:if>
+    </div>
+
     </div>
     <script src="${pageContext.request.contextPath}/Dashboard/assets/js/main.js"></script>
 </body>

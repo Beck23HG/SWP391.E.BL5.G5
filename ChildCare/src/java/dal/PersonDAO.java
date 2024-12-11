@@ -316,4 +316,30 @@ public class PersonDAO extends DBContext {
         }
         return total;
     }
+
+    public boolean toggleCustomerStatus(int personId) {
+        PreparedStatement stm = null;
+        try {
+            // Câu query để đổi trạng thái
+            String sql = "UPDATE Account "
+                    + "SET status = CASE WHEN status = 1 THEN 0 ELSE 1 END "
+                    + "WHERE personId = ? AND roleId = 1";
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, personId);
+            int updatedRows = stm.executeUpdate();
+            return updatedRows > 0;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
 }

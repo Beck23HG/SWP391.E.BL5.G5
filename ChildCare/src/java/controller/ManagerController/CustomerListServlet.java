@@ -71,7 +71,23 @@ public class CustomerListServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String action = request.getParameter("action");
+        PersonDAO personDAO = new PersonDAO();
+
+        if ("toggleStatus".equals(action)) {
+            int personId = Integer.parseInt(request.getParameter("personId"));
+            boolean success = personDAO.toggleCustomerStatus(personId);
+
+            // Thông báo thành công/thất bại
+            if (success) {
+                request.setAttribute("message", "Status updated successfully.");
+            } else {
+                request.setAttribute("error", "Failed to update status.");
+            }
+        }
+
+        // Chuyển hướng lại danh sách khách hàng
+        doGet(request, response);
     }
 
     /**
