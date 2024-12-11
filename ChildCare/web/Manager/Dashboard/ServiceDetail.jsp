@@ -267,8 +267,8 @@
                             </div>
                         </div>
                         <div class="button-container">
-                            <form action="" method="get">
-                                <input type="hidden" name="sliderId" value="${slider.sliderId}">
+                            <form action="editService" method="get">
+                                <input type="hidden" name="id" value="${service.serviceId}">
                                 <a class="action-btn edit" href="#" onclick="this.closest('form').submit(); return false;">
                                     <i class="fas fa-edit"></i>
                                     Edit
