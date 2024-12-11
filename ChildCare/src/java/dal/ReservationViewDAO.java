@@ -15,6 +15,7 @@ import model.Category;
 import model.Person;
 import model.Reservation;
 import model.Service;
+import org.apache.tomcat.jakartaee.commons.lang3.ObjectUtils.Null;
 
 /**
  *
@@ -82,9 +83,34 @@ catch (SQLException e) {
     }
     return services;
 }
+    
+    public List<Person> getDoctorsIsActive() {
+    List<Person> doctors = new ArrayList<>();
+    String sql = "SELECT * FROM Person WHERE staffStatus = 1";
+    
+    try {
+        PreparedStatement st = connection.prepareStatement(sql);
+        ResultSet rs = st.executeQuery();
+        
+        while (rs.next()) {
+            Person doctor = new Person();
+            doctor.setPersonId(rs.getInt("personId"));
+            doctor.setPersonName(rs.getString("personName"));
+            doctor.setImage(rs.getString("image"));
+            doctor.setEmail(rs.getString("email"));
+            doctor.setPhone(rs.getString("phone"));
+            // Set other properties as needed
+            doctors.add(doctor);
+        }
+    } catch (SQLException e) {
+        System.out.println("Error getting doctors: " + e.getMessage());
+    }
+    
+    return doctors;
+}
      public int createPerson(Person person) {
-        String sql = "INSERT INTO Person (PersonName, Phone,DateOfBirth, Email, Address, Gender, StaffStatus) "
-                  + "VALUES (?, ?,'1985-08-22', ?, ?, ?, ?)";
+        String sql = "INSERT INTO Person (PersonName, Phone,DateOfBirth, Email, Address, Gender) "
+                  + "VALUES (?, ?,'1985-08-22', ?, ?, ?)";
         try {
             PreparedStatement st = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             st.setString(1, person.getPersonName());
@@ -92,7 +118,7 @@ catch (SQLException e) {
             st.setString(3, person.getEmail());
             st.setString(4, person.getAddress());
             st.setBoolean(5, person.isGender());
-            st.setInt(6, 0);
+           
             
             st.executeUpdate();
             
@@ -107,16 +133,20 @@ catch (SQLException e) {
         return 0;
     }
     
-    public int createReservation(Reservation reservation) {
-        String sql = "INSERT INTO Reservation (CustomerId, Status, Note, Created_Date, ReservationDate,StaffId) "
-                  + "VALUES (?, ?, ?, ?, ?, 1)";
+    public int createReservation(Reservation reservation, String reservationDate) {
+        String sql = "INSERT INTO Reservation (CustomerId, Status, Note, Created_Date, ReservationDate, StaffId) "
+                  + "VALUES (?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement st = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             st.setInt(1, reservation.getCustomerId());
-            st.setInt(2, 1);
+            st.setInt(2, 1); // Initial status
             st.setString(3, reservation.getNote());
-            st.setTimestamp(4, new java.sql.Timestamp(System.currentTimeMillis()));
-            st.setTimestamp(5, new java.sql.Timestamp(System.currentTimeMillis()));
+            st.setTimestamp(4, new java.sql.Timestamp(System.currentTimeMillis())); // Created date
+            
+            // Convert reservation date string to Timestamp
+            st.setString(5, reservationDate);
+            
+            st.setInt(6, reservation.getStaffId()); // Selected doctor ID
             
             st.executeUpdate();
             
@@ -132,7 +162,7 @@ catch (SQLException e) {
     }
     
     public void createServiceReservation(int serviceId, int reservationId) {
-        String sql = "INSERT INTO Service_Reservation (ServiceId, ReservationId) VALUES (?, ?)";
+        String sql = "INSERT INTO Services_Reservations (ServiceId, ReservationId) VALUES (?, ?)";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, serviceId);

@@ -97,20 +97,17 @@
                                             <div class="doctor-info mb-3">
                                                 <p class="mb-1"><strong>Doctor:</strong></p>
                                                 <div class="d-flex align-items-center">
-                                                    <img src="" alt="Doctor" id="doctorImage"
-                                                        class="team-member-avatar me-2">
+                                                    <img src="" alt="Doctor" id="doctorImage" class="team-member-avatar me-2">
                                                     <div>
                                                         <p class="mb-0 fw-bold" id="doctorName">Dr. Sarah Wilson</p>
-                                                        <small class="text-muted"
-                                                            id="doctorSpecialty">Pediatrician</small>
+                                                        <small class="text-muted" id="doctorSpecialty">Pediatrician</small>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="nurse-info">
                                                 <p class="mb-1"><strong>Nurse:</strong></p>
                                                 <div class="d-flex align-items-center">
-                                                    <img src="" alt="Nurse" id="nurseImage"
-                                                        class="team-member-avatar me-2">
+                                                    <img src="" alt="Nurse" id="nurseImage" class="team-member-avatar me-2">
                                                     <div>
                                                         <p class="mb-0 fw-bold" id="nurseName">Emily Brown</p>
                                                         <small class="text-muted">Pediatric Nurse</small>
@@ -126,8 +123,7 @@
                                             <li><i class="fas fa-envelope me-2"></i><span id="customerEmail"></span>
                                             </li>
                                             <li><i class="fas fa-phone me-2"></i><span id="customerPhone"></span></li>
-                                            <li><i class="fas fa-map-marker-alt me-2"></i><span
-                                                    id="customerAddress"></span></li>
+                                            <li><i class="fas fa-map-marker-alt me-2"></i><span id="customerAddress"></span></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -139,8 +135,7 @@
                             <h2>Payment Instructions</h2>
                             <div class="payment-info mt-4">
                                 <div class="alert alert-info" role="alert">
-                                    <i class="fas fa-info-circle me-2"></i>
-                                    Please complete your payment within 24 hours to confirm your reservation.
+                                    <i class="fas fa-info-circle me-2"></i> Please complete your payment within 24 hours to confirm your reservation.
                                 </div>
 
                                 <div class="bank-accounts mt-4">
@@ -153,11 +148,9 @@
                                 <div class="payment-notes mt-4">
                                     <h5>Important Notes</h5>
                                     <ul>
-                                        <li>Include your Reservation ID (<span id="paymentRefId">RES-2024-001</span>) in
-                                            the transfer description</li>
+                                        <li>Include your Reservation ID (<span id="paymentRefId">RES-2024-001</span>) in the transfer description</li>
                                         <li>Keep your payment receipt for verification</li>
-                                        <li>After payment, please email your receipt to <span
-                                                id="paymentEmail">payments@childrencare.com</span></li>
+                                        <li>After payment, please email your receipt to <span id="paymentEmail">payments@childrencare.com</span></li>
                                     </ul>
                                 </div>
                             </div>
@@ -239,8 +232,7 @@
             <div class="row g-4">
                 <div class="col-lg-4">
                     <h5 class="fw-bold mb-4">About Children Care</h5>
-                    <p class="text-muted">Providing comprehensive healthcare services for children with care,
-                        compassion, and expertise.</p>
+                    <p class="text-muted">Providing comprehensive healthcare services for children with care, compassion, and expertise.</p>
                     <div class="social-links mt-4">
                         <a href="#" class="me-3"><i class="fab fa-facebook-f"></i></a>
                         <a href="#" class="me-3"><i class="fab fa-twitter"></i></a>

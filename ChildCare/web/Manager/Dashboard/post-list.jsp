@@ -426,7 +426,7 @@
         </div>
 
         <script src="assets/js/main.js"></script>
-        <script src="assets/js/posts.js"></script>
+        <!--<script src="assets/js/posts.js"></script>-->
     </body>
 
 </html>
