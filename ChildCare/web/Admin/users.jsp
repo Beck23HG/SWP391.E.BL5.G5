@@ -126,13 +126,13 @@
                             </div>
                             <div class="user-info">
                                 <span class="user-name">${sessionScope.account.person.personName}</span>
-                                <span class="user-role">Manager</span>
+                                <span class="user-role">Admin</span>
                             </div>
                         </div>
 
                     </div>
                     <div class="user-profile">
-                        <a href="logout" style="padding: 10% 0">
+                        <a href="../logout" style="padding: 10% 0">
                             <i class="fas fa-sign-out-alt"></i>
                             <span>Sign Out</span>
                         </a>
@@ -170,7 +170,6 @@
                             <option value="1" ${param.role == '1' ? 'selected' : ''}>Customer</option>
                             <option value="2" ${param.role == '2' ? 'selected' : ''}>Staff</option>
                             <option value="3" ${param.role == '3' ? 'selected' : ''}>Manager</option>
-                            <option value="4" ${param.role == '4' ? 'selected' : ''}>Admin</option>
                         </select>
 
                         <select class="filter-select" id="statusFilter" name="status">

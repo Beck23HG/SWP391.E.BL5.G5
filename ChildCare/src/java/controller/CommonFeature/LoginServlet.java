@@ -41,7 +41,8 @@ public class LoginServlet extends HttpServlet {
             if (account.getRoleId() == 1) {
                 response.sendRedirect("home");
             } else if (account.getRoleId() == 2) {
-                request.getRequestDispatcher("Manager/Dashboard/PostList.jsp").forward(request, response);
+                //request.getRequestDispatcher("Manager/Dashboard/PostList.jsp").forward(request, response);
+                response.sendRedirect("Staff/reservationlist");
             } else if (account.getRoleId() == 3) {
                 response.sendRedirect("sliderList");
             } else {

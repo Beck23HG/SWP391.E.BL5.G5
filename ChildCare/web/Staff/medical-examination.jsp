@@ -100,10 +100,6 @@
         <!-- Staff Section (Same as previous HTML) -->
         <div class="nav-section">
             <div class="nav-section-title">Staff Management</div>
-            <a href="services.html" class="nav-item">
-                <i class="fas fa-list"></i>
-                <span>Services List</span>
-            </a>
             <a href="reservationlist" class="nav-item">
                 <i class="fas fa-calendar-check"></i>
                 <span>Reservations</span>
@@ -112,53 +108,43 @@
                 <i class="fas fa-stethoscope"></i>
                 <span>Medical Examinations</span>
             </a>
-            <a href="#" class="nav-item">
-                <i class="fas fa-users"></i>
-                <span>Customers</span>
-            </a>
-            <a href="feedbacks.html" class="nav-item">
-                <i class="fas fa-comments"></i>
-                <span>Feedbacks</span>
-            </a>
-            <a href="#" class="nav-item">
-                <i class="fas fa-prescription"></i>
-                <span>Prescriptions</span>
-            </a>
         </div>
     </nav>
 
     <div class="main-content">
         <div class="top-nav">
-            <!-- Top navigation from previous HTML -->
-            <div class="menu-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <div class="search-bar">
-                <i class="fas fa-search"></i>
-                <input type="text" placeholder="Search...">
-            </div>
-            <div class="user-menu">
-                <div class="notifications-wrapper">
-                    <div class="notifications">
-                        <i class="fas fa-bell"></i>
-                        <span class="notifications-count">3</span>
-                    </div>
+                <div class="menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
                 </div>
-                <div class="user-profile-wrapper">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search...">
+                </div>
+                <div class="user-menu">
+                    <div class="user-profile-wrapper">
+                        <div class="user-profile">
+                            <div class="user-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="user-info">
+                                <span class="user-name">${sessionScope.account.person.personName}</span>
+                                <span class="user-role">Staff</span>
+                            </div>
+                        </div>
+
+                    </div>
                     <div class="user-profile">
-                        <div class="user-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="user-info">
-                            <span class="user-name">John Doe</span>
-                            <span class="user-role">Administrator</span>
-                        </div>
+                        <a href="../logout" style="padding: 10% 0">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Sign Out</span>
+                        </a>
+                    </div>
+                    <div class="theme-toggle" title="Toggle theme">
                     </div>
                 </div>
             </div>
-        </div>
 
         <div class="page-header">
             <div class="header-content">
