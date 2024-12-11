@@ -12,13 +12,13 @@ public class Service {
     private int serviceId, status, staffId, managerId;
     private String serviceName, description, image, duration, detail;
     private float price;
-    
+    private Reservation reservation;
     private Person person;
 
     public Service() {
     }
 
-    public Service(int serviceId, int status, int staffId, int managerId, String serviceName, String description, String image, String duration, String detail, float price, Person person) {
+    public Service(int serviceId, int status, int staffId, int managerId, String serviceName, String description, String image, String duration, String detail, float price, Reservation reservation, Person person) {
         this.serviceId = serviceId;
         this.status = status;
         this.staffId = staffId;
@@ -29,6 +29,7 @@ public class Service {
         this.duration = duration;
         this.detail = detail;
         this.price = price;
+        this.reservation = reservation;
         this.person = person;
     }
 
@@ -88,14 +89,6 @@ public class Service {
         this.image = image;
     }
 
-    public float getPrice() {
-        return price;
-    }
-
-    public void setPrice(float price) {
-        this.price = price;
-    }
-
     public String getDuration() {
         return duration;
     }
@@ -112,6 +105,22 @@ public class Service {
         this.detail = detail;
     }
 
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
+    public Reservation getReservation() {
+        return reservation;
+    }
+
+    public void setReservation(Reservation reservation) {
+        this.reservation = reservation;
+    }
+
     public Person getPerson() {
         return person;
     }
@@ -122,8 +131,10 @@ public class Service {
 
     @Override
     public String toString() {
-        return "Service{" + "serviceId=" + serviceId + ", status=" + status + ", staffId=" + staffId + ", managerId=" + managerId + ", serviceName=" + serviceName + ", description=" + description + ", image=" + image + ", price=" + price + '}';
+        return "Service{" + "serviceId=" + serviceId + ", status=" + status + ", staffId=" + staffId + ", managerId=" + managerId + ", serviceName=" + serviceName + ", description=" + description + ", image=" + image + ", duration=" + duration + ", detail=" + detail + ", price=" + price + ", reservation=" + reservation + ", person=" + person + '}';
     }
+
+   
     
     
     

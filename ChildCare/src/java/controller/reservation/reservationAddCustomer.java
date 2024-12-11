@@ -18,6 +18,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import model.Person;
+import model.Service;
 import model.Reservation;
 
 /**
@@ -65,6 +66,12 @@ public class reservationAddCustomer extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        ReservationViewDAO dao = new ReservationViewDAO();
+        int reservationId = Integer.parseInt(request.getParameter("reservationId"));
+       List<Service> serviceList = dao.getListServiceByReservationId(reservationId);
+       Person doctor = dao.getDoctorByReservationId(reservationId);
+       request.setAttribute("serviceList", serviceList);
+       request.setAttribute("doctor", doctor);
         request.getRequestDispatcher("reservation-success.jsp").forward(request, response);
     }
 
@@ -93,28 +100,32 @@ public class reservationAddCustomer extends HttpServlet {
             String servicesJson = request.getParameter("services");
             String reservationDate = request.getParameter("reservationDate");
             String staffId = request.getParameter("doctorSelect");
-
-            // Validate input
-            if (fullName == null || fullName.trim().isEmpty()
-                    || email == null || email.trim().isEmpty()
-                    || mobile == null || mobile.trim().isEmpty()
-                    || address == null || address.trim().isEmpty()) {
-                out.println("{\"success\": false, \"message\": \"Missing required fields\"}");
-                return;
-            }
-
-            // Create Person object
-            Person person = new Person();
-            person.setPersonName(fullName);
-            person.setGender(gender);
-            person.setEmail(email);
-            person.setPhone(mobile);
-            person.setAddress(address);
-
+            int personId = 0;
             ReservationViewDAO dao = new ReservationViewDAO();
+            
+            if (request.getParameter("personId") == null) {
+                // Validate input
+                if (fullName == null || fullName.trim().isEmpty()
+                        || email == null || email.trim().isEmpty()
+                        || mobile == null || mobile.trim().isEmpty()
+                        || address == null || address.trim().isEmpty()) {
+                    out.println("{\"success\": false, \"message\": \"Missing required fields\"}");
+                    return;
+                }
 
-            // Create person and get ID
-            int personId = dao.createPerson(person);
+                // Create Person object
+                Person person = new Person();
+                person.setPersonName(fullName);
+                person.setGender(gender);
+                person.setEmail(email);
+                person.setPhone(mobile);
+                person.setAddress(address);
+
+                // Create person and get ID
+                personId = dao.createPerson(person);
+            } else {
+                personId = Integer.parseInt(request.getParameter("personId"));
+            }
 
             if (personId > 0) {
                 // Create reservation
@@ -123,11 +134,9 @@ public class reservationAddCustomer extends HttpServlet {
                 reservation.setNote(notes);
 
                 // Convert string date to java.util.Date
-
-                
                 reservation.setStaffId(Integer.parseInt(staffId));
 
-                int reservationId = dao.createReservation(reservation,reservationDate);
+                int reservationId = dao.createReservation(reservation, reservationDate);
 
                 if (reservationId > 0) {
                     // Parse services JSON manually
@@ -158,8 +167,8 @@ public class reservationAddCustomer extends HttpServlet {
                         }
                     }
 
-                    out.println("{\"success\": true, \"message\": \"Reservation created successfully\"}");
-                    return;
+                    out.println("{\"success\": true, \"message\": \"Reservation created successfully\",\"reservationId\": \"" +  reservationId + "\"}");
+                    return ;
                 }
             }
 

@@ -175,21 +175,21 @@
                                     const tbody = document.getElementById('servicesTableBody');
                                     services.forEach(service => {
                                         tbody.innerHTML += `
-                                    <tr class="align-middle">
-                                        <td>
-                                            <img src="\${service.image}" 
-                                                 alt="Service" 
-                                                 class="img-fluid rounded shadow-sm" 
-                                                 style="width: 60px; height: 60px; object-fit: cover;">
-                                        </td>
-                                        <td class="fw-medium text-secondary">#\${service.id}</td>
-                                        <td class="fw-semibold text-primary">\${service.name}</td>
-                                        <td class="fw-bold text-success">\${service.price}</td>
-                                        <td class="text-center fw-medium">
-                                            <span class="badge bg-light text-dark px-3 py-2">1</span>
-                                        </td>
-                                    </tr>
-                                `;
+                                <tr class="align-middle">
+                                    <td>
+                                        <img src="\${service.image}" 
+                                             alt="Service" 
+                                             class="img-fluid rounded shadow-sm" 
+                                             style="width: 60px; height: 60px; object-fit: cover;">
+                                    </td>
+                                    <td class="fw-medium text-secondary">#\${service.id}</td>
+                                    <td class="fw-semibold text-primary">\${service.name}</td>
+                                    <td class="fw-bold text-success">\${service.price}</td>
+                                    <td class="text-center fw-medium">
+                                        <span class="badge bg-light text-dark px-3 py-2">1</span>
+                                    </td>
+                                </tr>
+                            `;
                                     });
                                     const subtotal = services.reduce((sum, service) => {
                                         // Remove '$' and convert to float
@@ -211,27 +211,51 @@
                                         <div class="row g-4">
                                             <div class="col-md-6">
                                                 <label class="form-label">Full Name</label>
-                                                <input type="text" class="form-control" id="fullName" required>
+                                                <c:if test="${account != null}">
+                                                    <input type="text" class="form-control" id="fullName" value="${account.person.personName}" readonly required>
+                                                </c:if>
+                                                <c:if test="${account == null}">
+                                                    <input type="text" class="form-control" id="fullName" required>
+                                                </c:if>
                                                 <div class="invalid-feedback">Please enter your full name</div>
                                             </div>
                                             <div class="col-md-6">
                                                 <label class="form-label">Gender</label>
-                                                <select class="form-select" id="gender" required>
-                                                <option value="">Select gender</option>
-                                                <option value="male">Male</option>
-                                                <option value="female">Female</option>
-                                                <option value="other">Other</option>
-                                            </select>
+                                                <c:if test="${account != null}">
+                                                    <select class="form-select" id="gender" disabled required>
+                                                    <option value="male" ${account.person.gender ? 'selected' : ''}>Male</option>
+                                                    <option value="female" ${!account.person.gender ? 'selected' : ''}>Female</option>
+                                                    <option value="other">Other</option>
+                                                </select>
+                                                </c:if>
+                                                <c:if test="${account == null}">
+                                                    <select class="form-select" id="gender" required>
+                                                    <option value="">Select gender</option>
+                                                    <option value="male">Male</option>
+                                                    <option value="female">Female</option>
+                                                    <option value="other">Other</option>
+                                                </select>
+                                                </c:if>
                                                 <div class="invalid-feedback">Please select your gender</div>
                                             </div>
                                             <div class="col-md-6">
                                                 <label class="form-label">Email Address</label>
-                                                <input type="email" class="form-control" id="email" required>
+                                                <c:if test="${account != null}">
+                                                    <input type="email" class="form-control" id="email" value="${account.person.email}" readonly required>
+                                                </c:if>
+                                                <c:if test="${account == null}">
+                                                    <input type="email" class="form-control" id="email" required>
+                                                </c:if>
                                                 <div class="invalid-feedback">Please enter a valid email address</div>
                                             </div>
                                             <div class="col-md-6">
                                                 <label class="form-label">Mobile Number</label>
-                                                <input type="tel" class="form-control" id="mobile" required>
+                                                <c:if test="${account != null}">
+                                                    <input type="tel" class="form-control" id="mobile" value="${account.person.phone}" readonly required>
+                                                </c:if>
+                                                <c:if test="${account == null}">
+                                                    <input type="tel" class="form-control" id="mobile" required>
+                                                </c:if>
                                                 <div class="invalid-feedback">Please enter your mobile number</div>
                                             </div>
                                             <div class="col-md-6">
@@ -281,7 +305,12 @@
 
                                         <div class="col-12">
                                             <label class="form-label">Address</label>
-                                            <textarea class="form-control" id="address" rows="3" required></textarea>
+                                            <c:if test="${account != null}">
+                                                <textarea class="form-control" id="address" rows="3" readonly required>${account.person.address}</textarea>
+                                            </c:if>
+                                            <c:if test="${account == null}">
+                                                <textarea class="form-control" id="address" rows="3" required>${account != null ? account.person.address : ''}</textarea>
+                                            </c:if>
                                             <div class="invalid-feedback">Please enter your address</div>
                                         </div>
                                         <div class="col-12">
@@ -292,9 +321,9 @@
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" id="termsCheck" required>
                                                 <label class="form-check-label" for="termsCheck">
-                                        I agree to the <a href="/terms">Terms of Service</a> and
-                                        <a href="/privacy">Privacy Policy</a>
-                                    </label>
+                                                I agree to the <a href="/terms">Terms of Service</a> and
+                                                <a href="/privacy">Privacy Policy</a>
+                                            </label>
                                                 <div class="invalid-feedback">
                                                     You must agree before submitting
                                                 </div>
@@ -302,16 +331,16 @@
                                         </div>
                                         <div class="col-12 text-end">
                                             <button type="button" class="btn btn-outline-secondary me-2" onclick="window.location.href = 'reservationView'">
-                                    Back to Details
-                                </button>
+                                            Back to Details
+                                        </button>
                                             <button id="submit" type="submit" class="btn btn-primary">
-                                    <span class="btn-text">
-                                        <i class="fas fa-check me-2"></i>Submit Reservation
-                                    </span>
-                                    <span class="btn-loader d-none">
-                                        <i class="fas fa-circle-notch fa-spin"></i>
-                                    </span>
-                                </button>
+                                            <span class="btn-text">
+                                                <i class="fas fa-check me-2"></i>Submit Reservation
+                                            </span>
+                                            <span class="btn-loader d-none">
+                                                <i class="fas fa-circle-notch fa-spin"></i>
+                                            </span>
+                                        </button>
                                         </div>
 
                                     </form>
@@ -404,6 +433,12 @@
                     formData.append('services', JSON.stringify(services));
                     formData.append('reservationDate', document.getElementById('reservationDate').value);
                     formData.append('doctorSelect', document.getElementById('doctorSelect').value);
+                    // Add accountId if account exists
+                    <c:if test = "${account != null}" >
+                        formData.append('accountId', '${account.accountId}');
+                    formData.append('personId', '${account.personId}');
+                    </c:if>
+
                     // Submit form
                     fetch('reservationAddCustomer', {
                             method: 'POST',
@@ -416,26 +451,41 @@
                             if (!response.ok) {
                                 throw new Error('Network response was not ok');
                             }
-                            return response.text();
-                        })
-                        .then(text => {
-                            try {
-                                return JSON.parse(text);
-                            } catch (e) {
-                                console.error('Error parsing JSON:', text);
-                                throw new Error('Invalid JSON response');
-                            }
+                            return response.json();
                         })
                         .then(data => {
                             if (data.success) {
-                                localStorage.removeItem('serviceList');
-                                alert('Reservation created successfully!');
-                                window.location.href = '/ChildCare/reservationAddCustomer';
+                                // Send confirmation email
+                                return fetch('sendEmail', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/x-www-form-urlencoded',
+                                        },
+                                        body: new URLSearchParams({
+                                            email: document.getElementById('email').value,
+                                            customerName: document.getElementById('fullName').value,
+                                            reservationId: data.reservationId,
+                                            reservationDate: document.getElementById('reservationDate').value,
+                                            doctorName: document.getElementById('doctorSelect').options[document.getElementById('doctorSelect').selectedIndex].text,
+                                            totalAmount: document.getElementById('total').textContent
+                                        })
+                                    })
+                                    .then(response => response.json())
+                                    .then(emailData => {
+                                        if (emailData.success) {
+                                            localStorage.removeItem('serviceList');
+                                            alert('Reservation created and confirmation email sent successfully!');
+                                            window.location.href = '/ChildCare/reservationAddCustomer?reservationId=' + data.reservationId;
+                                        } else {
+                                            throw new Error('Failed to send confirmation email: ' + emailData.message);
+                                        }
+                                    });
                             } else {
                                 throw new Error(data.message || 'Failed to create reservation');
                             }
                         })
-                        .catch(error => {
+
+                    .catch(error => {
                             console.error('Error:', error);
                             alert('An error occurred: ' + error.message);
                         })

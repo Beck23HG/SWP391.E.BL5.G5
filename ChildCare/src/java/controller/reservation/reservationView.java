@@ -17,6 +17,7 @@ import java.util.List;
 import model.Service;
 import model.Person;
 import jakarta.servlet.http.HttpSession;
+import model.Account;
 
 /**
  *
@@ -70,7 +71,11 @@ public class reservationView extends HttpServlet {
          ReservationViewDAO  dao = new ReservationViewDAO();
         List<Service> serviceList = dao.getAllService();
         request.setAttribute("serviceList", serviceList);
-        
+        HttpSession session = request.getSession();
+        if(session.getAttribute("account") != null){
+            Account account = (Account) session.getAttribute("account");
+            request.setAttribute("account", account);
+        }
         List <Person> DoctorList = dao.getDoctorsIsActive();
         request.setAttribute("doctorList",DoctorList);
         request.getRequestDispatcher("reservation-contact.jsp").forward(request, response);

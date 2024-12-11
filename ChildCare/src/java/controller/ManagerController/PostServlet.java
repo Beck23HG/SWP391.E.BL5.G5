@@ -36,7 +36,30 @@ public class PostServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        String blogIdParam = request.getParameter("blogId");
+        
+        if (blogIdParam != null) {
+            try {
+                int blogId = Integer.parseInt(blogIdParam);
+                BlogDAO blogDao = new BlogDAO();
+                Blog blog = blogDao.getBlogById(blogId);
+                
+                if (blog != null) {
+                    request.setAttribute("blog", blog);
+                    request.getRequestDispatcher("post-list.jsp").forward(request, response);
+                    return;
+                }
+            } catch (NumberFormatException e) {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+                return;
+            }
+        }
+        
+        // Hiển thị danh sách blog
+        BlogDAO blogDao = new BlogDAO();
+        List<Blog> blogs = blogDao.getAllBlogList();
+        request.setAttribute("blogs", blogs);
+        request.getRequestDispatcher("post-list.jsp").forward(request, response);
     } 
 
     @Override

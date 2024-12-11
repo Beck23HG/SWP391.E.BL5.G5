@@ -120,4 +120,10 @@ public class Person {
     public void setAccount(Account account) {
         this.account = account;
     }
+
+    @Override
+    public String toString() {
+        return "Person{" + "personId=" + personId + ", staffStatus=" + staffStatus + ", personName=" + personName + ", phone=" + phone + ", email=" + email + ", address=" + address + ", image=" + image + ", dateOfBirth=" + dateOfBirth + ", gender=" + gender + ", role=" + role + ", account=" + account + '}';
+    }
+    
 }
