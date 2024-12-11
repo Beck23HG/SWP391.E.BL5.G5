@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Person;
 import model.Service;
 
 /**
@@ -18,6 +19,75 @@ import model.Service;
  * @author Admin
  */
 public class ServiceDAO extends DBContext {
+
+    public List<Service> getAllServices(String name, String status, int index) {
+        List<Service> services = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM Service s join Person p on s.ManagerId = p.PersonId "
+                    + "where 1=1 ";
+            if (name != null && !name.isEmpty()) {
+                sql += "AND ServiceName like '%" + name + "%' ";
+            }
+            if (status != null) {
+                sql += "AND Status like '%" + status + "%' ";
+            }
+
+            sql += "ORDER BY s.ServiceId OFFSET ? ROWS FETCH NEXT 4 ROWS ONLY";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, (index - 1) * 4);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Service service = new Service();
+                service.setServiceId(rs.getInt("ServiceId"));
+                service.setServiceName(rs.getString("ServiceName"));
+                service.setPrice(rs.getFloat("Price"));
+                service.setDescription(rs.getString("Description"));
+                service.setStatus(rs.getInt("Status"));
+                service.setImage(rs.getString("Image"));
+                service.setDuration(rs.getString("Duration"));
+                service.setDetail(rs.getString("Detail"));
+                service.setManagerId(rs.getInt("ManagerId"));
+
+                Person person = new Person();
+                person.setPersonId(rs.getInt("PersonId"));
+                person.setPersonName(rs.getString("PersonName"));
+                person.setDateOfBirth(rs.getDate("DateOfBirth"));
+                person.setGender(rs.getBoolean("Gender"));
+                person.setPhone(rs.getString("Phone"));
+                person.setEmail(rs.getString("Email"));
+                person.setAddress(rs.getString("Address"));
+                person.setImage(rs.getString("Image"));
+                person.setStaffStatus(rs.getInt("StaffStatus"));
+
+                service.setPerson(person);
+                services.add(service);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SliderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return services;
+    }
+    
+    public int getNumberOfService(String name, String status) {
+        try {
+            String sql = "SELECT count(*) FROM Service s join Person p on s.ManagerId = p.PersonId "
+                    + "where 1=1 ";
+            if (name != null && !name.isEmpty()) {
+                sql += "AND ServiceName like '%" + name + "%' ";
+            }
+            if (status != null) {
+                sql += "AND Status like '%" + status + "%' ";
+            }
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SliderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
 
     public List<Service> getAllServicesActive() {
         List<Service> services = new ArrayList<>();
@@ -33,6 +103,9 @@ public class ServiceDAO extends DBContext {
                 service.setDescription(rs.getString("Description"));
                 service.setStatus(rs.getInt("Status"));
                 service.setImage(rs.getString("Image"));
+                service.setDuration(rs.getString("Duration"));
+                service.setDetail(rs.getString("Detail"));
+                service.setManagerId(rs.getInt("ManagerId"));
                 services.add(service);
             }
         } catch (SQLException ex) {
@@ -55,6 +128,9 @@ public class ServiceDAO extends DBContext {
                 service.setDescription(rs.getString("Description"));
                 service.setStatus(rs.getInt("Status"));
                 service.setImage(rs.getString("Image"));
+                service.setDuration(rs.getString("Duration"));
+                service.setDetail(rs.getString("Detail"));
+                service.setManagerId(rs.getInt("ManagerId"));
                 services.add(service);
             }
         } catch (SQLException ex) {
@@ -79,6 +155,9 @@ public class ServiceDAO extends DBContext {
                 service.setDescription(rs.getString("Description"));
                 service.setStatus(rs.getInt("Status"));
                 service.setImage(rs.getString("Image"));
+                service.setDuration(rs.getString("Duration"));
+                service.setDetail(rs.getString("Detail"));
+                service.setManagerId(rs.getInt("ManagerId"));
                 services.add(service);
             }
         } catch (SQLException ex) {
@@ -106,11 +185,11 @@ public class ServiceDAO extends DBContext {
         try {
             String sql = """
                          SELECT * FROM Service where Price between ? and ? and Status = 1
-                         order by ServiceId OFFSET ? ROWS FETCH NEXT 2 ROWS ONLY""";
+                         order by ServiceId OFFSET ? ROWS FETCH NEXT 3 ROWS ONLY""";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, p1);
             statement.setInt(2, p2);
-            statement.setInt(3, (index - 1) * 2);
+            statement.setInt(3, (index - 1) * 3);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 Service service = new Service();
@@ -120,6 +199,9 @@ public class ServiceDAO extends DBContext {
                 service.setDescription(rs.getString("Description"));
                 service.setStatus(rs.getInt("Status"));
                 service.setImage(rs.getString("Image"));
+                service.setDuration(rs.getString("Duration"));
+                service.setDetail(rs.getString("Detail"));
+                service.setManagerId(rs.getInt("ManagerId"));
                 services.add(service);
             }
         } catch (SQLException ex) {
@@ -158,6 +240,9 @@ public class ServiceDAO extends DBContext {
                 service.setDescription(rs.getString("Description"));
                 service.setStatus(rs.getInt("Status"));
                 service.setImage(rs.getString("Image"));
+                service.setDuration(rs.getString("Duration"));
+                service.setDetail(rs.getString("Detail"));
+                service.setManagerId(rs.getInt("ManagerId"));
                 services.add(service);
             }
         } catch (SQLException ex) {
@@ -179,20 +264,95 @@ public class ServiceDAO extends DBContext {
         return 0;
     }
 
+    public Service getServiceByID(int id) {
+        try {
+            String sql = "select * from Service where ServiceId = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                Service service = new Service();
+                service.setServiceId(rs.getInt("ServiceId"));
+                service.setServiceName(rs.getString("ServiceName"));
+                service.setPrice(rs.getFloat("Price"));
+                service.setDescription(rs.getString("Description"));
+                service.setStatus(rs.getInt("Status"));
+                service.setImage(rs.getString("Image"));
+                service.setDuration(rs.getString("Duration"));
+                service.setDetail(rs.getString("Detail"));
+                service.setManagerId(rs.getInt("ManagerId"));
+                return service;
+            }
+        } catch (SQLException e) {
+        }
+        return null;
+    }
+
+    public List<Person> getStaffByServiceID(int id) {
+        List<Person> persons = new ArrayList<>();
+        try {
+            String sql = """
+                         select * from Service s 
+                         join Persons_Services ps on s.ServiceId = ps.ServiceId 
+                         join Person p on ps.PersonId = p.PersonId
+                         where ps.ServiceId = ?""";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Person person = new Person();
+                person.setPersonId(rs.getInt("PersonId"));
+                person.setPersonName(rs.getString("PersonName"));
+                person.setDateOfBirth(rs.getDate("DateOfBirth"));
+                person.setGender(rs.getBoolean("Gender"));
+                person.setPhone(rs.getString("Phone"));
+                person.setEmail(rs.getString("Email"));
+                person.setAddress(rs.getString("Address"));
+                person.setImage(rs.getString("Image"));
+                person.setStaffStatus(rs.getInt("StaffStatus"));
+                persons.add(person);
+            }
+        } catch (SQLException e) {
+        }
+        return persons;
+    }
+
+    public List<Integer> getTotalStarRatingByServiceId(int id) {
+        List<Integer> ratings = new ArrayList<>();
+        try {
+            String sql = """
+                         select StarRating from Service s 
+                         join Feedback f on s.ServiceId = f.ServiceId 
+                         where s.ServiceId = ?""";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                ratings.add(rs.getInt("StarRating"));
+            }
+        } catch (SQLException e) {
+        }
+        return ratings;
+    }
+
+    public int getNumberRatingByServiceId(int id) {
+        try {
+            String sql = """
+                         select count(*) from Service s 
+                         join Feedback f on s.ServiceId = f.ServiceId 
+                         where s.ServiceId = ?""";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                return (rs.getInt(1));
+            }
+        } catch (SQLException e) {
+        }
+        return 0;
+    }
+
     public static void main(String[] args) {
         ServiceDAO serviceDAO = new ServiceDAO();
-        int totalService = serviceDAO.getTotalServiceWithName("a");
-        System.out.println(totalService);
-        int endPage = totalService / 3;
-        if (totalService % 3 != 0) {
-            endPage++;
-        }
-        System.out.println(endPage);
-        String indexP = "1";
-        if (indexP == null) {
-            indexP = "1";
-        }
-        int index = Integer.parseInt(indexP);
-        List<Service> services = serviceDAO.getServices(index);
     }
 }

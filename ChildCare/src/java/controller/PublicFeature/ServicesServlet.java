@@ -53,8 +53,8 @@ public class ServicesServlet extends HttpServlet {
             price1 = Integer.parseInt(request.getParameter("price1"));
             price2 = Integer.parseInt(request.getParameter("price2"));
             totalProduct = serviceDAO.getTotalServiceWithPrice(price1, price2);
-            endPage = totalProduct / 2;
-            if (totalProduct % 2 != 0) {
+            endPage = totalProduct / 3;
+            if (totalProduct % 3 != 0) {
                 endPage++;
             }
             indexP = request.getParameter("index");

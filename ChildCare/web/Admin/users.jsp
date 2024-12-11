@@ -109,83 +109,38 @@
 
     <div class="main-content">
         <div class="top-nav">
-            <div class="menu-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <div class="search-bar">
-                <input type="text" placeholder="Search...">
-            </div>
-            <div class="user-menu">
-                <div class="notifications-wrapper">
-                    <div class="notifications">
-                        <i class="fas fa-bell"></i>
-                        <span class="notifications-count">3</span>
-                    </div>
-                    <div class="notifications-dropdown">
-                        <div class="notifications-header">
-                            <span class="notifications-title">Notifications</span>
-                            <span class="mark-all-read">Mark all as read</span>
-                        </div>
-                        <div class="notification-list">
-                            <div class="notification-item unread">
-                                <div class="notification-icon">
-                                    <i class="fas fa-calendar"></i>
-                                </div>
-                                <div class="notification-content">
-                                    <div class="notification-text">New appointment request from Sarah Johnson</div>
-                                    <div class="notification-time">5 minutes ago</div>
-                                </div>
-                            </div>
-                            <div class="notification-item unread">
-                                <div class="notification-icon">
-                                    <i class="fas fa-user-plus"></i>
-                                </div>
-                                <div class="notification-content">
-                                    <div class="notification-text">New patient registration: Michael Brown</div>
-                                    <div class="notification-time">2 hours ago</div>
-                                </div>
-                            </div>
-                            <div class="notification-item">
-                                <div class="notification-icon">
-                                    <i class="fas fa-comment-medical"></i>
-                                </div>
-                                <div class="notification-content">
-                                    <div class="notification-text">New feedback received for Dr. Smith</div>
-                                    <div class="notification-time">1 day ago</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
                 </div>
-                <div class="user-profile-wrapper">
-                    <div class="user-profile">
-                        <div class="user-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="user-info">
-                            <span class="user-name">John Doe</span>
-                            <span class="user-role">Administrator</span>
-                        </div>
-                    </div>
-                    <div class="user-dropdown">
-                        <div class="user-dropdown-header">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search...">
+                </div>
+                <div class="user-menu">
+                    <div class="user-profile-wrapper">
+                        <div class="user-profile">
                             <div class="user-avatar">
                                 <i class="fas fa-user"></i>
                             </div>
-                            <div class="user-name">John Doe</div>
-                            <div class="user-role">Administrator</div>
+                            <div class="user-info">
+                                <span class="user-name">${sessionScope.account.person.personName}</span>
+                                <span class="user-role">Manager</span>
+                            </div>
                         </div>
-                        <a href="#" class="user-dropdown-item">
+
+                    </div>
+                    <div class="user-profile">
+                        <a href="logout" style="padding: 10% 0">
                             <i class="fas fa-sign-out-alt"></i>
                             <span>Sign Out</span>
                         </a>
                     </div>
+                    <div class="theme-toggle" title="Toggle theme">
+                    </div>
                 </div>
-                <div class="theme-toggle" title="Toggle theme"></div>
             </div>
-        </div>
 
         <div class="page-header">
             <div class="header-content">

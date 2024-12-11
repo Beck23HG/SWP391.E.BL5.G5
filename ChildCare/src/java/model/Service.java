@@ -10,13 +10,15 @@ package model;
  */
 public class Service {
     private int serviceId, status, staffId, managerId;
-    private String serviceName, description, image;
+    private String serviceName, description, image, duration, detail;
     private float price;
+    
+    private Person person;
 
     public Service() {
     }
 
-    public Service(int serviceId, int status, int staffId, int managerId, String serviceName, String description, String image, float price) {
+    public Service(int serviceId, int status, int staffId, int managerId, String serviceName, String description, String image, String duration, String detail, float price, Person person) {
         this.serviceId = serviceId;
         this.status = status;
         this.staffId = staffId;
@@ -24,7 +26,10 @@ public class Service {
         this.serviceName = serviceName;
         this.description = description;
         this.image = image;
+        this.duration = duration;
+        this.detail = detail;
         this.price = price;
+        this.person = person;
     }
 
     public int getServiceId() {
@@ -89,6 +94,30 @@ public class Service {
 
     public void setPrice(float price) {
         this.price = price;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
     }
 
     @Override
