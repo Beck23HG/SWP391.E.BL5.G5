@@ -49,7 +49,7 @@ public class LoginServlet extends HttpServlet {
                 request.getRequestDispatcher("Manager/Dashboard/PostList.jsp").forward(request, response);
             }
             else{
-                request.getRequestDispatcher("/Dashboard/users.jsp").forward(request, response);
+                request.getRequestDispatcher("Admin/users.jsp").forward(request, response);
             }
         } else {
             request.setAttribute("ms", "Email or password is incorrect!");
