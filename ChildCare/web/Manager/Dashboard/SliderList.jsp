@@ -63,7 +63,7 @@
                     <i class="fas fa-images"></i>
                     <span>Sliders</span>
                 </a>
-                <a href="#" class="nav-item">
+                <a href="ListService" class="nav-item">
                     <i class="fas fa-list"></i>
                     <span>Services List</span>
                 </a>
@@ -180,27 +180,6 @@
 
             </div>
 
-            <!-- Pagination -->
-            <div class="pagination">
-                <div class="pagination-info">
-                    Showing <span>1-8</span> of <span>${totalSlider}</span> sliders
-                </div>
-                <div class="pagination-controls">
-                    <button class="btn-icon" disabled>
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <div class="page-numbers">
-                        <button class="active">1</button>
-                    </div>
-                    <button class="btn-icon">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                </div>
-                <div>
-                </div>
-                <div>
-                </div>
-            </div>
         </div>
 
 

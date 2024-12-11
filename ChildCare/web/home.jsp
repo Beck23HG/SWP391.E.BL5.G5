@@ -379,13 +379,15 @@
                                     </h3>
                                     <p class="service-brief">${s.description}</p>
                                     <div class="service-price sale-price">
-                                        ${s.price}$
+                                        $${s.price}
                                     </div>
                                     <div class="service-actions">
-                                        <button class="btn btn-primary">
+                                        <a href="serviceDetail?id=${s.serviceId}"
+                                           <button class="btn btn-primary">
                                             <i class="fas fa-eye"></i>      
                                             View detail
-                                        </button>
+                                            </button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
