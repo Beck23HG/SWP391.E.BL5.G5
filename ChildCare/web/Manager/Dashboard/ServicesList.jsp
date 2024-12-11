@@ -12,7 +12,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Services Management - Healthcare Admin</title>
+        <title>Services Management - Healthcare Manager</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/Manager/Dashboard/assets/css/style.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/Manager/Dashboard/assets/css/services.css">
@@ -211,8 +211,8 @@
                                     </span>
                                 </td>
                                 <td class="table-actions">
-                                    <form action="" method="get" >
-                                        <input type="hidden" name="serviceId" value="${s.serviceId}">
+                                    <form action="DetailService" method="get" >
+                                        <input type="hidden" name="id" value="${s.serviceId}">
                                         <button class="btn-icon" title="View Details" onclick="this.closest('form').submit(); return false;">
                                             <i class="fas fa-eye"></i>
                                         </button>
