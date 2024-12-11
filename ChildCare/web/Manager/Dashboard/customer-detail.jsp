@@ -221,7 +221,7 @@
                                 <i class="fas fa-user"></i>
                             </div>
                             <div class="user-info">
-                                <span class="user-name">${sessionScope.account.person.personId}</span>
+                                <span class="user-name">${sessionScope.account.person.personName}</span>
                                 <span class="user-role">Manager</span>
                             </div>
                         </div>
