@@ -35,17 +35,21 @@ public class ServicesListServlet extends HttpServlet {
         ServiceDAO serviceDAO = new ServiceDAO();
 
         String serviceName = request.getParameter("serviceName");
+        String personName = request.getParameter("personName");
         String status = request.getParameter("status");
         String indexP = request.getParameter("index");
 
         serviceName = (serviceName != null) ? serviceName.trim() : "";
+        personName = (personName != null) ? personName.trim() : "";
         status = (status != null) ? status.trim() : "";
         int index = (indexP != null && !indexP.isEmpty()) ? Integer.parseInt(indexP) : 1;
 
-        int totalProduct = serviceDAO.getNumberOfService(serviceName, status);
+        int totalProduct = serviceDAO.getNumberOfService(serviceName,personName, status);
         int endPage = (totalProduct % 4 == 0) ? (totalProduct / 4) : (totalProduct / 4 + 1);
         
-        List<Service> services = serviceDAO.getAllServices(serviceName, status, index);
+        List<Service> services = serviceDAO.getAllServices(serviceName,personName, status, index);
+        List<String> names = serviceDAO.getAllManagerCreateService();
+        request.setAttribute("names", names);
         request.setAttribute("indexx", index);
         request.setAttribute("totalProduct", totalProduct);
         request.setAttribute("start", (index - 1) * 4 + 1);
