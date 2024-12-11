@@ -63,7 +63,6 @@
                     <i class="fas fa-images"></i>
                     <span>Sliders</span>
                 </a>
-<<<<<<< HEAD
                 <a href="#" class="nav-item">
                     <i class="fas fa-list"></i>
                     <span>Services List</span>
@@ -72,8 +71,6 @@
                     <i class="fas fa-list"></i>
                     <span>Customer List</span>
                 </a>
-=======
->>>>>>> c1d16c9eb87092a5e2fe1516a37b9e8b0ba123ba
             </div>
 
             <!-- Admin Section -->
