@@ -67,22 +67,9 @@
                     <i class="fas fa-list"></i>
                     <span>Services List</span>
                 </a>
-                <a href="customerList" class="nav-item">
-                    <i class="fas fa-list"></i>
+                <a href="../../customerList" class="nav-item">
+                    <i class="fas fa-users"></i>
                     <span>Customer List</span>
-                </a>
-            </div>
-
-            <!-- Admin Section -->
-            <div class="nav-section">
-                <div class="nav-section-title">Administration</div>
-                <a href="users.html" class="nav-item">
-                    <i class="fas fa-user-shield"></i>
-                    <span>Users Management</span>
-                </a>
-                <a href="#" class="nav-item">
-                    <i class="fas fa-cog"></i>
-                    <span>Settings</span>
                 </a>
             </div>
         </nav>
@@ -434,7 +421,6 @@
         </div>
 
         <script src="assets/js/main.js"></script>
-        <script src="assets/js/posts.js"></script>
     </body>
 
 </html>
