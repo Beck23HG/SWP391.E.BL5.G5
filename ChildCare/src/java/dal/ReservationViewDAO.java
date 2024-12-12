@@ -141,7 +141,7 @@ public class ReservationViewDAO extends DBContext {
         try {
             PreparedStatement st = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             st.setInt(1, reservation.getCustomerId());
-            st.setInt(2, 1); // Initial status
+            st.setInt(2, 2); // Initial status
             st.setString(3, reservation.getNote());
             st.setTimestamp(4, new java.sql.Timestamp(System.currentTimeMillis())); // Created date
 

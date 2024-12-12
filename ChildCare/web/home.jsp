@@ -187,7 +187,7 @@
                             <p class="lead mb-4">Professional healthcare services designed specifically for children,
                                 providing the best medical care with a gentle touch.</p>
                             <div class="hero-buttons">
-                                <a href="appointment.html" class="btn btn-primary btn-lg rounded-pill me-3">
+                                <a href="reservationView" class="btn btn-primary btn-lg rounded-pill me-3">
                                     <i class="fas fa-calendar-check me-2"></i>Book Appointment
                                 </a>
                                 <a href="services.html" class="btn btn-outline-primary btn-lg rounded-pill">
