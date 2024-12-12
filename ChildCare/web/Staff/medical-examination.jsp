@@ -104,7 +104,7 @@
                 <i class="fas fa-calendar-check"></i>
                 <span>Reservations</span>
             </a>
-            <a href="medical-examination.html" class="nav-item active">
+            <a href="medicalexamination" class="nav-item active">
                 <i class="fas fa-stethoscope"></i>
                 <span>Medical Examinations</span>
             </a>

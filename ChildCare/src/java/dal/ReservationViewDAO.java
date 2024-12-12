@@ -41,7 +41,6 @@ public class ReservationViewDAO extends DBContext {
                 Service service = new Service();
                 service.setServiceId(rs.getInt("ServiceId"));
                 service.setStatus(rs.getInt("Status"));
-                service.setStaffId(rs.getInt("StaffId"));
                 service.setManagerId(rs.getInt("ManagerId"));
                 service.setServiceName(rs.getString("ServiceName"));
                 service.setDescription(rs.getString("Description"));
@@ -70,7 +69,6 @@ public class ReservationViewDAO extends DBContext {
                 Service service = new Service();
                 service.setServiceId(rs.getInt("ServiceId"));
                 service.setStatus(rs.getInt("Status"));
-                service.setStaffId(rs.getInt("StaffId"));
                 service.setManagerId(rs.getInt("ManagerId"));
                 service.setServiceName(rs.getString("ServiceName"));
                 service.setDescription(rs.getString("Description"));
