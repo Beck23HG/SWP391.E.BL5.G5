@@ -130,7 +130,7 @@
                             </div>
                             <div class="user-info">
                                 <span class="user-name">${sessionScope.account.person.personName}</span>
-                                <span class="user-role">Staff</span>
+                                <span class="user-role">Staff ID${sessionScope.account.person.personId}</span>
                             </div>
                         </div>
 
