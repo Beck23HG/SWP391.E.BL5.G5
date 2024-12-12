@@ -12,7 +12,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Services Management - Healthcare Admin</title>
+        <title>Services Management - Healthcare Manager</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/Manager/Dashboard/assets/css/style.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/Manager/Dashboard/assets/css/services.css">
@@ -136,10 +136,10 @@
             <div class="page-header">
                 <div class="header-content">
                     <h1>Services Management</h1>
-                    <button class="btn-primary" id="newServiceButton">
+                    <a href="addService" class="btn-primary view-button">
                         <i class="fas fa-plus"></i>
                         New Service
-                    </button>
+                    </a>
                 </div>
 
                 <!-- Filter Section -->
@@ -149,6 +149,14 @@
                             <div class="search-bar">
                                 <i class="fas fa-search"></i>
                                 <input type="text" name="serviceName" placeholder="Search by name...">
+                            </div>
+                            <div class="filter-group">
+                                <select name="personName" class="filter-select" id="statusFilter">
+                                    <option value="">All manager</option>
+                                    <c:forEach items="${names}" var="s">
+                                        <option value="${s}">${s}</option>
+                                    </c:forEach>
+                                </select>
                             </div>
                             <div class="filter-group">
                                 <select name="status" class="filter-select" id="statusFilter">
@@ -203,16 +211,22 @@
                                     </span>
                                 </td>
                                 <td class="table-actions">
-                                    <form action="" method="get" >
-                                        <input type="hidden" name="serviceId" value="${s.serviceId}">
+                                    <form action="DetailService" method="get" >
+                                        <input type="hidden" name="id" value="${s.serviceId}">
                                         <button class="btn-icon" title="View Details" onclick="this.closest('form').submit(); return false;">
                                             <i class="fas fa-eye"></i>
                                         </button>
                                     </form>
-                                    <form action="" method="get" >
-                                        <input type="hidden" name="serviceId" value="${s.serviceId}">
+                                    <form action="editService" method="get" >
+                                        <input type="hidden" name="id" value="${s.serviceId}">
                                         <button class="btn-icon" title="Edit" onclick="this.closest('form').submit(); return false;">
                                             <i class="fas fa-edit"></i>
+                                        </button>
+                                    </form>
+                                    <form action="deleteService" method="post" >
+                                        <input type="hidden" name="id" value="${s.serviceId}">
+                                        <button class="btn-icon" title="Edit" onclick="this.closest('form').submit(); return false;">
+                                            <i class="fas fa-trash"></i>
                                         </button>
                                     </form>
                                 </td>
@@ -228,193 +242,20 @@
                 </div>
                 <div class="pagination-controls">
                     <!-- Prev button -->
-                    <button class="btn-icon" ${indexx == 1 ? 'disabled' : ''} onclick="window.location = '?serviceName=${param.serviceName}&status=${param.status}&index=${indexx - 1}'">
+                    <button class="btn-icon" ${indexx == 1 ? 'disabled' : ''} onclick="window.location = '?serviceName=${param.serviceName}&personName=${param.personName}&status=${param.status}&index=${indexx - 1}'">
                         <i class="fas fa-chevron-left"></i>
                     </button>
 
                     <!-- Page Numbers -->
                     <div class="page-numbers">
                         <c:forEach var="i" begin="1" end="${endPage}">
-                            <button class="${i == indexx ? 'active' : ''}" onclick="window.location = '?serviceName=${param.serviceName}&status=${param.status}&index=${i}'">${i}</button>
+                            <button class="${i == indexx ? 'active' : ''}" onclick="window.location = '?serviceName=${param.serviceName}&personName=${param.personName}&status=${param.status}&index=${i}'">${i}</button>
                         </c:forEach>
                     </div>
 
                     <!-- Next button -->
-                    <button class="btn-icon" ${indexx == endPage ? 'disabled' : ''} onclick="window.location = '?serviceName=${param.serviceName}&status=${param.status}&index=${indexx + 1}'">
+                    <button class="btn-icon" ${indexx == endPage ? 'disabled' : ''} onclick="window.location = '?serviceName=${param.serviceName}&personName=${param.personName}&status=${param.status}&index=${indexx + 1}'">
                         <i class="fas fa-chevron-right"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Service Edit/Add Modal -->
-        <div class="modal" id="serviceModal">
-            <div class="modal-overlay"></div>
-            <div class="modal-container">
-                <div class="modal-header">
-                    <h2 class="modal-title">Edit Service</h2>
-                    <button class="modal-close">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-                <div class="modal-content">
-                    <form id="serviceForm" class="service-form">
-                        <input type="hidden" name="id">
-                        <input type="hidden" name="images" id="serviceImages">
-
-                        <div class="form-group">
-                            <label for="serviceTitle">Title</label>
-                            <input type="text" id="serviceTitle" name="title" required>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="serviceCategory">Category</label>
-                                <select id="serviceCategory" name="category" required>
-                                    <option value="consultation">Consultation</option>
-                                    <option value="treatment">Treatment</option>
-                                    <option value="therapy">Therapy</option>
-                                    <option value="examination">Examination</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="numPersons">Number of Persons</label>
-                                <input type="number" id="numPersons" name="numPersons" min="1" required>
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="listPrice">List Price</label>
-                                <input type="number" id="listPrice" name="listPrice" min="0" step="0.01" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="salePrice">Sale Price</label>
-                                <input type="number" id="salePrice" name="salePrice" min="0" step="0.01">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="serviceBrief">Brief Information</label>
-                            <textarea id="serviceBrief" name="brief" rows="2" required></textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="serviceDescription">Description</label>
-                            <textarea id="serviceDescription" name="description" rows="6" required></textarea>
-                        </div>
-
-                        <div class="image-upload-section">
-                            <div class="thumbnail-upload">
-                                <label>Main Thumbnail</label>
-                                <div class="image-preview">
-                                    <img src="" alt="Service thumbnail preview" id="thumbnailPreview">
-                                    <div class="image-overlay">
-                                        <i class="fas fa-camera"></i>
-                                        <span>Change Thumbnail</span>
-                                    </div>
-                                </div>
-                                <input type="file" id="thumbnailInput" accept="image/*" hidden>
-                            </div>
-
-                            <div class="additional-images">
-                                <label>Additional Images</label>
-                                <div class="image-gallery">
-                                    <!-- Additional images will be added here -->
-                                    <div class="add-image-btn">
-                                        <i class="fas fa-plus"></i>
-                                    </div>
-                                </div>
-                                <input type="file" id="additionalImagesInput" accept="image/*" multiple hidden>
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label class="switch-wrapper">
-                                    <input type="checkbox" id="serviceFeatured" name="featured">
-                                    <span class="switch"></span>
-                                    <span class="switch-label">Featured</span>
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <label for="serviceStatus">Status</label>
-                                <select id="serviceStatus" name="status" required>
-                                    <option value="active">Active</option>
-                                    <option value="hidden">Hidden</option>
-                                    <option value="draft">Draft</option>
-                                </select>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn-secondary" data-action="cancel">Cancel</button>
-                    <button type="submit" class="btn-primary" data-action="save">Save Changes</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Service Details Modal -->
-        <div class="modal" id="serviceDetailsModal">
-            <div class="modal-overlay"></div>
-            <div class="modal-container">
-                <div class="modal-header">
-                    <h2 class="modal-title">Service Details</h2>
-                    <button class="modal-close">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-                <div class="modal-content">
-                    <div class="service-details">
-                        <div class="service-preview">
-                            <img src="" alt="Service thumbnail" id="detailsThumbnail">
-                            <div class="service-info">
-                                <div class="service-status-badge"></div>
-                                <div class="service-category-badge"></div>
-                                <div class="service-featured-badge"></div>
-                            </div>
-                        </div>
-
-                        <div class="details-section">
-                            <div class="detail-group">
-                                <label>Title</label>
-                                <div class="detail-value" id="detailsTitle"></div>
-                            </div>
-
-                            <div class="detail-row">
-                                <div class="detail-group">
-                                    <label>List Price</label>
-                                    <div class="detail-value" id="detailsListPrice"></div>
-                                </div>
-                                <div class="detail-group">
-                                    <label>Sale Price</label>
-                                    <div class="detail-value" id="detailsSalePrice"></div>
-                                </div>
-                            </div>
-
-                            <div class="detail-group">
-                                <label>Brief Information</label>
-                                <div class="detail-value" id="detailsBrief"></div>
-                            </div>
-
-                            <div class="detail-group">
-                                <label>Description</label>
-                                <div class="detail-value" id="detailsDescription"></div>
-                            </div>
-
-                            <div class="detail-group">
-                                <label>Additional Images</label>
-                                <div class="details-image-gallery" id="detailsImageGallery"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn-secondary" data-action="close">Close</button>
-                    <button class="btn-primary" data-action="edit">
-                        <i class="fas fa-edit"></i>
-                        Edit Service
                     </button>
                 </div>
             </div>

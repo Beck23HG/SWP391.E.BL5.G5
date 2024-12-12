@@ -23,12 +23,15 @@ public class BlogDAO extends DBContext {
         List<Blog> blogs = new ArrayList<>();
 
         try {
-            String sql = "SELECT b.[BlogId], b.[Title], b.[Content], b.[Created_Date], \n"
-                    + "                    b.[Image], b.[Description], b.[PersonId], b.[CategoryId], \n"
-                    + "                     p.[PersonName] as PersonName, c.[CategoryName] as CategoryName \n"
-                    + "                     FROM [dbo].[Blog] b \n"
-                    + "                     INNER JOIN [dbo].[Person] p ON b.[PersonId] = p.[PersonId] \n"
-                    + "                     INNER JOIN [dbo].[Category] c ON b.[CategoryId] = c.[CategoryId]";
+            String sql = "SELECT b.[BlogId], b.[Title], b.[Content], b.[Created_Date], "
+                    + "b.[Image], b.[Description], b.[PersonId], b.[CategoryId], "
+                    + "p.[PersonName] as PersonName, c.[CategoryName] as CategoryName "
+                    + "FROM [dbo].[Blog] b "
+                    + "INNER JOIN [dbo].[Person] p ON b.[PersonId] = p.[PersonId] "
+                    + "INNER JOIN [dbo].[Category] c ON b.[CategoryId] = c.[CategoryId] "
+                    + "INNER JOIN [dbo].[Account] a ON p.[PersonId] = a.[PersonId] "
+                    + "INNER JOIN [dbo].[Role] r ON a.[RoleId] = r.[RoleId] "
+                    + "WHERE r.[RoleId] = 3";
 
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet rs = statement.executeQuery();

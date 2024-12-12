@@ -20,13 +20,16 @@ import model.Service;
  */
 public class ServiceDAO extends DBContext {
 
-    public List<Service> getAllServices(String name, String status, int index) {
+    public List<Service> getAllServices(String name, String personName, String status, int index) {
         List<Service> services = new ArrayList<>();
         try {
             String sql = "SELECT * FROM Service s join Person p on s.ManagerId = p.PersonId "
                     + "where 1=1 ";
             if (name != null && !name.isEmpty()) {
                 sql += "AND ServiceName like '%" + name + "%' ";
+            }
+            if (personName != null) {
+                sql += "AND PersonName like '%" + personName + "%' ";
             }
             if (status != null) {
                 sql += "AND Status like '%" + status + "%' ";
@@ -68,12 +71,15 @@ public class ServiceDAO extends DBContext {
         return services;
     }
     
-    public int getNumberOfService(String name, String status) {
+    public int getNumberOfService(String name, String personName, String status) {
         try {
             String sql = "SELECT count(*) FROM Service s join Person p on s.ManagerId = p.PersonId "
                     + "where 1=1 ";
             if (name != null && !name.isEmpty()) {
                 sql += "AND ServiceName like '%" + name + "%' ";
+            }
+            if (personName != null) {
+                sql += "AND PersonName like '%" + personName + "%' ";
             }
             if (status != null) {
                 sql += "AND Status like '%" + status + "%' ";
@@ -87,6 +93,24 @@ public class ServiceDAO extends DBContext {
             Logger.getLogger(SliderDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 0;
+    }
+    
+    public List<String> getAllManagerCreateService(){
+        List<String> names = new ArrayList<>();
+        try{
+            String sql = """
+                         SELECT PersonName FROM Service s 
+                         join Person p on s.ManagerId = p.PersonId 
+                         group by PersonName""";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                names.add(rs.getString("PersonName"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SliderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return names;
     }
 
     public List<Service> getAllServicesActive() {
@@ -350,6 +374,91 @@ public class ServiceDAO extends DBContext {
         } catch (SQLException e) {
         }
         return 0;
+    }
+    
+    public void createService(String name, float price, String description, 
+            String status, String image, String duration, String detail, int id) {
+        String sql = """
+                     INSERT INTO [dbo].[Service]
+                                ([ServiceName]
+                                ,[Price]
+                                ,[Description]
+                                ,[Status]
+                                ,[Image]
+                                ,[Duration]
+                                ,[Detail]
+                                ,[ManagerId]) 
+                     VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)""";
+
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, name);
+            stm.setFloat(2, price);
+            stm.setString(3, description);
+            stm.setString(4, status);
+            stm.setString(5, image);
+            stm.setString(6, duration);
+            stm.setString(7, detail);
+            stm.setInt(8, id);
+            stm.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace(); // In lỗi để kiểm tra nguyên nhân
+        }
+    }
+    
+    public void updateService(String name, float price, String description, 
+            String status, String duration, String detail, int id) {
+        try {
+            String sql = """
+                         UPDATE [dbo].[Service]
+                             SET [ServiceName] = ?
+                                ,[Price] = ?
+                                ,[Description] = ?
+                                ,[Status] = ?
+                                ,[Duration] = ?
+                                ,[Detail] = ? 
+                           WHERE ServiceId = ?""";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, name);
+            stm.setFloat(2, price);
+            stm.setString(3, description);
+            stm.setString(4, status);
+            stm.setString(5, duration);
+            stm.setString(6, detail);
+            stm.setInt(7, id);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void updateServiceImage(String image, int id) {
+        try {
+            String sql = """
+                         UPDATE [dbo].[Service]
+                              SET [Image] = ?
+                            WHERE ServiceId = ?""";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, image);
+            stm.setInt(2, id);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void deleteService(int id) {
+        try {
+            String sql = """
+                         DELETE FROM [dbo].[Service]
+                                  WHERE ServiceId = ?""";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public static void main(String[] args) {

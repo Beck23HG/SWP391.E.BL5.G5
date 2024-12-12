@@ -162,7 +162,7 @@
                                 ${s.backlink}
                             </div>
                             <div class="slider-actions">
-                                <a href="${s.backlink}" class="action-btn view view-button" target="_blank">
+                                <a href="sliderDetail?sliderId=${s.sliderId}" class="action-btn view view-button">
                                     <i class="fas fa-eye"></i>
                                     View
                                 </a>
