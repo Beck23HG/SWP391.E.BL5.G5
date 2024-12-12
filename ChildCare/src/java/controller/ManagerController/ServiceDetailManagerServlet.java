@@ -12,6 +12,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
+import model.Person;
 import model.Service;
 
 /**
@@ -26,6 +28,8 @@ public class ServiceDetailManagerServlet extends HttpServlet {
         ServiceDAO sdao = new ServiceDAO();
         Service service = sdao.getServiceByID(id);
         request.setAttribute("service", service);
+        List<Person> persons = sdao.getStaffByServiceID(id);
+        request.setAttribute("staffs", persons);
         request.getRequestDispatcher("/Manager/Dashboard/ServiceDetail.jsp").forward(request, response);
     } 
 
