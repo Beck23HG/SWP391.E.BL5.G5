@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
+import model.Person;
 import model.Service;
 
 /**
@@ -31,6 +32,8 @@ public class ServiceDetailServlet extends HttpServlet {
                                 .average()
                                 .orElse(0.0);
         int totalRating = sDao.getNumberRatingByServiceId(id);
+        List<Person> persons = sDao.getStaffByServiceID(id);
+        request.setAttribute("staffs", persons);
         request.setAttribute("totalRating", totalRating);
         request.setAttribute("starRating", average);
         request.setAttribute("service", service);
