@@ -41,7 +41,6 @@ public class ReservationViewDAO extends DBContext {
                 Service service = new Service();
                 service.setServiceId(rs.getInt("ServiceId"));
                 service.setStatus(rs.getInt("Status"));
-                service.setStaffId(rs.getInt("StaffId"));
                 service.setManagerId(rs.getInt("ManagerId"));
                 service.setServiceName(rs.getString("ServiceName"));
                 service.setDescription(rs.getString("Description"));
@@ -70,7 +69,6 @@ public class ReservationViewDAO extends DBContext {
                 Service service = new Service();
                 service.setServiceId(rs.getInt("ServiceId"));
                 service.setStatus(rs.getInt("Status"));
-                service.setStaffId(rs.getInt("StaffId"));
                 service.setManagerId(rs.getInt("ManagerId"));
                 service.setServiceName(rs.getString("ServiceName"));
                 service.setDescription(rs.getString("Description"));
@@ -179,10 +177,10 @@ public class ReservationViewDAO extends DBContext {
     }
 
     public Person getDoctorByReservationId(int reservationId) {
-        String sql = "  select *\n"
-                + "  from Person p\n"
-                + "  join Reservation r on p.PersonId = r.StaffId\n"
-                + "  where r.ReservationId = ?";
+        String sql = "SELECT *\n"
+                + "  FROM Person p\n"
+                + "  JOIN Reservation r ON p.PersonId = r.StaffId\n"
+                + "  WHERE r.ReservationId = ?";
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
