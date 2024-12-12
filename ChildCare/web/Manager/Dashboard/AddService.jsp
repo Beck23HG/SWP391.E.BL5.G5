@@ -178,7 +178,31 @@
                 background-color: transparent;
                 cursor: pointer;
             }
+            .checkbox-group {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
 
+            /* Individual checkbox item */
+            .checkbox-item {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+            }
+
+            /* Style for the checkbox input */
+            .checkbox-item input[type="checkbox"] {
+                accent-color: #007BFF; /* Màu xanh dương cho checkbox */
+                width: 18px;
+                height: 18px;
+            }
+
+            /* Label styling */
+            .checkbox-item label {
+                font-size: 1rem;
+                color: #333;
+            }
 
         </style>
     </head>
@@ -294,6 +318,18 @@
                                 <div class="form-group">
                                     <label for="serviceDetail">Duration</label>
                                     <input type="text" name="duration" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="staffs">Assign Staff</label>
+                                    <div id="staffs" class="checkbox-group">
+                                        <c:forEach var="staff" items="${staffs}">
+                                            <div class="checkbox-item">
+                                                <input type="checkbox" name="staffs" id="staff-${staff.personId}" value="${staff.personId}">
+                                                <label for="staff-${staff.personId}">${staff.personName}</label>
+                                            </div>
+                                        </c:forEach>
+                                    </div>
                                 </div>
 
                                 <div class="form-row">

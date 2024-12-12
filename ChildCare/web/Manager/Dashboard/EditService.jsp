@@ -178,7 +178,31 @@
                 background-color: transparent;
                 cursor: pointer;
             }
+            .checkbox-group {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
 
+            /* Individual checkbox item */
+            .checkbox-item {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+            }
+
+            /* Style for the checkbox input */
+            .checkbox-item input[type="checkbox"] {
+                accent-color: #007BFF; /* Màu xanh dương cho checkbox */
+                width: 18px;
+                height: 18px;
+            }
+
+            /* Label styling */
+            .checkbox-item label {
+                font-size: 1rem;
+                color: #333;
+            }
 
         </style>
     </head>
@@ -298,6 +322,22 @@
                                     <input type="text" name="duration" value="${service.duration}" required>
                                 </div>
 
+                                <div class="form-group">
+                                    <label for="staffs">Assign Staff</label>
+                                    <div id="staffs" class="checkbox-group">
+                                        <c:forEach var="staff" items="${allStaffs}">
+                                            <div class="checkbox-item">
+                                                <input type="checkbox" 
+                                                       name="staffs" 
+                                                       id="staff-${staff.personId}" 
+                                                       value="${staff.personId}" 
+                                                       <c:if test="${staffIds.contains(staff.personId)}">checked</c:if>>
+                                                <label for="staff-${staff.personId}">${staff.personName}</label>
+                                            </div>
+                                        </c:forEach>
+                                    </div>
+                                </div>
+
                                 <div class="form-row">
                                     <div class="form-group">
                                         <label for="serviceStatus">Status</label>
@@ -325,16 +365,16 @@
 
         <script src="${pageContext.request.contextPath}/Manager/Dashboard/assets/js/main.js"></script>
         <script>
-                                        function showPreview(event) {
-                                            const file = event.target.files[0]; // Lấy tệp được chọn
-                                            if (file) {
-                                                const reader = new FileReader();
-                                                reader.onload = function (e) {
-                                                    document.getElementById('preview').src = e.target.result;
-                                                }
-                                                reader.readAsDataURL(file); // Đọc tệp dưới dạng URL
-                                            }
+                                function showPreview(event) {
+                                    const file = event.target.files[0]; // Lấy tệp được chọn
+                                    if (file) {
+                                        const reader = new FileReader();
+                                        reader.onload = function (e) {
+                                            document.getElementById('preview').src = e.target.result;
                                         }
+                                        reader.readAsDataURL(file); // Đọc tệp dưới dạng URL
+                                    }
+                                }
         </script>
         <script>
             document.getElementById("serviceImage").addEventListener("change", function () {
