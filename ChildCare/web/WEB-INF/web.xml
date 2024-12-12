@@ -12,6 +12,22 @@
         <servlet-name>ServiceDetailManagerServlet</servlet-name>
         <servlet-class>controller.ManagerController.ServiceDetailManagerServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddServiceServlet</servlet-name>
+        <servlet-class>controller.ManagerController.AddServiceServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditService</servlet-name>
+        <servlet-class>controller.ManagerController.EditService</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateImageServiceServlet</servlet-name>
+        <servlet-class>controller.ManagerController.UpdateImageServiceServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteServiceServlet</servlet-name>
+        <servlet-class>controller.ManagerController.DeleteServiceServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServiceDetailServlet</servlet-name>
         <url-pattern>/serviceDetail</url-pattern>
@@ -75,6 +91,22 @@
     <servlet-mapping>
         <servlet-name>ServiceDetailManagerServlet</servlet-name>
         <url-pattern>/DetailService</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddServiceServlet</servlet-name>
+        <url-pattern>/addService</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditService</servlet-name>
+        <url-pattern>/editService</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateImageServiceServlet</servlet-name>
+        <url-pattern>/updateImage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteServiceServlet</servlet-name>
+        <url-pattern>/deleteService</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home</welcome-file>

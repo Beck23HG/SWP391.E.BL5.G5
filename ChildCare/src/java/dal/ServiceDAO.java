@@ -375,6 +375,91 @@ public class ServiceDAO extends DBContext {
         }
         return 0;
     }
+    
+    public void createService(String name, float price, String description, 
+            String status, String image, String duration, String detail, int id) {
+        String sql = """
+                     INSERT INTO [dbo].[Service]
+                                ([ServiceName]
+                                ,[Price]
+                                ,[Description]
+                                ,[Status]
+                                ,[Image]
+                                ,[Duration]
+                                ,[Detail]
+                                ,[ManagerId]) 
+                     VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)""";
+
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, name);
+            stm.setFloat(2, price);
+            stm.setString(3, description);
+            stm.setString(4, status);
+            stm.setString(5, image);
+            stm.setString(6, duration);
+            stm.setString(7, detail);
+            stm.setInt(8, id);
+            stm.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace(); // In lỗi để kiểm tra nguyên nhân
+        }
+    }
+    
+    public void updateService(String name, float price, String description, 
+            String status, String duration, String detail, int id) {
+        try {
+            String sql = """
+                         UPDATE [dbo].[Service]
+                             SET [ServiceName] = ?
+                                ,[Price] = ?
+                                ,[Description] = ?
+                                ,[Status] = ?
+                                ,[Duration] = ?
+                                ,[Detail] = ? 
+                           WHERE ServiceId = ?""";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, name);
+            stm.setFloat(2, price);
+            stm.setString(3, description);
+            stm.setString(4, status);
+            stm.setString(5, duration);
+            stm.setString(6, detail);
+            stm.setInt(7, id);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void updateServiceImage(String image, int id) {
+        try {
+            String sql = """
+                         UPDATE [dbo].[Service]
+                              SET [Image] = ?
+                            WHERE ServiceId = ?""";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, image);
+            stm.setInt(2, id);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void deleteService(int id) {
+        try {
+            String sql = """
+                         DELETE FROM [dbo].[Service]
+                                  WHERE ServiceId = ?""";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     public static void main(String[] args) {
         ServiceDAO serviceDAO = new ServiceDAO();
