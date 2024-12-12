@@ -143,8 +143,73 @@
                             <!-- Change Password Tab -->
                             <div class="content-card bg-white rounded-4 shadow-sm p-4 tab-content">
                                 <h2 class="mb-4">My Reservations</h2>
+                                <!-- Search Form -->
+                                <form method="get" action="myReservation" class="row g-3 mb-4">
+                                    <div class="col-md-4">
+                                        <label for="serviceName" class="form-label">Service Name</label>
+                                        <input type="text" name="serviceName" id="serviceName" class="form-control"
+                                               placeholder="Enter service name" value="${param.serviceName}">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="dateFrom" class="form-label">From Date</label>
+                                        <input type="date" name="dateFrom" id="dateFrom" class="form-control" value="${param.dateFrom}">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="dateTo" class="form-label">To Date</label>
+                                        <input type="date" name="dateTo" id="dateTo" class="form-control" value="${param.dateTo}">
+                                    </div>
+                                    <div class="col-md-2 d-flex align-items-end">
+                                        <button type="submit" class="btn btn-primary w-100">Search</button>
+                                    </div>
+                                </form>
 
-                                
+                                <!-- Reservation Table -->
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Reservation Date</th>
+                                            <th>Service Name</th>
+                                            <th>Creation Date</th>
+                                            <th>Total Cost</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <c:forEach items="${reservations}" var="reservation">
+                                            <tr>
+                                                <td>${reservation.reservationId}</td>
+                                                <td>${reservation.reservationDate}</td>
+                                                <td>${reservation.service.serviceName}</td>
+                                                <td>${reservation.created_Date}</td>
+                                                <td>${reservation.service.price}</td>
+                                                <td>
+                                                    <c:choose>
+                                                        <c:when test="${reservation.status == 1}">Confirmed</c:when>
+                                                        <c:when test="${reservation.status == 2}">Pending</c:when>
+                                                        <c:when test="${reservation.status == 3}">Completed</c:when>
+                                                        <c:when test="${reservation.status == 4}">Cancelled</c:when>
+                                                        <c:otherwise>Cancelled</c:otherwise>
+                                                    </c:choose>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                    </tbody>
+                                </table>
+                                <!-- Pagination -->
+                                <nav>
+                                    <ul class="pagination">
+                                        <c:forEach begin="1" end="${totalPages}" var="i">
+                                            <li class="page-item ${i == currentPage ? 'active' : ''}">
+                                                <a class="page-link"
+                                                   href="?page=${i}&serviceName=${param.serviceName}&dateFrom=${param.dateFrom}&dateTo=${param.dateTo}">
+                                                    ${i}
+                                                </a>
+                                            </li>
+                                        </c:forEach>
+                                    </ul>
+                                </nav>
+                            </div>
 
                             </div>
                         </div>
