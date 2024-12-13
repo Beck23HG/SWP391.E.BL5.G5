@@ -4,6 +4,7 @@
     Author     : Admin
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -155,6 +156,37 @@
                 gap: 1rem;
                 margin-top: 2rem;
             }
+            .staff-list {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                gap: 8px;
+                margin-top: 10px;
+            }
+
+            .staff-title {
+                font-size: 1.75rem; /* Tăng kích thước ngang với <h3> (thường là 1.75rem) */
+                font-weight: bold;
+                margin-right: 12px;
+                color: #333; /* Màu sắc cho nổi bật */
+            }
+
+            .staff-item {
+                display: inline-block;
+                background-color: #f0f0f0;
+                color: #333;
+                padding: 4px 8px;
+                border-radius: 5px;
+                font-size: 14px;
+                border: 1px solid #ddd;
+                transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            }
+
+            .staff-item:hover {
+                background-color: #007bff;
+                color: white;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            }
         </style>
     </head>
     <body>
@@ -264,6 +296,12 @@
 
                                 <h3>What's Included</h3>
                                 <p>${service.detail}</p>
+                                <div class="staff-list">
+                                    <span class="staff-title">Staff:</span>
+                                    <c:forEach var="staff" items="${staffs}">
+                                        <span class="staff-item">${staff.personName}</span>
+                                    </c:forEach>
+                                </div>
                             </div>
                         </div>
                         <div class="button-container">

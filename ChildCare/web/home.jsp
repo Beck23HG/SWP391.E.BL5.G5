@@ -187,7 +187,7 @@
                             <p class="lead mb-4">Professional healthcare services designed specifically for children,
                                 providing the best medical care with a gentle touch.</p>
                             <div class="hero-buttons">
-                                <a href="appointment.html" class="btn btn-primary btn-lg rounded-pill me-3">
+                                <a href="reservationView" class="btn btn-primary btn-lg rounded-pill me-3">
                                     <i class="fas fa-calendar-check me-2"></i>Book Appointment
                                 </a>
                                 <a href="services.html" class="btn btn-outline-primary btn-lg rounded-pill">
@@ -526,6 +526,16 @@
         <!-- Scripts -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
         <script src="assets/js/main.js"></script>
+        <script>
+            window.onload = function () {
+                var message = '<%= session.getAttribute("notificationErr") != null ? session.getAttribute("notificationErr") : "" %>';
+                if (message) {
+                    alert(message);
+
+                    window.location.href = "ClearSessionNotificationServlet";
+                }
+            };
+        </script>
     </body>
 
 </html>
