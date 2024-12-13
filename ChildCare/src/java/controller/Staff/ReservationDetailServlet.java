@@ -18,25 +18,25 @@ import model.Service;
 public class ReservationDetailServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ReservationDetailServlet</title>");  
+            out.println("<title>Servlet ReservationDetailServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ReservationDetailServlet at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet ReservationDetailServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
-    } 
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         // Lấy parameter từ request
         String reservationIdParam = request.getParameter("id");
         if (reservationIdParam == null || reservationIdParam.isEmpty()) {
@@ -59,8 +59,16 @@ public class ReservationDetailServlet extends HttpServlet {
             // Lấy danh sách các dịch vụ trong Reservation
             List<Service> reservedServices = reservationDAO.getReservedServices(reservationId);
 
+            // Tính tổng chi phí của tất cả các dịch vụ
+            float totalCost = 0;
+            for (Service service : reservedServices) {
+                totalCost += service.getPrice();
+            }
+
+            // Đưa dữ liệu vào request attribute
             request.setAttribute("reservationDetail", reservationDetail);
             request.setAttribute("reservedServices", reservedServices);
+            request.setAttribute("totalCost", totalCost); // Truyền tổng chi phí sang JSP
 
             request.getRequestDispatcher("/Staff/reservation-detail.jsp").forward(request, response);
 
@@ -70,11 +78,11 @@ public class ReservationDetailServlet extends HttpServlet {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred.");
         }
-    } 
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         try {
             // Lấy dữ liệu từ form
             String reservationIdParam = request.getParameter("reservationId");
@@ -95,7 +103,7 @@ public class ReservationDetailServlet extends HttpServlet {
             if (updateResult) {
                 request.setAttribute("successMessage", "Reservation status updated successfully.");
             } else {
-                    request.setAttribute("errorMessage", "Failed to update reservation status. Please try again.");
+                request.setAttribute("errorMessage", "Failed to update reservation status. Please try again.");
             }
 
             // Lấy lại thông tin chi tiết reservation để hiển thị sau khi cập nhật
@@ -116,8 +124,9 @@ public class ReservationDetailServlet extends HttpServlet {
         }
     }
 
-    /** 
+    /**
      * Returns a short description of the servlet.
+     *
      * @return a String containing servlet description
      */
     @Override
