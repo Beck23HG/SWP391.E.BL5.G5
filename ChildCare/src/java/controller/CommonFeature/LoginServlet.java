@@ -36,12 +36,15 @@ public class LoginServlet extends HttpServlet {
         Account account = accDB.getAccountByEmailAndPassword(email, password);
 
         if (account != null) {
+            if (account.getStatus() == 0) {
+                request.setAttribute("ms", "This account has been banned from the system!");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+            }
             HttpSession session = request.getSession();
             session.setAttribute("account", account);
             if (account.getRoleId() == 1) {
                 response.sendRedirect("home");
             } else if (account.getRoleId() == 2) {
-                //request.getRequestDispatcher("Manager/Dashboard/PostList.jsp").forward(request, response);
                 response.sendRedirect("Staff/reservationlist");
             } else if (account.getRoleId() == 3) {
                 response.sendRedirect("sliderList");

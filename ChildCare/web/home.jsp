@@ -526,6 +526,16 @@
         <!-- Scripts -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
         <script src="assets/js/main.js"></script>
+        <script>
+            window.onload = function () {
+                var message = '<%= session.getAttribute("notificationErr") != null ? session.getAttribute("notificationErr") : "" %>';
+                if (message) {
+                    alert(message);
+
+                    window.location.href = "ClearSessionNotificationServlet";
+                }
+            };
+        </script>
     </body>
 
 </html>

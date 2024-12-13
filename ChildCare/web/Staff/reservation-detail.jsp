@@ -151,14 +151,10 @@
                             <label>Reservation Date</label>
                             <span>${reservationDetail.reservationDate}</span>
                         </div>
-                        <c:forEach var="service" items="${reservedServices}">
-                            <div class="detail-item">
-                                <label>Total Cost</label>
-                                <span>
-                                    $<fmt:formatNumber value="${service.price}" type="number" minFractionDigits="0" maxFractionDigits="2" />
-                                </span>
-                            </div>
-                        </c:forEach>
+                        <div class="detail-item">
+                            <label>Total Cost</label>
+                            <span>$<fmt:formatNumber value="${totalCost}" type="number" minFractionDigits="0" maxFractionDigits="2" /></span>
+                        </div>
                         <div class="detail-item">
                             <label>Reservation Name</label>
                             <span>${reservationDetail.note}</span>

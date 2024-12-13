@@ -133,9 +133,4 @@ public class Service {
     public String toString() {
         return "Service{" + "serviceId=" + serviceId + ", status=" + status + ", staffId=" + staffId + ", managerId=" + managerId + ", serviceName=" + serviceName + ", description=" + description + ", image=" + image + ", duration=" + duration + ", detail=" + detail + ", price=" + price + ", reservation=" + reservation + ", person=" + person + '}';
     }
-
-   
-    
-    
-    
 }

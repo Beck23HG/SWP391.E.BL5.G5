@@ -94,7 +94,7 @@
                             </div>
                             <div class="user-info">
                                 <span class="user-name">${sessionScope.account.person.personName}</span>
-                                <span class="user-role">Staff</span>
+                                <span class="user-role">Staff ID${sessionScope.account.person.personId}</span>
                             </div>
                         </div>
 
@@ -162,7 +162,7 @@
                 <thead>
                     <tr>
                         <th class="sortable" data-sort="id">Reservation ID <i class="fas fa-sort"></i></th>
-                        <th class="sortable" data-sort="date">Reserved Date <i class="fas fa-sort"></i></th>
+                        <th class="sortable" data-sort="date">Form Creation Date <i class="fas fa-sort"></i></th>
                         <th class="sortable" data-sort="customer">Customer Name <i class="fas fa-sort"></i></th>
                         <th class="sortable" data-sort="service">Service <i class="fas fa-sort"></i></th>
                         <th class="sortable" data-sort="cost">Total Cost <i class="fas fa-sort"></i></th>
@@ -174,7 +174,7 @@
                     <c:forEach var="reservation" items="${reservations}">
                         <tr>
                             <td>${reservation.reservationId}</td>
-                            <td>${reservation.reservationDate}</td>
+                            <td>${reservation.created_Date}</td>
                             <td>${reservation.customer.personName}</td>
                             <td>${reservation.service.serviceName}</td> 
                             <td class="total-cost">${reservation.service.price}</td>

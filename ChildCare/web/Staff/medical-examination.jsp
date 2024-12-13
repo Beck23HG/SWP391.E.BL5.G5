@@ -212,73 +212,70 @@
     <div id="addPrescriptionModal" style="display:none;">
         <div class="modal-content">
             <h2>Add New Prescription</h2>
-            <form method="post" action="medicalexamination">
-                <input type="hidden" name="action" value="addMedicalExamination">
-                <div>
-                    <label for="reservationId">Reservation ID</label>
-                    <input type="text" id="reservationId" name="reservationId" placeholder="Enter Reservation ID" required>
-                </div>
-                <div>
-                    <label for="customerId">Customer ID</label>
-                    <input type="text" id="customerId" name="customerId" placeholder="Enter Customer ID" required>
-                </div>
-                <div>
-                    <label for="serviceId">Service</label>
-                    <select id="serviceId" name="serviceId" required>
-                        <c:forEach var="service" items="${services}">
-                            <option value="${service.serviceId}">${service.serviceName}</option>
-                        </c:forEach>
-                    </select>
-                </div>
-                <div>
-                    <label for="staffId">Staff ID</label>
-                    <input type="text" id="staffId" name="staffId" placeholder="Enter Staff ID" required>
-                </div>
-                <div>
-                    <label for="doctorId">Doctor ID</label> <!-- Thêm DoctorId -->
-                    <input type="text" id="doctorId" name="doctorId" placeholder="Enter Doctor ID" required>
-                </div>
-                <div>
-                    <label for="symptoms">Symptoms</label>
-                    <input type="text" id="symptoms" name="symptoms" placeholder="Enter Symptoms" required>
-                </div>
-                <div>
-                    <label for="diagnosis">Diagnosis</label>
-                    <input type="text" id="diagnosis" name="diagnosis" placeholder="Enter Diagnosis" required>
-                </div>
-                <div>
-                    <label for="notes">Notes</label>
-                    <textarea id="notes" name="notes" placeholder="Enter Notes"></textarea>
-                </div>
-                <div>
-                    <label for="examinationFee">Examination Fee</label>
-                    <input type="number" id="examinationFee" name="examinationFee" placeholder="Enter Examination Fee" required>
-                </div>
-                <div>
-                    <label for="medicineId">Medicine</label>
-                    <select id="medicineId" name="medicineId" required>
-                        <c:forEach var="medicine" items="${medicines}">
-                            <option value="${medicine.medicineId}">${medicine.name}</option>
-                        </c:forEach>
-                    </select>
-                </div>
-                <div>
-                    <label for="dosage">Dosage</label>
-                    <input type="text" id="dosage" name="dosage" placeholder="Enter Dosage" required>
-                </div>
-                <div>
-                    <label for="prescriptionNote">Prescription Note</label>
-                    <textarea id="prescriptionNote" name="prescriptionNote" placeholder="Enter Prescription Notes"></textarea>
-                </div>
-                <div>
-                    <label for="totalCost">Total Cost</label>
-                    <input type="number" id="totalCost" name="totalCost" placeholder="Enter Total Cost" required>
-                </div>
-                <div>
-                    <button type="submit">Save</button>
-                    <button type="button" onclick="closeAddPrescriptionModal()">Cancel</button>
-                </div>
-            </form>
+                <form method="post" action="medicalexamination">
+                    <input type="hidden" name="action" value="addMedicalExamination">
+
+                    <div>
+                        <label for="reservationId">Reservation ID</label>
+                        <input type="text" id="reservationId" name="reservationId" placeholder="Enter Reservation ID" required>
+                    </div>
+                    <div>
+                        <label for="customerId">Customer ID</label>
+                        <input type="text" id="customerId" name="customerId" placeholder="Enter Customer ID" required>
+                    </div>
+                    <div>
+                        <label for="serviceId">Service</label>
+                        <select id="serviceId" name="serviceId" required>
+                            <c:forEach var="service" items="${services}">
+                                <option value="${service.serviceId}">${service.serviceName}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <!-- Staff ID và Doctor ID tự động lấy từ session -->
+                    <input type="hidden" id="staffId" name="staffId" value="${sessionScope.account.person.personId}">
+                    <input type="hidden" id="doctorId" name="doctorId" value="${sessionScope.account.person.personId}">
+
+                    <div>
+                        <label for="symptoms">Symptoms</label>
+                        <input type="text" id="symptoms" name="symptoms" placeholder="Enter Symptoms" required>
+                    </div>
+                    <div>
+                        <label for="diagnosis">Diagnosis</label>
+                        <input type="text" id="diagnosis" name="diagnosis" placeholder="Enter Diagnosis" required>
+                    </div>
+                    <div>
+                        <label for="notes">Notes</label>
+                        <textarea id="notes" name="notes" placeholder="Enter Notes"></textarea>
+                    </div>
+                    <div>
+                        <label for="examinationFee">Examination Fee</label>
+                        <input type="number" id="examinationFee" name="examinationFee" placeholder="Enter Examination Fee" required>
+                    </div>
+                    <div>
+                        <label for="medicineId">Medicine</label>
+                        <select id="medicineId" name="medicineId" required>
+                            <c:forEach var="medicine" items="${medicines}">
+                                <option value="${medicine.medicineId}">${medicine.name}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="dosage">Dosage</label>
+                        <input type="text" id="dosage" name="dosage" placeholder="Enter Dosage" required>
+                    </div>
+                    <div>
+                        <label for="prescriptionNote">Prescription Note</label>
+                        <textarea id="prescriptionNote" name="prescriptionNote" placeholder="Enter Prescription Notes"></textarea>
+                    </div>
+                    <div>
+                        <label for="totalCost">Total Cost</label>
+                        <input type="number" id="totalCost" name="totalCost" placeholder="Enter Total Cost" required>
+                    </div>
+                    <div>
+                        <button type="submit">Save</button>
+                        <button type="button" onclick="closeAddPrescriptionModal()">Cancel</button>
+                    </div>
+                </form>
         </div>
     </div>
 

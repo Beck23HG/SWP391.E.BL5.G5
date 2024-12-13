@@ -66,11 +66,11 @@ public class ServiceDAO extends DBContext {
                 services.add(service);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(SliderDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return services;
     }
-    
+
     public int getNumberOfService(String name, String personName, String status) {
         try {
             String sql = "SELECT count(*) FROM Service s join Person p on s.ManagerId = p.PersonId "
@@ -90,14 +90,14 @@ public class ServiceDAO extends DBContext {
                 return rs.getInt(1);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(SliderDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 0;
     }
-    
-    public List<String> getAllManagerCreateService(){
+
+    public List<String> getAllManagerCreateService() {
         List<String> names = new ArrayList<>();
-        try{
+        try {
             String sql = """
                          SELECT PersonName FROM Service s 
                          join Person p on s.ManagerId = p.PersonId 
@@ -108,9 +108,88 @@ public class ServiceDAO extends DBContext {
                 names.add(rs.getString("PersonName"));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(SliderDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return names;
+    }
+
+    public List<Person> getAllStaffActive() {
+        List<Person> staffs = new ArrayList<>();
+        try {
+            String sql = """
+                         select p.PersonId, p.PersonName from Person p 
+                         join Account a on p.PersonId = a.PersonId
+                         where a.RoleId = 2 and a.Status = 1""";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Person person = new Person();
+                person.setPersonId(rs.getInt("PersonId"));
+                person.setPersonName(rs.getString("PersonName"));
+                staffs.add(person);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return staffs;
+    }
+
+    public void assignStaffForService(int pid, int sid) {
+        String sql = """
+                     INSERT INTO [dbo].[Persons_Services]
+                                ([PersonId]
+                                ,[ServiceId])
+                          VALUES (? ,?)""";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, pid);
+            stm.setInt(2, sid);
+            stm.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace(); // In lỗi để kiểm tra nguyên nhân
+        }
+    }
+    
+    public void removeAllStaffFromService(int sid){
+        String sql = """
+                     DELETE FROM [dbo].[Persons_Services]
+                           WHERE ServiceId = ?""";
+        try {
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, sid);
+            stm.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace(); // In lỗi để kiểm tra nguyên nhân
+        }
+    }
+
+    public Service getLastestService() {
+        try {
+            String sql = """
+                         SELECT * FROM Service
+                         WHERE ServiceId = (SELECT MAX(ServiceId) FROM Service);""";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Service service = new Service();
+                service.setServiceId(rs.getInt("ServiceId"));
+                service.setServiceName(rs.getString("ServiceName"));
+                service.setPrice(rs.getFloat("Price"));
+                service.setDescription(rs.getString("Description"));
+                service.setStatus(rs.getInt("Status"));
+                service.setImage(rs.getString("Image"));
+                service.setDuration(rs.getString("Duration"));
+                service.setDetail(rs.getString("Detail"));
+                service.setManagerId(rs.getInt("ManagerId"));
+                return service;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+
     }
 
     public List<Service> getAllServicesActive() {
@@ -133,7 +212,7 @@ public class ServiceDAO extends DBContext {
                 services.add(service);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(SliderDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return services;
     }
@@ -158,7 +237,7 @@ public class ServiceDAO extends DBContext {
                 services.add(service);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(SliderDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return services;
     }
@@ -185,7 +264,7 @@ public class ServiceDAO extends DBContext {
                 services.add(service);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(SliderDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return services;
     }
@@ -229,7 +308,7 @@ public class ServiceDAO extends DBContext {
                 services.add(service);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(SliderDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return services;
     }
@@ -270,7 +349,7 @@ public class ServiceDAO extends DBContext {
                 services.add(service);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(SliderDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return services;
     }
@@ -375,8 +454,8 @@ public class ServiceDAO extends DBContext {
         }
         return 0;
     }
-    
-    public void createService(String name, float price, String description, 
+
+    public void createService(String name, float price, String description,
             String status, String image, String duration, String detail, int id) {
         String sql = """
                      INSERT INTO [dbo].[Service]
@@ -406,8 +485,8 @@ public class ServiceDAO extends DBContext {
             e.printStackTrace(); // In lỗi để kiểm tra nguyên nhân
         }
     }
-    
-    public void updateService(String name, float price, String description, 
+
+    public void updateService(String name, float price, String description,
             String status, String duration, String detail, int id) {
         try {
             String sql = """
@@ -429,10 +508,10 @@ public class ServiceDAO extends DBContext {
             stm.setInt(7, id);
             stm.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void updateServiceImage(String image, int id) {
         try {
             String sql = """
@@ -444,10 +523,10 @@ public class ServiceDAO extends DBContext {
             stm.setInt(2, id);
             stm.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void deleteService(int id) {
         try {
             String sql = """
@@ -457,7 +536,7 @@ public class ServiceDAO extends DBContext {
             stm.setInt(1, id);
             stm.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
