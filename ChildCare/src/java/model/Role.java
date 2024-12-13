@@ -11,6 +11,7 @@ package model;
 public class Role {
     private int roleId;
     private String roleName;
+    private Person person;
 
     public Role() {
     }
@@ -19,7 +20,15 @@ public class Role {
         this.roleId = roleId;
         this.roleName = roleName;
     }
+    
+    public Person getPerson() {
+        return person;
+    }
 
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+    
     public int getRoleId() {
         return roleId;
     }

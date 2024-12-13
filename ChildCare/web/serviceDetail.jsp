@@ -33,6 +33,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     </head>
+
     <body>
         <div class="top-bar py-2 d-none d-lg-block">
             <div class="container">
@@ -143,8 +144,7 @@
                             <!-- Service Images Gallery -->
                             <div class="service-gallery mb-4">
                                 <div class="main-image">
-                                    <img src="${service.image}" alt="${service.serviceName}"
-                                         class="img-fluid rounded-4" id="mainImage">
+                                    <img src="${service.image}" alt="${service.serviceName}" class="img-fluid rounded-4" id="mainImage">
                                 </div>
                                 <div class="thumbnail-images mt-3">
                                     <div class="row g-2" id="imageGallery">
@@ -221,7 +221,7 @@
                                         <h3>Book This Service</h3>
                                         <div class="row align-items-center">
                                             <div class="col-md-2">
-                                                <button class="btn btn-primary btn-lg w-100" onclick="addToCart()">
+                                                <button class="btn btn-primary btn-lg w-100" onclick="addToCartx('${service.serviceId}', '${service.serviceName}', '${service.price}', '${service.image}')">
                                                     <i class="fas fa-shopping-cart me-2"></i>Add to Cart
                                                 </button>
                                             </div>
@@ -250,8 +250,7 @@
                 <div class="row g-4">
                     <div class="col-lg-4">
                         <h5 class="fw-bold mb-4">About Children Care</h5>
-                        <p class="text-muted">Providing comprehensive healthcare services for children with care,
-                            compassion, and expertise.</p>
+                        <p class="text-muted">Providing comprehensive healthcare services for children with care, compassion, and expertise.</p>
                         <div class="social-links mt-4">
                             <a href="#" class="me-3"><i class="fab fa-facebook-f"></i></a>
                             <a href="#" class="me-3"><i class="fab fa-twitter"></i></a>
@@ -283,7 +282,33 @@
                 </div>
             </div>
         </footer>
+        <script>
 
+
+            function addToCartx(id, name, price, image) {
+                if (!localStorage.getItem('serviceList')) {
+                    localStorage.setItem('serviceList', JSON.stringify([]));
+                }
+                let serviceList = JSON.parse(localStorage.getItem('serviceList'));
+                const existingService = serviceList.find(service => service.id === id);
+                if (existingService) {
+                    alert("This service has already been added !");
+                    return;
+                }
+                const service = {
+                    id: id,
+                    name: name,
+                    price: price,
+                    image: image
+                };
+                serviceList.push(service);
+                localStorage.setItem('serviceList', JSON.stringify(serviceList));
+                const serviceElement = document.getElementById("service-" + id);
+                alert("Add service successfully !");
+
+
+            }
+        </script>
         <!-- Scripts -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     </body>
