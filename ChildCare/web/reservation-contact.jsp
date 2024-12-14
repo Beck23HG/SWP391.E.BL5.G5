@@ -544,25 +544,50 @@
                         }
                     });
 
-                    // Add form submit validation
+                    // Override default Bootstrap validation
                     form.addEventListener('submit', function(e) {
+                        e.preventDefault(); // Prevent default form submission
+                        e.stopPropagation(); // Stop event propagation
+
                         let isValid = true;
 
                         // Validate mobile
                         if (!validateMobile(mobileInput.value)) {
                             mobileInput.classList.add('is-invalid');
+                            mobileInput.classList.remove('is-valid');
                             isValid = false;
+                        } else {
+                            mobileInput.classList.add('is-valid');
+                            mobileInput.classList.remove('is-invalid');
                         }
 
                         // Validate email
                         if (!validateEmail(emailInput.value)) {
                             emailInput.classList.add('is-invalid');
+                            emailInput.classList.remove('is-valid');
                             isValid = false;
+                        } else {
+                            emailInput.classList.add('is-valid');
+                            emailInput.classList.remove('is-invalid');
                         }
 
-                        // Prevent form submission if validation fails
-                        if (!isValid) {
-                            e.preventDefault();
+                        // Add was-validated class to form for Bootstrap validation styles
+                        form.classList.add('was-validated');
+
+                        // If all validations pass, submit the form
+                        if (isValid) {
+                            // Your existing form submission code here
+                            const submitBtn = document.getElementById('submit');
+                            if (submitBtn) {
+                                submitBtn.disabled = true;
+                                const btnText = submitBtn.querySelector('.btn-text');
+                                const btnLoader = submitBtn.querySelector('.btn-loader');
+                                if (btnText) btnText.classList.add('d-none');
+                                if (btnLoader) btnLoader.classList.remove('d-none');
+                            }
+
+                            // Continue with your form submission logic...
+                            form.submit();
                         }
                     });
                 });
