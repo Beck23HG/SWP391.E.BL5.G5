@@ -232,7 +232,7 @@
                                 <div class="col-md-6 col-lg-4 blog-item">
                                     <article class="blog-card featured">
                                         <div class="blog-card-image">
-                                            <img src="${blog.image}" alt="${blog.title}" class="img-fluid">
+                                            <img src="${pageContext.request.contextPath}/Manager/Dashboard/assets/images/blog/${blog.image}" alt="${blog.title}" class="img-fluid">
                                             <span class="category-badge">Health Tips</span>
                                         </div>
                                         <div class="blog-card-content">

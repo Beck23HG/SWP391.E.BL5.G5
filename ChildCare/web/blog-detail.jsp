@@ -148,7 +148,7 @@
                             <div class="col-lg-8">
                                 <!-- Featured Image -->
                                 <div class="blog-featured-image mb-4">
-                                    <img src="${blog.image}" alt="${blog.title}" class="img-fluid rounded-4">
+                                    <img src="${pageContext.request.contextPath}/Manager/Dashboard/assets/images/blog/${blog.image}"  style="max-width: 300px; max-height: 300px;" alt="${blog.title}" class="img-fluid rounded-4">
                                 </div>
 
                                 <!-- Article Content -->

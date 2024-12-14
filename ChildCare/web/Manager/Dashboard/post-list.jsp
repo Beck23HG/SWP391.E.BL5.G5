@@ -300,7 +300,7 @@
                     </button>
                         <div class="page-numbers">
                             <button class="active">1</button>
-                            
+
                         </div>
                         <button class="btn-icon">
                         <i class="fas fa-chevron-right"></i>
@@ -327,7 +327,7 @@
                         <div class="modal-body">
                             <form class="row g-3">
                                 <div class="col-12 text-center">
-                                    <img id="viewPostImage" src="${pageContext.request.contextPath}/Manager/Dashboard/assets/image/folder/${blog.image}" alt="Post thumbnail" style="max-width: 300px; max-height: 200px;">
+                                    <img id="viewPostImage" src="" alt="Post thumbnail" style="max-width: 300px; max-height: 200px;">
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Title</label>
@@ -371,7 +371,7 @@
                                 <input type="hidden" name="action" value="edit">
                                 <input type="hidden" name="blogId" id="editPostId">
                                 <div class="col-12 text-center">
-                                    <img id="editPostImage" src="${pageContext.request.contextPath}/assets/image/blog/${blog.image}" alt="Post thumbnail" style="max-width: 300px; max-height: 200px;">
+                                    <img id="editPostImage" src="${pageContext.request.contextPath}/Manager/Dashboard/assets/image/blog/${blog.image}" alt="Post thumbnail" style="max-width: 300px; max-height: 200px;">
                                     <input type="file" class="form-control mt-2" id="editPostImageInput" name="image" accept="image/*">
                                     <input type="text" name="oldImagePath" id="oldImagePath" hidden="" value="${blog.image}">
                                 </div>
@@ -406,53 +406,50 @@
             </div>
 
             <!-- Create Post Modal -->
-            <form action="Manager/Dashboard/postList" method="createBlog">
-                <div class="modal fade" id="createPostModal" tabindex="-1">
-                    <div class="modal-dialog modal-lg modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Create New Post</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form id="createPostForm" class="row g-3" action="postList" method="post" enctype="multipart/form-data">
-                                    <input type="hidden" name="action" value="create">
-                                    <div class="col-12 text-center">
-                                        <img id="createPostImage" src="" alt="Post thumbnail" style="max-width: 300px; max-height: 200px; display: none;">
-                                        <input type="file" class="form-control mt-2" id="createPostImageInput" name="image" accept="image/*" required>
-                                    </div>
-                                    <div class="col-12">
-                                        <label class="form-label">Title <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="title" required>
-                                    </div>
-                                    <div class="col-12">
-                                        <label class="form-label">Category <span class="text-danger">*</span></label>
-                                        <select class="form-select" name="categoryId" required>
+            <div class="modal fade" id="createPostModal" tabindex="-1">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Create New Post</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="createPostForm" action="${pageContext.request.contextPath}/Manager/Dashboard/postList" method="post" enctype="multipart/form-data">
+                                <input type="hidden" name="action" value="create">
+                                <div class="col-12 text-center">
+                                    <img id="createPostImage" src="" alt="Post thumbnail" style="max-width: 300px; max-height: 200px; display: none;">
+                                    <input type="file" class="form-control mt-2" id="createPostImageInput" name="image" accept="image/*" required>
+                                </div>
+                                <div class="col-12 mt-3">
+                                    <label class="form-label">Title <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="title" required>
+                                </div>
+                                <div class="col-12 mt-3">
+                                    <label class="form-label">Category <span class="text-danger">*</span></label>
+                                    <select class="form-select" name="categoryId" required>
                                         <option value="">Select Category</option>
                                         <c:forEach items="${categories}" var="category">
                                             <option value="${category.categoryId}">${category.categoryName}</option>
                                         </c:forEach>
                                     </select>
-                                    </div>
-                                    <div class="col-12">
-                                        <label class="form-label">Content <span class="text-danger">*</span></label>
-                                        <textarea class="form-control" name="content" rows="5" required></textarea>
-                                    </div>
-                                    <div class="col-12">
-                                        <label class="form-label">Description</label>
-                                        <textarea class="form-control" name="description" rows="3"></textarea>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" form="createPostForm" class="btn btn-primary">Create Post</button>
-                            </div>
+                                </div>
+                                <div class="col-12 mt-3">
+                                    <label class="form-label">Content <span class="text-danger">*</span></label>
+                                    <textarea class="form-control" name="content" rows="5" required></textarea>
+                                </div>
+                                <div class="col-12 mt-3">
+                                    <label class="form-label">Description</label>
+                                    <textarea class="form-control" name="description" rows="3"></textarea>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Create Post</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
-            </form>
-
+            </div>
 
             <!-- Success Modal -->
             <div class="modal fade" id="successModal" tabindex="-1">
@@ -587,7 +584,7 @@
                     document.getElementById('viewPostDescription').value = description;
                     document.getElementById('viewPostAuthor').value = author;
                     document.getElementById('viewPostCategory').value = category;
-                    document.getElementById('viewPostImage').src = image || 'path/to/default/image.jpg';
+                    document.getElementById('viewPostImage').src = "/ChildCare/Manager/Dashboard/assets/images/blog/" + image || 'path/to/default/image.jpg';
                 }
 
                 // Initialize edit modal handlers
@@ -608,7 +605,7 @@
                             document.getElementById('editPostContent').value = content;
                             document.getElementById('editPostDescription').value = description;
                             document.getElementById('editPostCategory').value = categoryId;
-                            document.getElementById('editPostImage').src = image || 'path/to/default/image.jpg';
+                            document.getElementById('editPostImage').src = "/ChildCare/Manager/Dashboard/assets/images/blog/" + image || 'path/to/default/image.jpg';
                             document.getElementById('oldImagePath').value = image;
                         });
                     });
@@ -740,14 +737,35 @@
                             const title = this.querySelector('[name="title"]').value.trim();
                             const content = this.querySelector('[name="content"]').value.trim();
                             const categoryId = this.querySelector('[name="categoryId"]').value;
+                            const imageFile = this.querySelector('[name="image"]').files[0];
 
-                            if (!title || !content || !categoryId) {
-                                alert('Please fill in all required fields');
+                            if (!title || !content || !categoryId || !imageFile) {
+                                alert('Please fill in all required fields and select an image');
                                 return;
                             }
 
                             // Submit form
-                            this.submit();
+                            const formData = new FormData(this);
+                            fetch(this.action, {
+                                    method: 'POST',
+                                    body: formData
+                                })
+                                .then(response => response.text())
+                                .then(data => {
+                                    // Close modal
+                                    const modal = bootstrap.Modal.getInstance(document.getElementById('createPostModal'));
+                                    modal.hide();
+
+                                    // Show success message
+                                    alert('Post created successfully!');
+
+                                    // Reload page to show new post
+                                    window.location.reload();
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                    alert('An error occurred while creating the post');
+                                });
                         });
                     }
                 });
@@ -792,6 +810,16 @@
                         reader.readAsDataURL(file);
                     }
                 });
+
+                function updateTableImage(blogId, newImagePath) {
+                    const tableRow = document.querySelector(`tr[data-blog-id="${blogId}"]`);
+                    if (tableRow) {
+                        const imgElement = tableRow.querySelector('.post-thumbnail');
+                        if (imgElement) {
+                            imgElement.src = `${contextPath}/Manager/Dashboard/assets/images/blog/${newImagePath}`;
+                        }
+                    }
+                }
             </script>
         </body>
 

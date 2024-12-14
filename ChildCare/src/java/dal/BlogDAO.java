@@ -278,8 +278,8 @@ public class BlogDAO extends DBContext {
     }
 
     public void createBlog(Blog blog) {
-        String sql = "INSERT INTO Blog (Title, Content, Description, CategoryId, PersonId, Image) "
-                + "VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Blog (Title, Content, Description, CategoryId, PersonId, Image, Created_Date) "
+                + "VALUES (?, ?, ?, ?, ?, ?, GETDATE())";
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -287,7 +287,7 @@ public class BlogDAO extends DBContext {
             st.setString(2, blog.getContent());
             st.setString(3, blog.getDescription());
             st.setInt(4, blog.getCategory().getCategoryId());
-            st.setInt(5, blog.getPerson().getPersonId());
+            st.setInt(5, 13);
             st.setString(6, blog.getImage());
 
             st.executeUpdate();
@@ -295,6 +295,16 @@ public class BlogDAO extends DBContext {
         } catch (SQLException e) {
             System.out.println("Error in createServiceReservation: " + e.getMessage());
             e.printStackTrace();
+        }
+    }
+ public static void main(String[] args) {
+        BlogDAO blogDao = new BlogDAO();
+
+        // Test getAllBlogList() và in ra tên của Person cho mỗi blog
+        List<Person> x = blogDao.getPersonOfBlog();
+        System.out.println("=== Testing Person Names from Blogs ===");
+        for (Person person : x) {
+            System.out.println("Person Name: " + person.getPersonName());
         }
     }
 
@@ -337,16 +347,7 @@ public class BlogDAO extends DBContext {
         return blog;
     }
 
-    public static void main(String[] args) {
-        BlogDAO blogDao = new BlogDAO();
-
-        // Test getAllBlogList() và in ra tên của Person cho mỗi blog
-        List<Person> x = blogDao.getPersonOfBlog();
-        System.out.println("=== Testing Person Names from Blogs ===");
-        for (Person person : x) {
-            System.out.println("Person Name: " + person.getPersonName());
-        }
-    }
+   
 
     public List<Blog> searchBlogs(String keyword) {
         List<Blog> blogs = new ArrayList<>();

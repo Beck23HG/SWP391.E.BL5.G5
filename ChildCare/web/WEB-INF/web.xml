@@ -28,6 +28,10 @@
         <servlet-name>DeleteServiceServlet</servlet-name>
         <servlet-class>controller.ManagerController.DeleteServiceServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FeedbackManagerServlet</servlet-name>
+        <servlet-class>controller.ManagerController.FeedbackManagerServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServiceDetailServlet</servlet-name>
         <url-pattern>/serviceDetail</url-pattern>
@@ -107,6 +111,10 @@
     <servlet-mapping>
         <servlet-name>DeleteServiceServlet</servlet-name>
         <url-pattern>/deleteService</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FeedbackManagerServlet</servlet-name>
+        <url-pattern>/Manager/Dashboard/feedback-manager</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>home</welcome-file>
