@@ -180,7 +180,7 @@
 
             <div class="user-details-container">
                 <div class="user-avatar">
-                    <img src="${person.image}" alt="User Avatar">
+                    <img src="assets/images/Profile/${person.image}" alt="User Avatar">
                 </div>
                 <div class="user-info">
                     <form action="edituser" method="post">

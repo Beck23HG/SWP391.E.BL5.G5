@@ -118,7 +118,7 @@
             <!-- Advanced Filters Section -->
             <div class="filters-section">
                 <form method="get" action="reservationlist">
-                    <div class="search-filters">
+                    <div class="filter-group">
                         <!-- Search Bar -->
                         <div class="search-bar"> 
                             <input type="text" name="search" placeholder="Search by reservation ID or customer name..."
@@ -219,64 +219,6 @@
                 </c:if>
             </div>
             <div class="items-per-page">
-            </div>
-        </div>
-    </div>
-
-    <!-- Feedback Details Modal -->
-    <div class="modal" id="feedbackModal">
-        <div class="modal-overlay"></div>
-        <div class="modal-container">
-            <div class="modal-header">
-                <h2 class="modal-title">Feedback Details</h2>
-                <button class="modal-close">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-content">
-                <div class="feedback-details">
-                    <div class="customer-info">
-                        <div class="customer-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="customer-details">
-                            <h3 id="customerName"></h3>
-                            <div class="service-name" id="serviceName"></div>
-                            <div class="rating-display">
-                                <div class="stars" id="ratingStars"></div>
-                                <span class="rating-date" id="feedbackDate"></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="feedback-content">
-                        <h4>Customer Feedback</h4>
-                        <p id="feedbackText"></p>
-                    </div>
-
-                    <div class="response-section">
-                        <h4>Response</h4>
-                        <div class="response-status">
-                            <label>Status:</label>
-                            <select id="feedbackStatus">
-                                <option value="pending">Pending</option>
-                                <option value="responded">Responded</option>
-                                <option value="archived">Archived</option>
-                            </select>
-                        </div>
-                        <div class="response-form">
-                            <label>Response Message:</label>
-                            <textarea id="responseText" rows="4" placeholder="Enter your response..."></textarea>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn-secondary" data-action="close">Close</button>
-                <button class="btn-primary" data-action="save">
-                    <i class="fas fa-paper-plane"></i>
-                    Send Response
-                </button>
             </div>
         </div>
     </div>

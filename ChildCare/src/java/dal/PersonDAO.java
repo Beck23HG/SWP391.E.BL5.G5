@@ -342,4 +342,34 @@ public class PersonDAO extends DBContext {
         return false;
     }
 
+
+
+        public static void main(String[] args) {
+            // Khởi tạo đối tượng PersonDAO
+            PersonDAO personDAO = new PersonDAO();
+
+            // ID của một người trong database để kiểm tra (thay bằng ID thực tế trong database của bạn)
+            int testPersonId = 5;
+
+            // Gọi hàm getPersonDetailsById
+            Person person = personDAO.getPersonDetailsById(testPersonId);
+
+            // Kiểm tra và in kết quả
+            if (person != null) {
+                System.out.println("Person Details:");
+                System.out.println("Image: " + person.getImage());
+                System.out.println("ID: " + person.getPersonId());
+                System.out.println("Name: " + person.getPersonName());
+                System.out.println("Date of Birth: " + person.getDateOfBirth());
+                System.out.println("Gender: " + (person.isGender() ? "Male" : "Female"));
+                System.out.println("Email: " + person.getEmail());
+                System.out.println("Phone: " + person.getPhone());
+                System.out.println("Address: " + person.getAddress());
+                System.out.println("Role: " + person.getRole().getRoleName());
+                System.out.println("Account Status: " + person.getAccount().getStatus());
+            } else {
+                System.out.println("No person found with ID: " + testPersonId);
+            }
+        }
+    
 }

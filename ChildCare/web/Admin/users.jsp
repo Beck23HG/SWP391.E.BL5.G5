@@ -208,7 +208,7 @@
                 <i class="fas fa-chart-line"></i>
                 <span>Dashboard</span>
             </a>
-            <a href="Admin/userlist" class="nav-item">
+            <a href="userlist" class="nav-item">
                 <i class="fas fa-user-shield"></i>
                 <span>Users Management</span>
             </a>
