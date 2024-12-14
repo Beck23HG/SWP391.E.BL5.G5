@@ -55,7 +55,7 @@
         </div>
 
         <!-- Header Section -->
-        <header class="header">
+        <header style="z-index: 1055;">
             <nav class="navbar navbar-expand-lg navbar-light">
                 <div class="container">
                     <a class="navbar-brand" href="home">
@@ -355,7 +355,7 @@
                     <div class="cart-item p-4 mb-4 bg-white rounded-3 shadow-sm" data-service-id="\${service.id}">
                         <div class="row align-items-center">
                             <div class="col-md-2">
-                                <img src="assets/images/Service/${service.image}" alt="Service" class="img-fluid rounded-3 shadow-sm" style="object-fit: cover; height: 100px;">
+                                <img src="assets/images/Service/\${service.image}" alt="Service" class="img-fluid rounded-3 shadow-sm" style="object-fit: cover; height: 100px;">
                             </div>
                             <div class="col-md-3">
                                 <label class="form-label text-muted small mb-1">Service Name</label>
