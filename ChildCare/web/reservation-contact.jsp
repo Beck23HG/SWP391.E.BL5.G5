@@ -504,21 +504,33 @@
 
 
                 document.addEventListener('DOMContentLoaded', function() {
-                    // Get form elements
+                    // Get all form elements
                     const form = document.getElementById('contactForm');
                     const mobileInput = document.getElementById('mobile');
                     const emailInput = document.getElementById('email');
+                    const fullNameInput = document.getElementById('fullName');
+                    const addressInput = document.getElementById('address');
+                    const notesInput = document.getElementById('notes');
 
                     // Validate mobile number
                     function validateMobile(mobile) {
-                        const mobileRegex = /^0\d{9}$/; // Starts with 0, followed by 9 digits
+                        const mobileRegex = /^0\d{9}$/;
                         return mobileRegex.test(mobile);
                     }
 
                     // Validate email
                     function validateEmail(email) {
                         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                        return emailRegex.test(email);
+                        return emailRegex.test(email.trim());
+                    }
+
+                    // Validate required field with trim
+                    function validateRequired(value, fieldName) {
+                        const trimmedValue = value.trim();
+                        if (!trimmedValue) {
+                            return `${fieldName} is required`;
+                        }
+                        return '';
                     }
 
                     // Add input event listeners for real-time validation
@@ -534,22 +546,59 @@
                     });
 
                     emailInput.addEventListener('input', function() {
-                        if (!validateEmail(this.value)) {
+                        const trimmedValue = this.value.trim();
+                        if (!validateEmail(trimmedValue)) {
                             this.classList.add('is-invalid');
                             this.classList.remove('is-valid');
                             this.nextElementSibling.textContent = 'Please enter a valid email address (must contain @)';
                         } else {
                             this.classList.remove('is-invalid');
                             this.classList.add('is-valid');
+                            this.value = trimmedValue; // Update input value with trimmed version
+                        }
+                    });
+
+                    // Add blur event listeners for trimming
+                    [fullNameInput, addressInput, notesInput, emailInput].forEach(input => {
+                        if (input) { // Check if element exists
+                            input.addEventListener('blur', function() {
+                                this.value = this.value.trim();
+                            });
                         }
                     });
 
                     // Override default Bootstrap validation
                     form.addEventListener('submit', function(e) {
-                        e.preventDefault(); // Prevent default form submission
-                        e.stopPropagation(); // Stop event propagation
+                        e.preventDefault();
+                        e.stopPropagation();
 
                         let isValid = true;
+
+                        // Validate and trim full name
+                        const fullNameError = validateRequired(fullNameInput.value, 'Full Name');
+                        if (fullNameError) {
+                            fullNameInput.classList.add('is-invalid');
+                            fullNameInput.classList.remove('is-valid');
+                            fullNameInput.nextElementSibling.textContent = fullNameError;
+                            isValid = false;
+                        } else {
+                            fullNameInput.value = fullNameInput.value.trim();
+                            fullNameInput.classList.remove('is-invalid');
+                            fullNameInput.classList.add('is-valid');
+                        }
+
+                        // Validate and trim address
+                        const addressError = validateRequired(addressInput.value, 'Address');
+                        if (addressError) {
+                            addressInput.classList.add('is-invalid');
+                            addressInput.classList.remove('is-valid');
+                            addressInput.nextElementSibling.textContent = addressError;
+                            isValid = false;
+                        } else {
+                            addressInput.value = addressInput.value.trim();
+                            addressInput.classList.remove('is-invalid');
+                            addressInput.classList.add('is-valid');
+                        }
 
                         // Validate mobile
                         if (!validateMobile(mobileInput.value)) {
@@ -557,18 +606,25 @@
                             mobileInput.classList.remove('is-valid');
                             isValid = false;
                         } else {
-                            mobileInput.classList.add('is-valid');
                             mobileInput.classList.remove('is-invalid');
+                            mobileInput.classList.add('is-valid');
                         }
 
-                        // Validate email
-                        if (!validateEmail(emailInput.value)) {
+                        // Validate and trim email
+                        const trimmedEmail = emailInput.value.trim();
+                        if (!validateEmail(trimmedEmail)) {
                             emailInput.classList.add('is-invalid');
                             emailInput.classList.remove('is-valid');
                             isValid = false;
                         } else {
-                            emailInput.classList.add('is-valid');
+                            emailInput.value = trimmedEmail;
                             emailInput.classList.remove('is-invalid');
+                            emailInput.classList.add('is-valid');
+                        }
+
+                        // Trim notes (optional field)
+                        if (notesInput) {
+                            notesInput.value = notesInput.value.trim();
                         }
 
                         // Add was-validated class to form for Bootstrap validation styles
@@ -576,7 +632,6 @@
 
                         // If all validations pass, submit the form
                         if (isValid) {
-                            // Your existing form submission code here
                             const submitBtn = document.getElementById('submit');
                             if (submitBtn) {
                                 submitBtn.disabled = true;
