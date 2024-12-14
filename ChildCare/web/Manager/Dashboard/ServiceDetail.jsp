@@ -264,7 +264,7 @@
                             <!-- Service Images Gallery -->
                             <div class="service-gallery mb-4">
                                 <div class="main-image">
-                                    <img src="${service.image}" alt="${service.serviceName}"
+                                    <img src="assets/images/Service/${service.image}" alt="${service.serviceName}"
                                          class="img-fluid rounded-4" id="mainImage">
                                 </div>
                             </div>
