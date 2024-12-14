@@ -55,7 +55,7 @@
             <!-- Manager Section -->
             <div class="nav-section">
                 <div class="nav-section-title">Manager Tools</div>
-                <a href="postList" class="nav-item">
+                <a href="Manager/Dashboard/postList" class="nav-item">
                     <i class="fas fa-newspaper"></i>
                     <span>Posts</span>
                 </a>
@@ -68,7 +68,7 @@
                     <span>Services List</span>
                 </a>
                 <a href="customerList" class="nav-item">
-                    <i class="fas fa-list"></i>
+                    <i class="fas fa-users"></i>
                     <span>Customer List</span>
                 </a>
             </div>

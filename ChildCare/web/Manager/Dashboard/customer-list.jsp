@@ -228,7 +228,7 @@
                     <i class="fas fa-images"></i>
                     <span>Sliders</span>
                 </a>
-                <a href="#" class="nav-item">
+                <a href="ListService" class="nav-item">
                     <i class="fas fa-list"></i>
                     <span>Services List</span>
                 </a>

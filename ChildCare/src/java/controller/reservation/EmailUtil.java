@@ -1,4 +1,4 @@
-package EmailService;
+package controller.reservation;
 
 import java.util.Properties;
 import java.util.Random;

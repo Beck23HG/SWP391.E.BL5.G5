@@ -27,7 +27,7 @@
         </head>
 
         <body>
-            <!-- Top Bar -->
+         <!-- Top Bar -->
         <div class="top-bar py-2 d-none d-lg-block">
             <div class="container">
                 <div class="row align-items-center">
@@ -226,12 +226,12 @@
                                     </div>
 
                                     <!-- Popular Posts -->
-                                    <div class="sidebar-widget">
+<!--                                    <div class="sidebar-widget">
                                         <h4>Popular Posts</h4>
                                         <div class="popular-posts">
-                                            <!-- Popular post items will be loaded dynamically -->
+                                             Popular post items will be loaded dynamically 
                                         </div>
-                                    </div>
+                                    </div>-->
 
                                     <!-- Categories -->
                                     <div class="sidebar-widget">

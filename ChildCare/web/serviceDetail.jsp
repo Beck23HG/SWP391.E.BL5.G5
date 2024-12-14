@@ -69,6 +69,7 @@
     </head>
 
     <body>
+        <!-- Top Bar -->
         <div class="top-bar py-2 d-none d-lg-block">
             <div class="container">
                 <div class="row align-items-center">

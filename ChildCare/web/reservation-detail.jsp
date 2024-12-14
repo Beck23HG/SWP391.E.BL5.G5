@@ -55,7 +55,7 @@
         </div>
 
         <!-- Header Section -->
-        <header style="z-index: 1055;">
+        <header class="header">
             <nav class="navbar navbar-expand-lg navbar-light">
                 <div class="container">
                     <a class="navbar-brand" href="home">

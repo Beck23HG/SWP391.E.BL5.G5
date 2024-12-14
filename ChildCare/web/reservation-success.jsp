@@ -19,7 +19,33 @@
     </head>
 
     <body>
-        <!-- Include Header -->
+        <!-- Top Bar -->
+        <div class="top-bar py-2 d-none d-lg-block">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-8">
+                        <div class="d-flex text-muted">
+                            <div class="me-4">
+                                <i class="fas fa-phone-alt me-2"></i>Emergency: +1 234 567 890
+                            </div>
+                            <div>
+                                <i class="fas fa-clock me-2"></i>Opening Hours: Mon - Fri, 8AM - 9PM
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="social-links text-end">
+                            <a href="#" class="me-3"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="me-3"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="me-3"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Header Section -->
         <header class="header">
             <nav class="navbar navbar-expand-lg navbar-light">
                 <div class="container">

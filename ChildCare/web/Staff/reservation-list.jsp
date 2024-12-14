@@ -171,9 +171,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach var="reservation" items="${reservations}">
+                    <c:forEach var="reservation" items="${reservations}" varStatus ="status">
                         <tr>
-                            <td>${reservation.reservationId}</td>
+                            <td>${status.index + 1}</td>
                             <td>${reservation.created_Date}</td>
                             <td>${reservation.customer.personName}</td>
                             <td>${reservation.service.serviceName}</td> 
