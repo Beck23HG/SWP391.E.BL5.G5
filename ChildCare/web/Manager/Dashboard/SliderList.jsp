@@ -184,6 +184,16 @@
 
 
         <script src="${pageContext.request.contextPath}/Manager/Dashboard/assets/js/main.js"></script>
+        <script>
+            window.onload = function () {
+            var message = '<%= session.getAttribute("notificationErr") != null ? session.getAttribute("notificationErr") : "" %>';
+                if (message) {
+                    alert(message);
+
+                    window.location.href = "ClearSessionNotificationServlet";
+                }
+            };
+        </script>
     </body>
 
 </html>

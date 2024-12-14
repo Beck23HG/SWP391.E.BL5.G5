@@ -539,6 +539,19 @@ public class ServiceDAO extends DBContext {
             Logger.getLogger(ServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void deletePersons_Services(int id) {
+        try {
+            String sql = """
+                         DELETE FROM [dbo].[Persons_Services]
+                                  WHERE ServiceId = ?""";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     public static void main(String[] args) {
         ServiceDAO serviceDAO = new ServiceDAO();

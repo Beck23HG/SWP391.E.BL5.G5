@@ -48,7 +48,7 @@ public class LoginServlet extends HttpServlet {
                 response.sendRedirect("Staff/reservationlist");
             } else if (account.getRoleId() == 3) {
                 response.sendRedirect("sliderList");
-            } else {
+            } else if (account.getRoleId() == 4){
                 response.sendRedirect("Admin/userlist");
             }
         } else {

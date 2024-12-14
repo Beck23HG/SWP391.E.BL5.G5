@@ -115,10 +115,18 @@ public class FilterForStaff implements Filter {
         Account c = (Account) session.getAttribute("account");
         if (c == null) {
             session.setAttribute("notificationErr", "Please login to staff account use this service !");
-            resp.sendRedirect("home");
+            resp.sendRedirect("../home");
         } else if (c.getRoleId() != 2) {
             session.setAttribute("notificationErr", "You cannot access this function !");
-            req.getRequestDispatcher("home.jsp").forward(request, response);
+            if (c.getRoleId() == 1) {
+                resp.sendRedirect("../home");
+            }
+            if (c.getRoleId() == 3) {
+                resp.sendRedirect("sliderList");
+            }
+            if (c.getRoleId() == 4) {
+                resp.sendRedirect("Admin/userlist");
+            }
         }
         
         Throwable problem = null;

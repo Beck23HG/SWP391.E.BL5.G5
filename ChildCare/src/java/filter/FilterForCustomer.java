@@ -118,7 +118,15 @@ public class FilterForCustomer implements Filter {
             resp.sendRedirect("home");
         } else if (c.getRoleId() == 4) {
             session.setAttribute("notificationErr", "You cannot access this function !");
-            req.getRequestDispatcher("home.jsp").forward(request, response);
+            if (c.getRoleId() == 2) {
+                resp.sendRedirect("Staff/reservationlist");
+            }
+            if (c.getRoleId() == 3) {
+                resp.sendRedirect("sliderList");
+            }
+            if (c.getRoleId() == 4) {
+                resp.sendRedirect("Admin/userlist");
+            }
         }
         
         Throwable problem = null;

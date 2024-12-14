@@ -91,7 +91,7 @@
 
                     </div>
                     <div class="user-profile">
-                        <a href="logout" style="padding: 10% 0">
+                        <a href="../../logout" style="padding: 10% 0">
                             <i class="fas fa-sign-out-alt"></i>
                             <span>Sign Out</span>
                         </a>

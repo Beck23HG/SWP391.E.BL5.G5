@@ -23,6 +23,7 @@ public class DeleteServiceServlet extends HttpServlet {
     throws ServletException, IOException {
         ServiceDAO sdao = new ServiceDAO();
         int id = Integer.parseInt(request.getParameter("id"));
+        sdao.deletePersons_Services(id);
         sdao.deleteService(id);
         response.sendRedirect("ListService");
     }
