@@ -189,7 +189,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <label class="form-label">Phone Number</label>
-                                            <input type="tel" name="phone" class="form-control"  value="${sessionScope.account.person.phone}" id="phone" required>
+                                            <input type="tel" name="phone" class="form-control" value="${sessionScope.account.person.phone}" id="phone" required>
                                         </div>
                                         <div class="col-md-6">
                                             <label class="form-label">Gender</label>
@@ -288,6 +288,43 @@
             };
         </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            document.getElementById('profileForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                // Get form fields
+                let fullName = document.querySelector('input[name="personName"]').value.trim();
+                let phone = document.querySelector('input[name="phone"]').value.trim();
+                let address = document.querySelector('textarea[name="address"]').value.trim();
+
+                // Validate full name
+                if (fullName === '') {
+                    alert('Full Name cannot be empty');
+                    return;
+                }
+
+                // Validate phone number (10 digits starting with 0)
+                const phoneRegex = /^0\d{9}$/;
+                if (!phoneRegex.test(phone)) {
+                    alert('Phone Number must be 10 digits and start with 0');
+                    return;
+                }
+
+                // Validate address
+                if (address === '') {
+                    alert('Address cannot be empty');
+                    return;
+                }
+
+                // Update trimmed values back to form
+                document.querySelector('input[name="personName"]').value = fullName;
+                document.querySelector('input[name="phone"]').value = phone;
+                document.querySelector('textarea[name="address"]').value = address;
+
+                // If all validations pass, submit the form
+                this.submit();
+            });
+        </script>
     </body>
 
 </html>

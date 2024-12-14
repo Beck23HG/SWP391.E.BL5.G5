@@ -36,7 +36,7 @@
                 if (message) {
                     alert(message);
 
-                    window.location.href = "home.jsp";
+                    window.location.href = "home";
                 }
             };
         </script>
@@ -120,7 +120,7 @@
                                     <label for="phone" class="form-label">Full name</label>
                                     <div class="input-group auth-input">
                                         <span class="input-group-text">
-                                            <i class="fas fa-phone"></i>
+                                            <i class="fas fa-user"></i>
                                         </span>
                                         <input type="tel" name="fullName" class="form-control" id="fullName" placeholder="Enter full name"
                                                required>
@@ -216,7 +216,43 @@
 
         <!-- Scripts -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-        <!--<script src="assets/js/auth.js"></script>-->
+        <script>
+                                document.getElementById('togglePassword').addEventListener('click', function () {
+                                    const passwordInput = document.getElementById('password');
+                                    const icon = this.querySelector('i');
+
+                                    if (passwordInput.type === 'password') {
+                                        passwordInput.type = 'text';
+                                        icon.classList.remove('fa-eye');
+                                        icon.classList.add('fa-eye-slash');
+                                    } else {
+                                        passwordInput.type = 'password';
+                                        icon.classList.remove('fa-eye-slash');
+                                        icon.classList.add('fa-eye');
+                                    }
+                                });
+        </script>
+        <script>
+            document.getElementById('registerForm').addEventListener('submit', function (event) {
+                event.preventDefault(); // Ngăn chặn form submit mặc định
+
+                // Lấy giá trị từ các trường trong form
+                let phone = document.querySelector('input[name="phone"]').value.trim();
+
+                // Biểu thức chính quy kiểm tra số điện thoại (10 chữ số bắt đầu bằng số 0)
+                const phoneRegex = /^0\d{9}$/;
+
+                if (!phoneRegex.test(phone)) {
+                    alert('Phone Number must be exactly 10 digits and start with 0');
+                    return; // Dừng lại nếu không hợp lệ
+                }
+
+                // Nếu hợp lệ, cho phép submit form
+                alert('Phone number is valid!'); // Test xem có hợp lệ không
+                this.submit();
+            });
+
+        </script>
     </body>
 
 </html>

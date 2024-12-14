@@ -79,7 +79,6 @@
                                 <div class="form-group mb-4">
                                     <div class="d-flex justify-content-between align-items-center mb-1">
                                         <label for="password" class="form-label">Password</label>
-
                                     </div>
                                     <div class="input-group auth-input">
                                         <span class="input-group-text">
@@ -92,6 +91,7 @@
                                         </button>
                                     </div>
                                 </div>
+
                                 <div class="d-flex justify-content-between align-items-center mb-4">
 
                                     <!-- Forgot Password -->
@@ -99,11 +99,11 @@
                                         <a href="forgotPassword" class="forgot-password">Forgot Password?</a>
                                     </div>
                                 </div>
-                                
+
                                 <div>
                                     <p style="color: red;">${ms}</p>
                                 </div>
-                                
+
                                 <!-- Login Button -->
                                 <button type="submit" class="btn btn-primary w-100 mb-4">
                                     <span class="btn-text">
@@ -143,7 +143,22 @@
 
         <!-- Scripts -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-        <!--<script src="assets/js/auth.js"></script>-->
+        <script>
+            document.getElementById('togglePassword').addEventListener('click', function () {
+                const passwordInput = document.getElementById('password');
+                const icon = this.querySelector('i');
+
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                } else {
+                    passwordInput.type = 'password';
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
+                }
+            });
+        </script>
     </body>
 
 </html>
