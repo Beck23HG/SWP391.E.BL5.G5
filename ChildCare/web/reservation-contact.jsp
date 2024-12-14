@@ -177,7 +177,7 @@
                                         tbody.innerHTML += `
                                 <tr class="align-middle">
                                     <td>
-                                        <img src="\${service.image}" 
+                                        <img src="assets/images/Service/${service.image}" 
                                              alt="Service" 
                                              class="img-fluid rounded shadow-sm" 
                                              style="width: 60px; height: 60px; object-fit: cover;">

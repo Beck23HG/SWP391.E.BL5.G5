@@ -173,7 +173,7 @@
                                                         <c:forEach items="${serviceList}" var="service">
                                                             <tr>
                                                                 <td>
-                                                                    <img src="${service.image}" alt="${service.serviceName}" class="img-fluid rounded" style="width: 150px; height: 150px; object-fit: cover;">
+                                                                    <img src="assets/images/Service/${service.image}" alt="${service.serviceName}" class="img-fluid rounded" style="width: 150px; height: 150px; object-fit: cover;">
                                                                 </td>
                                                                 <td>#${service.serviceId}</td>
                                                                 <td>${service.serviceName}</td>

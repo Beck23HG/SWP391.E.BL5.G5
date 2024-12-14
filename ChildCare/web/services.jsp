@@ -206,7 +206,7 @@
                                 <c:forEach items="${services}" var="s">
                                     <div class="service-card col-4">
                                         <div class="service-image">
-                                            <img src="${s.image}">
+                                            <img src="assets/images/Service/${s.image}">
                                         </div>
                                         <div class="service-content">
                                             <h3 class="service-title">

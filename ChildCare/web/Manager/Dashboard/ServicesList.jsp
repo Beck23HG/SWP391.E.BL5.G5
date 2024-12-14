@@ -198,7 +198,7 @@
                                 <td data-price>$${s.price}</td>
                                 <td>${s.description}</td>
                                 <td>
-                                    <img src="${s.image}" 
+                                    <img src="assets/images/Service/${s.image}" 
                                          alt="${s.serviceName}"
                                          class="service-thumbnail">
                                 </td>
