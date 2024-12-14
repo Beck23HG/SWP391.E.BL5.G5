@@ -299,6 +299,7 @@
                                                         }
                                                     });
                                                 </script>
+
                                             </div>
                                         </div>
                                         <div class="invalid-feedback">Please select a doctor</div>
@@ -436,7 +437,7 @@
                     // Add accountId if account exists
                     <c:if test = "${account != null}" >
                         formData.append('accountId', '${account.accountId}');
-                    formData.append('personId', '${account.personId}');
+                    formData.append('personId', '${account.personId}'); 
                     </c:if>
 
                     // Submit form
@@ -499,6 +500,72 @@
                 // Set minimum date for reservation
                 const today = new Date().toISOString().split('T')[0];
                 document.getElementById('reservationDate').min = today;
+
+
+
+                document.addEventListener('DOMContentLoaded', function() {
+                    // Get form elements
+                    const form = document.getElementById('contactForm');
+                    const mobileInput = document.getElementById('mobile');
+                    const emailInput = document.getElementById('email');
+
+                    // Validate mobile number
+                    function validateMobile(mobile) {
+                        const mobileRegex = /^0\d{9}$/; // Starts with 0, followed by 9 digits
+                        return mobileRegex.test(mobile);
+                    }
+
+                    // Validate email
+                    function validateEmail(email) {
+                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        return emailRegex.test(email);
+                    }
+
+                    // Add input event listeners for real-time validation
+                    mobileInput.addEventListener('input', function() {
+                        if (!validateMobile(this.value)) {
+                            this.classList.add('is-invalid');
+                            this.classList.remove('is-valid');
+                            this.nextElementSibling.textContent = 'Phone number must be 10 digits and start with 0';
+                        } else {
+                            this.classList.remove('is-invalid');
+                            this.classList.add('is-valid');
+                        }
+                    });
+
+                    emailInput.addEventListener('input', function() {
+                        if (!validateEmail(this.value)) {
+                            this.classList.add('is-invalid');
+                            this.classList.remove('is-valid');
+                            this.nextElementSibling.textContent = 'Please enter a valid email address (must contain @)';
+                        } else {
+                            this.classList.remove('is-invalid');
+                            this.classList.add('is-valid');
+                        }
+                    });
+
+                    // Add form submit validation
+                    form.addEventListener('submit', function(e) {
+                        let isValid = true;
+
+                        // Validate mobile
+                        if (!validateMobile(mobileInput.value)) {
+                            mobileInput.classList.add('is-invalid');
+                            isValid = false;
+                        }
+
+                        // Validate email
+                        if (!validateEmail(emailInput.value)) {
+                            emailInput.classList.add('is-invalid');
+                            isValid = false;
+                        }
+
+                        // Prevent form submission if validation fails
+                        if (!isValid) {
+                            e.preventDefault();
+                        }
+                    });
+                });
             </script>
         </body>
 

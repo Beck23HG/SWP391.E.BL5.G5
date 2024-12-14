@@ -38,164 +38,68 @@
 
         <body>
             <nav class="sidebar">
-                <div class="sidebar-header">
-                    <div class="sidebar-logo">HealthCare Admin</div>
-                </div>
+            <div class="sidebar-header">
+                <div class="sidebar-logo">HealthCare Manager</div>
+            </div>
 
-                <!-- Staff Section -->
-                <div class="nav-section">
-                    <div class="nav-section-title">Staff Management</div>
-                    <a href="services.html" class="nav-item">
-                        <i class="fas fa-list"></i>
-                        <span>Services List</span>
-                    </a>
-                    <a href="#" class="nav-item">
-                        <i class="fas fa-calendar-check"></i>
-                        <span>Reservations</span>
-                    </a>
-                    <a href="#" class="nav-item">
-                        <i class="fas fa-stethoscope"></i>
-                        <span>Medical Examinations</span>
-                    </a>
-                    <a href="#" class="nav-item">
-                        <i class="fas fa-users"></i>
-                        <span>Customers</span>
-                    </a>
-                    <a href="feedbacks.html" class="nav-item">
-                        <i class="fas fa-comments"></i>
-                        <span>Feedbacks</span>
-                    </a>
-                    <a href="#" class="nav-item">
-                        <i class="fas fa-prescription"></i>
-                        <span>Prescriptions</span>
-                    </a>
-                </div>
+            <!-- Manager Section -->
+            <div class="nav-section">
+                <div class="nav-section-title">Manager Tools</div>
+                <a href="postList" class="nav-item">
+                    <i class="fas fa-newspaper"></i>
+                    <span>Posts</span>
+                </a>
+                <a href="../../sliderList" class="nav-item">
+                    <i class="fas fa-images"></i>
+                    <span>Sliders</span>
+                </a>
+                <a href="../../ListService" class="nav-item">
+                    <i class="fas fa-list"></i>
+                    <span>Services List</span>
+                </a>
+                <a href="../../customerList" class="nav-item">
+                    <i class="fas fa-users"></i>
+                    <span>Customer List</span>
+                </a>
+            </div>
 
-                <!-- Manager Section -->
-                <div class="nav-section">
-                    <div class="nav-section-title">Manager Tools</div>
-                    <a href="#" class="nav-item">
-                        <i class="fas fa-chart-line"></i>
-                        <span>Dashboard</span>
-                    </a>
-                    <a href="posts.html" class="nav-item">
-                        <i class="fas fa-newspaper"></i>
-                        <span>Posts</span>
-                    </a>
-                    <a href="sliders.html" class="nav-item">
-                        <i class="fas fa-images"></i>
-                        <span>Sliders</span>
-                    </a>
-                </div>
-
-                <!-- Admin Section -->
-                <div class="nav-section">
-                    <div class="nav-section-title">Administration</div>
-                    <a href="users.html" class="nav-item">
-                        <i class="fas fa-user-shield"></i>
-                        <span>Users Management</span>
-                    </a>
-                    <a href="#" class="nav-item">
-                        <i class="fas fa-cog"></i>
-                        <span>Settings</span>
-                    </a>
-                </div>
-            </nav>
+        </nav>
 
             <!-- Main Content Area -->
             <div class="main-content">
                 <div class="top-nav">
-                    <div class="menu-toggle">
-                        <span></span>
-                        <span></span>
-                        <span></span>
+                <div class="menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search...">
+                </div>
+                <div class="user-menu">
+                    <div class="user-profile-wrapper">
+                        <div class="user-profile">
+                            <div class="user-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="user-info">
+                                <span class="user-name">${sessionScope.account.person.personName}</span>
+                                <span class="user-role">Manager</span>
+                            </div>
+                        </div>
+
                     </div>
-                    <div class="search-bar">
-                        <i class="fas fa-search"></i>
-                        <input type="text" placeholder="Search...">
+                    <div class="user-profile">
+                        <a href="logout" style="padding: 10% 0">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Sign Out</span>
+                        </a>
                     </div>
-                    <div class="user-menu">
-                        <div class="notifications-wrapper">
-                            <div class="notifications">
-                                <i class="fas fa-bell"></i>
-                                <span class="notifications-count">3</span>
-                            </div>
-                            <div class="notifications-dropdown">
-                                <div class="notifications-header">
-                                    <span class="notifications-title">Notifications</span>
-                                    <span class="mark-all-read">Mark all as read</span>
-                                </div>
-                                <div class="notification-list">
-                                    <div class="notification-item unread">
-                                        <div class="notification-icon">
-                                            <i class="fas fa-calendar"></i>
-                                        </div>
-                                        <div class="notification-content">
-                                            <div class="notification-text">New appointment request from Sarah Johnson</div>
-                                            <div class="notification-time">5 minutes ago</div>
-                                        </div>
-                                    </div>
-                                    <div class="notification-item unread">
-                                        <div class="notification-icon">
-                                            <i class="fas fa-user-plus"></i>
-                                        </div>
-                                        <div class="notification-content">
-                                            <div class="notification-text">New patient registration: Michael Brown</div>
-                                            <div class="notification-time">2 hours ago</div>
-                                        </div>
-                                    </div>
-                                    <div class="notification-item">
-                                        <div class="notification-icon">
-                                            <i class="fas fa-comment-medical"></i>
-                                        </div>
-                                        <div class="notification-content">
-                                            <div class="notification-text">New feedback received for Dr. Smith</div>
-                                            <div class="notification-time">1 day ago</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="user-profile-wrapper">
-                            <div class="user-profile">
-                                <div class="user-avatar">
-                                    <i class="fas fa-user"></i>
-                                </div>
-                                <div class="user-info">
-                                    <span class="user-name">John Doe</span>
-                                    <span class="user-role">Administrator</span>
-                                </div>
-                            </div>
-                            <div class="user-dropdown">
-                                <div class="user-dropdown-header">
-                                    <div class="user-avatar">
-                                        <i class="fas fa-user"></i>
-                                    </div>
-                                    <div class="user-name">John Doe</div>
-                                    <div class="user-role">Administrator</div>
-                                </div>
-                                <a href="#" class="user-dropdown-item">
-                                    <i class="fas fa-user-circle"></i>
-                                    <span>My Profile</span>
-                                </a>
-                                <a href="#" class="user-dropdown-item">
-                                    <i class="fas fa-cog"></i>
-                                    <span>Settings</span>
-                                </a>
-                                <a href="#" class="user-dropdown-item">
-                                    <i class="fas fa-question-circle"></i>
-                                    <span>Help Center</span>
-                                </a>
-                                <a href="#" class="user-dropdown-item">
-                                    <i class="fas fa-sign-out-alt"></i>
-                                    <span>Sign Out</span>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="theme-toggle" title="Toggle theme">
-                        </div>
+                    <div class="theme-toggle" title="Toggle theme">
                     </div>
                 </div>
+            </div>
 
                 <div class="page-header">
                     <div class="header-content">

@@ -88,8 +88,10 @@ public class ReservationViewDAO extends DBContext {
         String sql = "SELECT * FROM Person p \n"
                 + "  JOIN Account a ON p.PersonId = a.PersonId\n"
                 + "  JOIN Role r ON r.RoleId = a.RoleId\n"
-                + "  WHERE r.RoleId = 2 AND p.StaffStatus = 1;";
+                + "  WHERE r.RoleId = 2 AND p.StaffStatus = 1 AND a.Status = 1;";
 
+
+        
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();

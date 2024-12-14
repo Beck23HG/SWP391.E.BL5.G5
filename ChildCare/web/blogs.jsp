@@ -28,91 +28,91 @@
 
         <body>
             <!-- Top Bar -->
-            <div class="top-bar py-2 d-none d-lg-block">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-lg-8">
-                            <div class="d-flex text-muted">
-                                <div class="me-4">
-                                    <i class="fas fa-phone-alt me-2"></i>Emergency: +1 234 567 890
-                                </div>
-                                <div>
-                                    <i class="fas fa-clock me-2"></i>Opening Hours: Mon - Fri, 8AM - 9PM
-                                </div>
+        <div class="top-bar py-2 d-none d-lg-block">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-8">
+                        <div class="d-flex text-muted">
+                            <div class="me-4">
+                                <i class="fas fa-phone-alt me-2"></i>Emergency: +1 234 567 890
+                            </div>
+                            <div>
+                                <i class="fas fa-clock me-2"></i>Opening Hours: Mon - Fri, 8AM - 9PM
                             </div>
                         </div>
-                        <div class="col-lg-4">
-                            <div class="social-links text-end">
-                                <a href="#" class="me-3"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#" class="me-3"><i class="fab fa-twitter"></i></a>
-                                <a href="#" class="me-3"><i class="fab fa-instagram"></i></a>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                            </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="social-links text-end">
+                            <a href="#" class="me-3"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="me-3"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="me-3"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Header Section -->
-            <header class="header">
-                <nav class="navbar navbar-expand-lg navbar-light">
-                    <div class="container">
-                        <a class="navbar-brand" href="home">
-                            <img src="assets/images/children-care-logo-removebg.png" alt="Children Care Logo" class="logo">
-                        </a>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <!-- Header Section -->
+        <header class="header">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="container">
+                    <a class="navbar-brand" href="home">
+                        <img src="assets/images/children-care-logo-removebg.png" alt="Children Care Logo" class="logo">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                        <div class="collapse navbar-collapse" id="navbarNav">
-                            <ul class="navbar-nav ms-auto align-items-center">
-                                <li class="nav-item">
-                                    <a class="nav-link active" href="home">Home</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="services">Services</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Our Doctors</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="blog">Blogs</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Contact</a>
-                                </li>
-                                <li class="nav-item ms-lg-3">
-                                    <a class="btn btn-primary rounded-pill px-4" href="reservationView">
-                                        <i class="fas fa-calendar-check me-2"></i>Book Appointment
-                                    </a>
-                                </li>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ms-auto align-items-center">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="home">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="services">Services</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Our Doctors</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="blog">Blogs</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Contact</a>
+                            </li>
+                            <li class="nav-item ms-lg-3">
+                                <a class="btn btn-primary rounded-pill px-4" href="reservationView">
+                                    <i class="fas fa-calendar-check me-2"></i>Book Appointment
+                                </a>
+                            </li>
 
-                                <c:choose>
-                                    <c:when test="${sessionScope.account == null}">
-                                        <li class="nav-item ms-lg-2">
-                                            <a class="btn btn-outline-primary rounded-pill px-4" href="login">
-                                                <i class="fas fa-user me-2"></i>Login
-                                            </a>
-                                        </li>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <li class="nav-item ms-lg-2">
-                                            <a class="btn btn-outline-primary rounded-pill px-4" href="userProfile">
-                                                <i class="fas fa-user me-2"></i>Profile
-                                            </a>
-                                        </li>
-                                        <li class="nav-item ms-lg-2">
-                                            <a class="btn btn-outline-danger rounded-pill px-4" href="logout">
-                                                <i class="fas fa-sign-out-alt me-2"></i>Logout
-                                            </a>
-                                        </li>
-                                    </c:otherwise>
-                                </c:choose>
+                            <c:choose>
+                                <c:when test="${sessionScope.account == null}">
+                                    <li class="nav-item ms-lg-2">
+                                        <a class="btn btn-outline-primary rounded-pill px-4" href="login">
+                                            <i class="fas fa-user me-2"></i>Login
+                                        </a>
+                                    </li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="nav-item ms-lg-2">
+                                        <a class="btn btn-outline-primary rounded-pill px-4" href="userProfile">
+                                            <i class="fas fa-user me-2"></i>Profile
+                                        </a>
+                                    </li>
+                                    <li class="nav-item ms-lg-2">
+                                        <a class="btn btn-outline-danger rounded-pill px-4" href="logout">
+                                            <i class="fas fa-sign-out-alt me-2"></i>Logout
+                                        </a>
+                                    </li>
+                                </c:otherwise>
+                            </c:choose>
 
-                            </ul>
-                        </div>
+                        </ul>
                     </div>
-                </nav>
-            </header>
+                </div>
+            </nav>
+        </header>
 
             <!-- Main Content Area -->
             <main id="main-content">
