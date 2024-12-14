@@ -25,7 +25,7 @@ import java.security.SecureRandom;
 )
 public class AddUserServlet extends HttpServlet {
     
-    private static final String UPLOAD_DIRECTORY = "uploads";
+//    private static final String UPLOAD_DIRECTORY = "uploads";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -54,7 +54,8 @@ public class AddUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Đường dẫn lưu file upload
-        String uploadPath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIRECTORY;
+//         + File.separator + UPLOAD_DIRECTORY
+        String uploadPath = getServletContext().getRealPath("");
         File uploadDir = new File(uploadPath);
         if (!uploadDir.exists()) {
             uploadDir.mkdir();
@@ -75,8 +76,10 @@ public class AddUserServlet extends HttpServlet {
             Part filePart = (Part) request.getPart("avatar");
             if (filePart != null && filePart.getSize() > 0) {
                 String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-                avatarPath = UPLOAD_DIRECTORY + File.separator + fileName; // Đường dẫn lưu file
-                filePart.write(uploadPath + File.separator + fileName);   // Lưu file vào server
+//                UPLOAD_DIRECTORY + File.separator +
+                avatarPath =  fileName; // Đường dẫn lưu file
+//                uploadPath + File.separator + 
+                filePart.write(fileName);   // Lưu file vào server
             }
 
             // Validate email
