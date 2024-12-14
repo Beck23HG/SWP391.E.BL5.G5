@@ -287,7 +287,7 @@
                                 <div class="form-group">
                                     <label for="serviceImage">Image</label>
                                     <div class="image-preview">
-                                        <img id="preview" src="${service.image}"" alt="Preview Image" style="object-fit: cover;">
+                                        <img id="preview" src="assets/images/Service/${service.image}"" alt="Preview Image" style="object-fit: cover;">
                                     </div>
                                     <input type="file" name="image" id="serviceImage" accept="image/*" onchange="showPreview(event)">
                                 </div>

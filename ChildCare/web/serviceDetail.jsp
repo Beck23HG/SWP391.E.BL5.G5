@@ -179,7 +179,7 @@
                             <!-- Service Images Gallery -->
                             <div class="service-gallery mb-4">
                                 <div class="main-image">
-                                    <img src="${service.image}" alt="${service.serviceName}" class="img-fluid rounded-4" id="mainImage">
+                                    <img src="assets/images/Service/${service.image}" alt="${service.serviceName}" class="img-fluid rounded-4" id="mainImage">
                                 </div>
                                 <div class="thumbnail-images mt-3">
                                     <div class="row g-2" id="imageGallery">
