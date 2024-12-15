@@ -22,18 +22,18 @@ public class MedicalDAO extends DBContext {
 
     public List<MedicalExamination> getMedicalHistory(String serviceFilter, String dateFilter, String medicineFilter, String patientNameFilter) {
         List<MedicalExamination> medicalHistory = new ArrayList<>();
-        String sql = "SELECT me.ExaminationDate, p.PersonName AS PatientName, "
-                + "s.ServiceName, m.Name AS MedicineName, me.Symptoms, me.Diagnosis, me.Notes "
-                + "FROM MedicalExamination me "
-                + "LEFT JOIN Persons_Services ps ON me.MEId = ps.ServiceId "
-                + "LEFT JOIN Service s ON ps.ServiceId = s.ServiceId "
-                + "LEFT JOIN Prescription pre ON me.MEId = pre.ExaminationId "
-                + "LEFT JOIN Medicine m ON pre.MedicineId = m.MedicineId "
-                + "LEFT JOIN Person p ON me.CustomerId = p.PersonId "
-                + "WHERE (s.ServiceName LIKE ? OR ? IS NULL) "
-                + "AND (me.ExaminationDate = ? OR ? IS NULL) "
-                + "AND (m.Name LIKE ? OR ? IS NULL) "
-                + "AND (p.PersonName LIKE ? OR ? IS NULL)";
+        String sql = """
+                     SELECT me.ExaminationDate, p.PersonName AS PatientName, s.ServiceName, 
+                     m.Name AS MedicineName, me.Symptoms, me.Diagnosis, me.Notes 
+                     FROM MedicalExamination me LEFT JOIN Persons_Services ps 
+                     ON me.MEId = ps.ServiceId LEFT JOIN Service s 
+                     ON ps.ServiceId = s.ServiceId LEFT JOIN Prescription pre 
+                     ON me.MEId = pre.ExaminationId LEFT JOIN Medicine m 
+                     ON pre.MedicineId = m.MedicineId LEFT JOIN Person p 
+                     ON me.CustomerId = p.PersonId WHERE (s.ServiceName LIKE ? OR ? IS NULL) 
+                     AND (me.ExaminationDate = ? OR ? IS NULL) AND (m.Name LIKE ? OR ? IS NULL) 
+                     AND (p.PersonName LIKE ? OR ? IS NULL)group by me.ExaminationDate, p.PersonName, 
+                       s.ServiceName, m.Name, me.Symptoms, me.Diagnosis, me.Notes""";
         try (PreparedStatement stm = connection.prepareStatement(sql)) {
             stm.setString(1, "%" + serviceFilter + "%");
             stm.setString(2, serviceFilter);

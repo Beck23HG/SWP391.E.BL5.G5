@@ -48,21 +48,16 @@ public class ProfileServlet extends HttpServlet {
 
         AccountDAO accDB = new AccountDAO();
 
-        if (accDB.checkExistedPhone(phone) == true) {
-            String ms = "Phone is already in use";
-            request.setAttribute("ms", ms);
-            request.getRequestDispatcher("userProfile.jsp").forward(request, response);
-        } else {
-            accDB.updateProfile(fullname, phone, gender, dob, address, personId);
-            request.setAttribute("ms", "Update profile successful!");
-            HttpSession session = request.getSession();
-            Account oldAcc = (Account) session.getAttribute("account");
-            String email = oldAcc.getEmail();
-            String password = oldAcc.getPassword();
-            Account account = accDB.getAccountByEmailAndPassword(email, password);
-            session.setAttribute("account", account);
-            request.getRequestDispatcher("userProfile.jsp").forward(request, response);
-        }
+        accDB.updateProfile(fullname, phone, gender, dob, address, personId);
+        request.setAttribute("ms", "Update profile successful!");
+        HttpSession session = request.getSession();
+        Account oldAcc = (Account) session.getAttribute("account");
+        String email = oldAcc.getEmail();
+        String password = oldAcc.getPassword();
+        Account account = accDB.getAccountByEmailAndPassword(email, password);
+        session.setAttribute("account", account);
+        request.getRequestDispatcher("userProfile.jsp").forward(request, response);
+
     }
 
 }

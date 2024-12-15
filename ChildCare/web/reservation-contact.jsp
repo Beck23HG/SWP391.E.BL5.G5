@@ -498,10 +498,31 @@
                         });
                 });
                 // Set minimum date for reservation
-                const today = new Date().toISOString().split('T')[0];
-                document.getElementById('reservationDate').min = today;
+                const reservationDateInput = document.getElementById('reservationDate');
 
+                // Get today's date in YYYY-MM-DD format
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                const formattedToday = today.toISOString().split('T')[0];
 
+                // Set minimum date attribute
+                reservationDateInput.min = formattedToday;
+
+                // Add event listener for date validation
+                reservationDateInput.addEventListener('input', function() {
+                    const selectedDate = new Date(this.value);
+                    selectedDate.setHours(0, 0, 0, 0);
+
+                    if (selectedDate < today) {
+                        this.value = formattedToday; // Reset to today if past date is selected
+                        alert('Please select today or a future date for your reservation.');
+                    }
+                });
+
+                // Prevent manual entry of past dates
+                reservationDateInput.addEventListener('keydown', function(e) {
+                    e.preventDefault(); // Prevent keyboard input
+                });
 
                 document.addEventListener('DOMContentLoaded', function() {
                     // Get form elements

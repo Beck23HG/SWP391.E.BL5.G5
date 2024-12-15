@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html lang="en">
+    <!DOCTYPE html>
+    <html lang="en">
 
     <head>
         <meta charset="UTF-8">
@@ -127,8 +127,7 @@
                             <div class="profile-sidebar rounded-4 shadow-sm p-4">
                                 <div class="user-info text-center mb-4">
                                     <div class="avatar-wrapper position-relative">
-                                        <img src="assets/images/Profile/${sessionScope.account.person.image}" alt="Profile Avatar" id="userAvatar"
-                                             class="profile-avatar rounded-circle shadow-sm">
+                                        <img src="assets/images/Profile/${sessionScope.account.person.image}" alt="Profile Avatar" id="userAvatar" class="profile-avatar rounded-circle shadow-sm">
 
                                         <form action="uploadImage" method="post" id="uploadForm">
                                             <input type="text" name="personId" value="${sessionScope.account.person.personId}" hidden="">
@@ -145,19 +144,15 @@
                                 </div>
 
                                 <div class="profile-nav d-flex flex-column gap-2">
-                                    <a href="userProfile"
-                                       class="nav-link rounded-3 p-3 d-flex align-items-center active"
-                                       data-tab="profileInformation">
+                                    <a href="userProfile" class="nav-link rounded-3 p-3 d-flex align-items-center active" data-tab="profileInformation">
                                         <i class="fas fa-user me-3"></i>Profile Information
                                         <i class="fas fa-chevron-right ms-auto"></i>
                                     </a>
-                                    <a href="changePassword"
-                                       class="nav-link rounded-3 p-3 d-flex align-items-center" data-tab="changePassword">
+                                    <a href="changePassword" class="nav-link rounded-3 p-3 d-flex align-items-center" data-tab="changePassword">
                                         <i class="fas fa-lock me-3"></i>Change Password
                                         <i class="fas fa-chevron-right ms-auto"></i>
                                     </a>
-                                    <a href="myReservation"
-                                       class="nav-link rounded-3 p-3 d-flex align-items-center" data-tab="myReservations">
+                                    <a href="myReservation" class="nav-link rounded-3 p-3 d-flex align-items-center" data-tab="myReservations">
                                         <i class="fas fa-calendar-check me-3"></i>My Reservations
                                         <i class="fas fa-chevron-right ms-auto"></i>
                                     </a>
@@ -168,8 +163,7 @@
                         <!-- Main Content -->
                         <div class="col-lg-9">
                             <!-- Profile Information Tab -->
-                            <div class="content-card bg-white rounded-4 shadow-sm p-4 tab-content active"
-                                 id="profileInformationContent">
+                            <div class="content-card bg-white rounded-4 shadow-sm p-4 tab-content active" id="profileInformationContent">
                                 <div class="d-flex justify-content-between align-items-center mb-4">
                                     <h2 class="h3 fw-semibold mb-0">Profile Information</h2>
                                 </div>
@@ -184,7 +178,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <label class="form-label">Email Address</label>
-                                            <input type="email" class="form-control"  value="${sessionScope.account.email}" id="email" readonly>
+                                            <input type="email" class="form-control" value="${sessionScope.account.email}" id="email" readonly>
                                             <small class="text-muted">Email cannot be changed</small>
                                         </div>
                                         <div class="col-md-6">
@@ -233,8 +227,7 @@
                 <div class="row g-4">
                     <div class="col-lg-4">
                         <h5 class="fw-bold mb-4">About Children Care</h5>
-                        <p class="text-muted">Providing comprehensive healthcare services for children with care,
-                            compassion, and expertise.</p>
+                        <p class="text-muted">Providing comprehensive healthcare services for children with care, compassion, and expertise.</p>
                         <div class="social-links mt-4">
                             <a href="#" class="me-3"><i class="fab fa-facebook-f"></i></a>
                             <a href="#" class="me-3"><i class="fab fa-twitter"></i></a>
@@ -262,23 +255,23 @@
                     </div>
                 </div>
                 <div class="footer-bottom text-center mt-5 pt-4 border-top">
-                    <p class="mb-0">© 2024 Children Care. All rights reserved.</p>
+                    <p class="mb-0">ï¿½ 2024 Children Care. All rights reserved.</p>
                 </div>
             </div>
         </footer>
 
         <!-- Scripts -->
         <script>
-            document.getElementById("avatarUpload").addEventListener("change", function () {
+            document.getElementById("avatarUpload").addEventListener("change", function() {
                 const form = document.getElementById("uploadForm");
                 if (this.files && this.files.length > 0) {
                     form.submit();
                 }
             });
         </script>
-        
+
         <script>
-            window.onload = function () {
+            window.onload = function() {
                 var message = '<%= request.getAttribute("ms") != null ? request.getAttribute("ms") : "" %>';
                 if (message) {
                     alert(message);
@@ -296,6 +289,7 @@
                 let fullName = document.querySelector('input[name="personName"]').value.trim();
                 let phone = document.querySelector('input[name="phone"]').value.trim();
                 let address = document.querySelector('textarea[name="address"]').value.trim();
+                let birthDate = document.getElementById('birthDate').value;
 
                 // Validate full name
                 if (fullName === '') {
@@ -316,6 +310,20 @@
                     return;
                 }
 
+                // Validate birth date
+                if (birthDate === '') {
+                    alert('Date of Birth cannot be empty');
+                    return;
+                }
+
+                const selectedDate = new Date(birthDate);
+                const currentDate = new Date();
+
+                if (selectedDate > currentDate) {
+                    alert('Date of Birth cannot be in the future');
+                    return;
+                }
+
                 // Update trimmed values back to form
                 document.querySelector('input[name="personName"]').value = fullName;
                 document.querySelector('input[name="phone"]').value = phone;
@@ -327,4 +335,4 @@
         </script>
     </body>
 
-</html>
+    </html>
