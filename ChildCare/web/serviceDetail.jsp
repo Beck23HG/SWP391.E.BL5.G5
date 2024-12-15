@@ -271,13 +271,6 @@
                                 </div>
                             </div>
 
-                            <!-- Reviews Section -->
-                            <div class="reviews-section mt-5">
-                                <h3>Patient Reviews</h3>
-                                <div class="reviews-container" id="reviewsContainer">
-                                    <!-- Reviews will be loaded dynamically -->
-                                </div>
-                            </div>
                         </div>
 
                     </div>

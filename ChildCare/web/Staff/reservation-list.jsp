@@ -118,7 +118,7 @@
                 <!-- Advanced Filters Section -->
                 <div class="filters-section">
                     <form method="get" action="reservationlist">
-                        <div class="filter-group">
+                        <div class="search-filter">
                             <!-- Search Bar -->
                             <div class="search-bar"> 
                                 <input type="text" name="search" placeholder="Search by reservation ID or customer name..."

@@ -208,7 +208,7 @@
                     <c:forEach var="service" items="${reservedServices}">
                         <div class="service-item single-service">
                             <div class="service-thumbnail">
-                                <img src="${service.image}" alt="Service Thumbnail">
+                                <img src="${pageContext.request.contextPath}/assets/images/Service/${service.image}" alt="Service Thumbnail">
                             </div>
                             <div class="service-details">
                                 <h3>${service.serviceName}</h3>
